@@ -1,4 +1,3 @@
-# Urban-Taxes-Calculator
 Urban Taxes Calculator
 
 (diagram here)
