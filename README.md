@@ -1,4 +1,4 @@
-Urban Taxes Calculator
+Urban paslaugos Calculator
 
 (diagram here)
 
