@@ -2,6 +2,8 @@ package veiksmai;
 
 public interface IVeiksmai {
 
+    // brainstorm here
+
     // sistemos
     public void generuotiSaskaita();
 
