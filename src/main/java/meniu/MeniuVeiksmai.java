@@ -12,6 +12,9 @@ public class MeniuVeiksmai {
     private static final Logger LOGGER = LoggerFactory.getLogger(MeniuVeiksmai.class);
 
     public static void pagrindinioMeniuPasirinkimai() throws SQLException  {
+
+        MySQL m = new MySQL();
+
         Scanner choiseScanner = new Scanner(System.in);
         LOGGER.info("Choice: ");
         String choice = choiseScanner.nextLine();
@@ -21,7 +24,6 @@ public class MeniuVeiksmai {
                 System.exit(0);
             case "1":  // prisijungimas
                 // TODO: set other ends to redirect
-                MySQL m = new MySQL();
                 Scanner usernameScanner = new Scanner(System.in);
                 LOGGER.info("Enter username: ");
                 String username = usernameScanner.nextLine();
@@ -62,8 +64,35 @@ public class MeniuVeiksmai {
                     System.exit(0);
                 }
                 break;
-            case "2":
-                // registracija
+            case "2":  // registracija
+
+                Scanner registerUsername = new Scanner(System.in);
+                LOGGER.info("Enter username: ");
+                String regUsername = registerUsername.nextLine();
+
+                Scanner registerPassword = new Scanner(System.in);
+                LOGGER.info("Enter password: ");
+                String regPassword = registerPassword.nextLine();
+
+                Scanner registerName = new Scanner(System.in);
+                LOGGER.info("Enter name: ");
+                String regName = registerName.nextLine();
+
+                Scanner registerLastname = new Scanner(System.in);
+                LOGGER.info("Enter lastname: ");
+                String regLastname = registerLastname.nextLine();
+
+                Scanner registerLEmail = new Scanner(System.in);
+                LOGGER.info("Enter email: ");
+                String regEmail = registerLEmail.nextLine();
+
+                Scanner registerPersonalCode = new Scanner(System.in);
+                LOGGER.info("Enter personal code: ");
+                String regPersonalCode = registerPersonalCode.nextLine();
+
+                m.registerNewUser(m.connectionToDatabase(), regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+
+                LOGGER.info("Registration information: {}, {}, {}, {}, {}, {}", regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
                 break;
         }
     }

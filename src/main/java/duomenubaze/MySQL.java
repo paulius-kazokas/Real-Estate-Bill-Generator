@@ -10,7 +10,6 @@ public class MySQL {
     private static final String MYSQL_PASSWORD = "root";
 
     public Connection connectionToDatabase() {
-
         Connection connection = null;
         try {
             Class.forName(MYSQL_DRIVER);
@@ -47,5 +46,21 @@ public class MySQL {
         }
         st.close();
         return userPasswordInput.equals(passwordFromDatabase);
+    }
+
+    public void registerNewUser(Connection con, String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode) throws SQLException {
+
+        String query = "INSERT INTO utc.users (id, username, password, name, lastname, email, asmenskodas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setString(1, null);
+        preparedStmt.setString(2, regUsername);
+        preparedStmt.setString(3, regPassword);
+        preparedStmt.setString(4, regName);
+        preparedStmt.setString(5, regLastName);
+        preparedStmt.setString(6, regEmail);
+        preparedStmt.setString(7, regPersonalCode);
+
+        preparedStmt.execute();
+        con.close();
     }
 }
