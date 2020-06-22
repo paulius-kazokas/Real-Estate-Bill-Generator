@@ -1,6 +1,6 @@
-package veiksmai;
+package user;
 
-public interface IVeiksmai {
+public interface UserActions {
 
     // brainstorm here
 

@@ -1,4 +1,4 @@
-package duomenubaze;
+package database;
 
 import java.sql.*;
 

@@ -1,17 +1,17 @@
 package meniu;
 
-import duomenubaze.DatabaseActions;
+import database.DatabaseActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MeniuVeiksmai {
+public class ManiuActions {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MeniuVeiksmai.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManiuActions.class);
 
-    public static void pagrindinioMeniuPasirinkimai() throws SQLException  {
+    public static void mainMenuActions() throws SQLException  {
 
         DatabaseActions da = new DatabaseActions();
         Scanner scanner = new Scanner(System.in);

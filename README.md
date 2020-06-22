@@ -7,7 +7,7 @@ Urban paslaugos Calculator
 3. Sąskaitos gavėjo komponentas - suinteresuotas sąskaitos gavėjas, nekilnojamo turto savininkas.
 4. Profilio komponentas - visa informacija apie gavėją.
 5. Veiksmų komponentas - veiksmai su sąskaita.
-6. Benros sistemos komponentas - bendra visų sąskaitų sistema, kurioje saugomos visos sąskaitų būsenos, detali informacija, istorija.
+6. Benros sistemos komponentas - bendra visų sąskaitų system, kurioje saugomos visos sąskaitų būsenos, detali informacija, istorija.
 
 Procesas:
 

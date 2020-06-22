@@ -22,7 +22,7 @@ public class Meniu {
                 "1.Prisijungimas\n" +
                 "2.Registracija\n" +
                 "0.Išeiti\n");
-        MeniuVeiksmai.pagrindinioMeniuPasirinkimai();
+        ManiuActions.mainMenuActions();
     }
 
     public static void pagrindinisPaskyrosMeniu() {

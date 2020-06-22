@@ -2,7 +2,7 @@ package paslaugos;
 
 import java.util.Date;
 
-public class KomunalinesPaslaugos {
+public class PublicUtilities {
 
     private String imonesPavadinimas;
     private String imonesAdresas;
@@ -22,10 +22,10 @@ public class KomunalinesPaslaugos {
 
     private Date moketiUzMenesi;
 
-    public KomunalinesPaslaugos(String imonesPavadinimas, String imonesAdresas, String imonesBarkodas, String paslaugosPavadinimas,
-                                String paslaugosTipas, String matavimoVienetai, int saskaitosNumeris, int moketojoNumeris, int pvm,
-                                int rodikliaiMenesioPries, int rodikliaiEinamoMenesio, float kainaUzVieneta, float kainaSuPvm,
-                                Date moketiUzMenesi) {
+    public PublicUtilities(String imonesPavadinimas, String imonesAdresas, String imonesBarkodas, String paslaugosPavadinimas,
+                           String paslaugosTipas, String matavimoVienetai, int saskaitosNumeris, int moketojoNumeris, int pvm,
+                           int rodikliaiMenesioPries, int rodikliaiEinamoMenesio, float kainaUzVieneta, float kainaSuPvm,
+                           Date moketiUzMenesi) {
         this.imonesPavadinimas = imonesPavadinimas;
         this.imonesAdresas = imonesAdresas;
         this.imonesBarkodas = imonesBarkodas;

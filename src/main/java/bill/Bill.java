@@ -1,8 +1,8 @@
-package saskaita;
+package bill;
 
 import java.util.Date;
 
-public class Saskaita {
+public class Bill {
 
     private String saskaitosNumeris;
     private String moketojoNumeris;
@@ -13,8 +13,8 @@ public class Saskaita {
 
     private Date moketiUzMenesi;
 
-    public Saskaita(String saskaitosNumeris, String moketojoNumeris, String paslaugosTipas, float isVisoUzPaslauga,
-                    float isViso, Date moketiUzMenesi) {
+    public Bill(String saskaitosNumeris, String moketojoNumeris, String paslaugosTipas, float isVisoUzPaslauga,
+                float isViso, Date moketiUzMenesi) {
         this.saskaitosNumeris = saskaitosNumeris;
         this.moketojoNumeris = moketojoNumeris;
         this.paslaugosTipas = paslaugosTipas;
