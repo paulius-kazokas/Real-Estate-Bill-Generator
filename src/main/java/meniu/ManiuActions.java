@@ -15,7 +15,7 @@ public class ManiuActions {
 
         DatabaseActions da = new DatabaseActions();
         Scanner scanner = new Scanner(System.in);
-        LOGGER.info("Choice: ");
+        LOGGER.info("\nChoice: ");
         String choice = scanner.nextLine();
 
         switch(choice) {
@@ -33,33 +33,37 @@ public class ManiuActions {
     public static void signupBase(Scanner scanner) throws SQLException {
 
         DatabaseActions da = new DatabaseActions();
-        LOGGER.info("Enter username: ");
+        LOGGER.info("\nEnter username: ");
         String username = scanner.nextLine();
 
         if(da.checkIfUserExists(da.connectionToDatabase(), username) != null) {
             signup(scanner, da, username);
         } else {
-            LOGGER.info("Username doesn't exist, would you like to register an account? (y/n)");
+            LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y/n)");
             if(scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
                 registration(scanner, da);
+            } else {
+                System.exit(0);
             }
-            System.exit(0);
         }
     }
 
     public static void signup(Scanner scanner, DatabaseActions da, String username) throws SQLException {
-        LOGGER.info("Enter password for {}: ", username);
+
+        LOGGER.info("\nEnter password for {}: ", username);
         String password = scanner.nextLine();
         int maximumUnsuccessfullRetries = 4;
         int unsuccessfulLogin = 1;
         boolean rightPassword = false;
+
         if(da.checkIfPasswordMatches(da.connectionToDatabase(), username, password)) {
-            LOGGER.info("Welcome, {}", username);
-            Meniu.pagrindinisPaskyrosMeniu();
+            LOGGER.info("\nWelcome, {}", username);
+            Meniu.mainAccountMenu();
         } else {
-            LOGGER.warn("Password is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
+            LOGGER.warn("\nPassword is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
+
             while(unsuccessfulLogin < maximumUnsuccessfullRetries) {
-                LOGGER.warn("Try again, enter password: ");
+                LOGGER.warn("\nTry again, enter password ({}): ", unsuccessfulLogin);
                 String unsuccessfullPassword = scanner.nextLine();
                 if(da.checkIfPasswordMatches(da.connectionToDatabase(), username, unsuccessfullPassword)) {
                     unsuccessfulLogin = maximumUnsuccessfullRetries;
@@ -68,38 +72,40 @@ public class ManiuActions {
                     unsuccessfulLogin++;
                 }
             }
+
             if(rightPassword) {
-                LOGGER.info("Welcome, '{}'", username);
-                Meniu.pagrindinisPaskyrosMeniu();
+                LOGGER.info("\nWelcome, '{}'", username);
+                Meniu.mainAccountMenu();
             } else {
-                LOGGER.error("({}) Maximum retries exceeded..", unsuccessfulLogin);
-                Meniu.pagrindinisMeniu();
+                LOGGER.error("\n({}) Maximum retries exceeded, returning to the main menu..", unsuccessfulLogin);
+                Meniu.mainMenu();
             }
         }
     }
 
     public static void registration(Scanner scanner, DatabaseActions da) throws SQLException {
-        LOGGER.info("Enter username: ");
+
+        LOGGER.info("\nEnter username: ");
         String regUsername = scanner.nextLine();
 
-        LOGGER.info("Enter password: ");
+        LOGGER.info("\nEnter password: ");
         String regPassword = scanner.nextLine();
 
-        LOGGER.info("Enter name: ");
+        LOGGER.info("\nEnter name: ");
         String regName = scanner.nextLine();
 
-        LOGGER.info("Enter lastname: ");
+        LOGGER.info("\nEnter lastname: ");
         String regLastname = scanner.nextLine();
 
-        LOGGER.info("Enter email: ");
+        LOGGER.info("\nEnter email: ");
         String regEmail = scanner.nextLine();
 
-        LOGGER.info("Enter personal code: ");
+        LOGGER.info("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
         da.registerNewUser(da.connectionToDatabase(), regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
 
-        LOGGER.info("Registration information: {}, {}, {}, {}, {}, {}", regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
-        Meniu.pagrindinisMeniu();
+        LOGGER.info("\nRegistration information: {}, {}, {}, {}, {}, {}", regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+        Meniu.mainMenu();
     }
 }

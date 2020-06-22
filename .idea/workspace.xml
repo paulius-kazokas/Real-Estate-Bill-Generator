@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="" />
+    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/admin/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/ManiuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/ManiuActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,11 +61,16 @@
     <property name="SONARLINT_ANALYSIS_RESULTS_SPLIT_PROPORTION" value="0.37121212" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UTCD/commons-io-2.7" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/admin" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pauli\IdeaProjects\UTC\Urban-Taxes-Calculator\src\main\java\admin" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -108,7 +119,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592388202565</updated>
       <workItem from="1592388206782" duration="306000" />
-      <workItem from="1592412521385" duration="37703000" />
+      <workItem from="1592412521385" duration="44500000" />
     </task>
     <servers />
   </component>
@@ -160,22 +171,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1592481167089" />
-    <state width="1877" height="373" key="GridCell.Tab.0.bottom" timestamp="1592810155318">
+    <state width="1877" height="417" key="GridCell.Tab.0.bottom" timestamp="1592836745810">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="373" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592810155318" />
-    <state width="1877" height="373" key="GridCell.Tab.0.center" timestamp="1592810155318">
+    <state width="1877" height="417" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592836745810" />
+    <state width="1877" height="417" key="GridCell.Tab.0.center" timestamp="1592836745810">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="373" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592810155318" />
-    <state width="1877" height="373" key="GridCell.Tab.0.left" timestamp="1592810155318">
+    <state width="1877" height="417" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592836745810" />
+    <state width="1877" height="417" key="GridCell.Tab.0.left" timestamp="1592836745810">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="373" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592810155318" />
-    <state width="1877" height="373" key="GridCell.Tab.0.right" timestamp="1592810155318">
+    <state width="1877" height="417" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592836745810" />
+    <state width="1877" height="417" key="GridCell.Tab.0.right" timestamp="1592836745810">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="373" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592810155318" />
+    <state width="1877" height="417" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592836745810" />
     <state x="540" y="266" key="IDE.errors.dialog" timestamp="1592511360140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
