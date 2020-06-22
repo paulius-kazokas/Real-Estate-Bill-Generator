@@ -1,0 +1,1 @@
+Vartotojo struktūra ir veiksmai
