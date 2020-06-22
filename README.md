@@ -1,4 +1,4 @@
-Urban paslaugos Calculator
+Urban utilities Calculator
 
 (diagram here)
 

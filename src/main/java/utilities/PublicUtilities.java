@@ -1,4 +1,4 @@
-package paslaugos;
+package utilities;
 
 import java.util.Date;
 

@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/asmuo/Vartotojas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/duomenubaze/DatabaseActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuVeiksmai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/ManiuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/paslaugos/KomunalinesPaslaugos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/paslaugos/PublicUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/saskaita/Saskaita.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bill/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/veiksmai/IVeiksmai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/user/UserActions.java" afterDir="false" />
-    </list>
+    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592388202565</updated>
       <workItem from="1592388206782" duration="306000" />
-      <workItem from="1592412521385" duration="37315000" />
+      <workItem from="1592412521385" duration="37703000" />
     </task>
     <servers />
   </component>
