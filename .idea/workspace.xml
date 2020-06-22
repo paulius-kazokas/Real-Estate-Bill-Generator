@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duomenubaze/MySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duomenubaze/DatabaseActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuVeiksmai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuVeiksmai.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592388202565</updated>
       <workItem from="1592388206782" duration="306000" />
-      <workItem from="1592412521385" duration="33755000" />
+      <workItem from="1592412521385" duration="35193000" />
     </task>
     <servers />
   </component>

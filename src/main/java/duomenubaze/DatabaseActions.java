@@ -2,7 +2,7 @@ package duomenubaze;
 
 import java.sql.*;
 
-public class MySQL {
+public class DatabaseActions {
 
     private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/utc?useSSL=true";
     private static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
