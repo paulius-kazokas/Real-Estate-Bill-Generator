@@ -1,4 +1,6 @@
-![image](https://drive.google.com/uc?export=view&id=1zpSG0aVPqFjjHitsbTRivA1bUXgGkoRW)
+<p align="midlde">
+  <img src="https://drive.google.com/uc?export=view&id=1zpSG0aVPqFjjHitsbTRivA1bUXgGkoRW" width="800" height="700">
+</p>
 
 Urban utilities Calculator
 
