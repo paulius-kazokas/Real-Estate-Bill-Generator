@@ -1,5 +1,6 @@
 package meniu;
 
+import config.DatabaseConfig;
 import database.DatabaseActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,14 +8,16 @@ import org.slf4j.LoggerFactory;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class ManiuActions {
+public class MeniuActions {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ManiuActions.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MeniuActions.class);
 
     public static void mainMenuActions() throws SQLException  {
 
         DatabaseActions da = new DatabaseActions();
+        DatabaseConfig dc = new DatabaseConfig();
         Scanner scanner = new Scanner(System.in);
+
         LOGGER.info("\nChoice: ");
         String choice = scanner.nextLine();
 
@@ -22,33 +25,33 @@ public class ManiuActions {
             case "0":
                 System.exit(0);
             case "1":
-                signupBase(scanner);
+                signupBase(scanner, dc);
                 break;
             case "2":
-                registration(scanner, da);
+                registration(scanner, da, dc);
                 break;
         }
     }
 
-    public static void signupBase(Scanner scanner) throws SQLException {
+    public static void signupBase(Scanner scanner, DatabaseConfig dc) throws SQLException {
 
         DatabaseActions da = new DatabaseActions();
         LOGGER.info("\nEnter username: ");
         String username = scanner.nextLine();
 
-        if(da.checkIfUserExists(da.connectionToDatabase(), username) != null) {
-            signup(scanner, da, username);
+        if(da.checkIfUserExists(dc.connectionToDatabase(), username) != null) {
+            signup(scanner, da, dc, username);
         } else {
-            LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y/n)");
+            LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y)");
             if(scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
-                registration(scanner, da);
+                registrationNonExistingUser(scanner, da, dc, username);
             } else {
-                System.exit(0);
+                Meniu.mainMenu();
             }
         }
     }
 
-    public static void signup(Scanner scanner, DatabaseActions da, String username) throws SQLException {
+    public static void signup(Scanner scanner, DatabaseActions da, DatabaseConfig dc, String username) throws SQLException {
 
         LOGGER.info("\nEnter password for {}: ", username);
         String password = scanner.nextLine();
@@ -56,7 +59,7 @@ public class ManiuActions {
         int unsuccessfulLogin = 1;
         boolean rightPassword = false;
 
-        if(da.checkIfPasswordMatches(da.connectionToDatabase(), username, password)) {
+        if(da.checkIfPasswordMatches(dc.connectionToDatabase(), username, password)) {
             LOGGER.info("\nWelcome, {}", username);
             Meniu.mainAccountMenu();
         } else {
@@ -65,7 +68,7 @@ public class ManiuActions {
             while(unsuccessfulLogin < maximumUnsuccessfullRetries) {
                 LOGGER.warn("\nTry again, enter password ({}): ", unsuccessfulLogin);
                 String unsuccessfullPassword = scanner.nextLine();
-                if(da.checkIfPasswordMatches(da.connectionToDatabase(), username, unsuccessfullPassword)) {
+                if(da.checkIfPasswordMatches(dc.connectionToDatabase(), username, unsuccessfullPassword)) {
                     unsuccessfulLogin = maximumUnsuccessfullRetries;
                     rightPassword = true;
                 } else {
@@ -83,7 +86,7 @@ public class ManiuActions {
         }
     }
 
-    public static void registration(Scanner scanner, DatabaseActions da) throws SQLException {
+    public static void registration(Scanner scanner, DatabaseActions da, DatabaseConfig dc) throws SQLException {
 
         LOGGER.info("\nEnter username: ");
         String regUsername = scanner.nextLine();
@@ -103,9 +106,28 @@ public class ManiuActions {
         LOGGER.info("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
-        da.registerNewUser(da.connectionToDatabase(), regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+        da.registerNewUser(dc.connectionToDatabase(), regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+        Meniu.mainMenu();
+    }
 
-        LOGGER.info("\nRegistration information: {}, {}, {}, {}, {}, {}", regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+    public static void registrationNonExistingUser(Scanner scanner, DatabaseActions da, DatabaseConfig dc, String nonExistingUsername) throws SQLException {
+
+        LOGGER.info("\nEnter password: ");
+        String regPassword = scanner.nextLine();
+
+        LOGGER.info("\nEnter name: ");
+        String regName = scanner.nextLine();
+
+        LOGGER.info("\nEnter lastname: ");
+        String regLastname = scanner.nextLine();
+
+        LOGGER.info("\nEnter email: ");
+        String regEmail = scanner.nextLine();
+
+        LOGGER.info("\nEnter personal code: ");
+        String regPersonalCode = scanner.nextLine();
+
+        da.registerNewUser(dc.connectionToDatabase(), nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();
     }
 }

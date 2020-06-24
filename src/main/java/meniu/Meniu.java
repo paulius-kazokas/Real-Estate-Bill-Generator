@@ -22,7 +22,7 @@ public class Meniu {
                 "1.Sign up\n" +
                 "2.Register\n" +
                 "0.Exit\n");
-        ManiuActions.mainMenuActions();
+        MeniuActions.mainMenuActions();
     }
 
     public static void mainAccountMenu() {
