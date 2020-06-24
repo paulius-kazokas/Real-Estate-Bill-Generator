@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/DatabaseConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/ManiuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +116,8 @@
       <option name="presentableId" value="Default" />
       <updated>1592388202565</updated>
       <workItem from="1592388206782" duration="306000" />
-      <workItem from="1592412521385" duration="52099000" />
+      <workItem from="1592412521385" duration="52359000" />
+      <workItem from="1593003216829" duration="1386000" />
     </task>
     <servers />
   </component>

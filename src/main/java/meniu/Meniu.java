@@ -9,10 +9,6 @@ public class Meniu {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Meniu.class);
 
-    static {
-        // receive something here
-    }
-
     public static void init() throws SQLException {
         mainMenu();
     }
@@ -26,9 +22,9 @@ public class Meniu {
     }
 
     public static void mainAccountMenu() {
-        LOGGER.info("\n1.Peržiūrėti sąskaitą\n" +
-                "2.Peržiūrėti paslaugą\n" +
-                "3.Pežiūrėti vartotojo paskyrą\n" +
+        LOGGER.info("\n1.Check monthly bill\n" +
+                "2.Check bill for specific utility\n" +
+                "3.View account\n" +
                 "0.Log out");
     }
 
