@@ -1,0 +1,13 @@
+{
+  "billNumber" : 147852369,
+  "userPersonalCode" : 123456789,
+  "utilityType" : "heat",
+
+  "monthStartNumbers" :  1000,
+  "monthEndNumbers" : 1080,
+
+  "pvm" : 0.21,
+  "billTotal" : 87.52,
+  "billsMonth" : "April",
+  "billsDate" : "2020-06-25"
+}

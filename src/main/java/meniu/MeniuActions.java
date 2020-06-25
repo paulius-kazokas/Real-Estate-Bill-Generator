@@ -25,7 +25,7 @@ public class MeniuActions {
             case "0":
                 System.exit(0);
             case "1":
-                signupBase(scanner, dc);
+                signupBase(scanner, da, dc);
                 break;
             case "2":
                 registration(scanner, da, dc);
@@ -33,9 +33,8 @@ public class MeniuActions {
         }
     }
 
-    public static void signupBase(Scanner scanner, DatabaseConfig dc) throws SQLException {
+    public static void signupBase(Scanner scanner, DatabaseActions da, DatabaseConfig dc) throws SQLException {
 
-        DatabaseActions da = new DatabaseActions();
         LOGGER.info("\nEnter username: ");
         String username = scanner.nextLine();
 
@@ -61,7 +60,7 @@ public class MeniuActions {
 
         if(da.checkIfPasswordMatches(dc.connectionToDatabase(), username, password)) {
             LOGGER.info("\nWelcome, {}", username);
-            Meniu.mainAccountMenu();
+            Meniu.mainAccountMenu(username);
         } else {
             LOGGER.warn("\nPassword is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
 
@@ -78,7 +77,7 @@ public class MeniuActions {
 
             if(rightPassword) {
                 LOGGER.info("\nWelcome, '{}'", username);
-                Meniu.mainAccountMenu();
+                Meniu.mainAccountMenu(username);
             } else {
                 LOGGER.error("\n({}) Maximum retries exceeded, returning to the main menu..", unsuccessfulLogin);
                 Meniu.mainMenu();
@@ -130,4 +129,5 @@ public class MeniuActions {
         da.registerNewUser(dc.connectionToDatabase(), nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();
     }
+
 }

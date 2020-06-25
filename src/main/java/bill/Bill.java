@@ -1,61 +1,67 @@
 package bill;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Bill {
 
-    private String saskaitosNumeris;
-    private String moketojoNumeris;
-    private String paslaugosTipas;
+    private String billNumber;
+    private String userPersonalCode;
+    private String utilityType;
 
-    private float isVisoUzPaslauga;
-    private float isViso;
+    private Map<String, Float> totalPerUtility;
+    private float billTotal;
 
-    private Date moketiUzMenesi;
+    private String billsMonth;
+    private Date billsDate;
 
-    public Bill(String saskaitosNumeris, String moketojoNumeris, String paslaugosTipas, float isVisoUzPaslauga,
-                float isViso, Date moketiUzMenesi) {
-        this.saskaitosNumeris = saskaitosNumeris;
-        this.moketojoNumeris = moketojoNumeris;
-        this.paslaugosTipas = paslaugosTipas;
-        this.isVisoUzPaslauga = isVisoUzPaslauga;
-        this.isViso = isViso;
-        this.moketiUzMenesi = moketiUzMenesi;
+    public Bill(String billNumber, String userPersonalCode, String utilityType, Map<String, Float> totalPerUtility,
+                float billTotal, String billsMonth, Date billsDate) {
+        this.billNumber = billNumber;
+        this.userPersonalCode = userPersonalCode;
+        this.utilityType = utilityType;
+        this.totalPerUtility = totalPerUtility;
+        this.billTotal = billTotal;
+        this.billsMonth = billsMonth;
+        this.billsDate = billsDate;
     }
 
-    public String getSaskaitosNumeris() {
-        return saskaitosNumeris;
+    public String getBillNumber() {
+        return billNumber;
     }
 
-    public String getMoketojoNumeris() {
-        return moketojoNumeris;
+    public String getUserPersonalCode() {
+        return userPersonalCode;
     }
 
-    public String getPaslaugosTipas() {
-        return paslaugosTipas;
+    public String getUtilityType() {
+        return utilityType;
     }
 
-    public float getIsVisoUzPaslauga() {
-        return isVisoUzPaslauga;
+    public Map<String, Float> getTotalPerUtility() {
+        return totalPerUtility;
     }
 
-    public float getIsViso() {
-        return isViso;
+    public float getBillTotal() {
+        return billTotal;
     }
 
-    public Date getMoketiUzMenesi() {
-        return moketiUzMenesi;
+    public String getBillsMonth() {
+        return billsMonth;
     }
+
+    public Date getBillsDate() { return billsDate;}
 
     @Override
     public String toString() {
-        return "Saskaita{" +
-                "saskaitosNumeris='" + saskaitosNumeris + '\'' +
-                ", moketojoNumeris='" + moketojoNumeris + '\'' +
-                ", paslaugosTipas='" + paslaugosTipas + '\'' +
-                ", isVisoUzPaslauga=" + isVisoUzPaslauga +
-                ", isViso=" + isViso +
-                ", moketiUzMenesi=" + moketiUzMenesi +
+        return "Bill{" +
+                "billNumber='" + billNumber + '\'' +
+                ", userPersonalCode='" + userPersonalCode + '\'' +
+                ", utilityType='" + utilityType + '\'' +
+                ", totalPerUtility=" + totalPerUtility +
+                ", billTotal=" + billTotal +
+                ", billsMonth=" + billsMonth +
+                ", billsDate=" + billsDate.toString() +
                 '}';
     }
 }

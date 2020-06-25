@@ -38,7 +38,7 @@ public class DatabaseActions {
 
     public void registerNewUser(Connection con, String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode) throws SQLException {
 
-        String query = "INSERT INTO utc.users (id, username, password, name, lastname, email, asmenskodas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utc.users (id, username, password, name, lastname, email, personalcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement preparedStmt = con.prepareStatement(query)) {
             preparedStmt.setString(1, null);
@@ -52,5 +52,11 @@ public class DatabaseActions {
             preparedStmt.execute();
         }
         con.close();
+    }
+
+    // utilities --
+
+    public void queryHeatBill(Connection con, String username) {
+
     }
 }
