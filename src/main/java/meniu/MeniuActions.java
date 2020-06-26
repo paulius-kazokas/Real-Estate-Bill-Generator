@@ -14,8 +14,7 @@ public class MeniuActions {
 
     public static void mainMenuActions() throws SQLException  {
 
-        DatabaseActions da = new DatabaseActions();
-        DatabaseConfig dc = new DatabaseConfig();
+        DatabaseActions da = new DatabaseActions(new DatabaseConfig());
         Scanner scanner = new Scanner(System.in);
 
         LOGGER.info("\nChoice: ");
@@ -25,32 +24,32 @@ public class MeniuActions {
             case "0":
                 System.exit(0);
             case "1":
-                signupBase(scanner, da, dc);
+                signupBase(scanner, da);
                 break;
             case "2":
-                registration(scanner, da, dc);
+                registration(scanner, da);
                 break;
         }
     }
 
-    public static void signupBase(Scanner scanner, DatabaseActions da, DatabaseConfig dc) throws SQLException {
+    public static void signupBase(Scanner scanner, DatabaseActions da) throws SQLException {
 
         LOGGER.info("\nEnter username: ");
         String username = scanner.nextLine();
 
-        if(da.checkIfUserExists(dc.connectionToDatabase(), username) != null) {
-            signup(scanner, da, dc, username);
+        if(da.checkIfUserExists(username) != null) {
+            signup(scanner, da, username);
         } else {
             LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y)");
             if(scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
-                registrationNonExistingUser(scanner, da, dc, username);
+                registrationNonExistingUser(scanner, da, username);
             } else {
                 Meniu.mainMenu();
             }
         }
     }
 
-    public static void signup(Scanner scanner, DatabaseActions da, DatabaseConfig dc, String username) throws SQLException {
+    public static void signup(Scanner scanner, DatabaseActions da, String username) throws SQLException {
 
         LOGGER.info("\nEnter password for {}: ", username);
         String password = scanner.nextLine();
@@ -58,7 +57,7 @@ public class MeniuActions {
         int unsuccessfulLogin = 1;
         boolean rightPassword = false;
 
-        if(da.checkIfPasswordMatches(dc.connectionToDatabase(), username, password)) {
+        if(da.checkIfPasswordMatches(username, password)) {
             LOGGER.info("\nWelcome, {}", username);
             Meniu.mainAccountMenu(username);
         } else {
@@ -67,7 +66,7 @@ public class MeniuActions {
             while(unsuccessfulLogin < maximumUnsuccessfullRetries) {
                 LOGGER.warn("\nTry again, enter password ({}): ", unsuccessfulLogin);
                 String unsuccessfullPassword = scanner.nextLine();
-                if(da.checkIfPasswordMatches(dc.connectionToDatabase(), username, unsuccessfullPassword)) {
+                if(da.checkIfPasswordMatches(username, unsuccessfullPassword)) {
                     unsuccessfulLogin = maximumUnsuccessfullRetries;
                     rightPassword = true;
                 } else {
@@ -85,7 +84,7 @@ public class MeniuActions {
         }
     }
 
-    public static void registration(Scanner scanner, DatabaseActions da, DatabaseConfig dc) throws SQLException {
+    public static void registration(Scanner scanner, DatabaseActions da) throws SQLException {
 
         LOGGER.info("\nEnter username: ");
         String regUsername = scanner.nextLine();
@@ -105,11 +104,11 @@ public class MeniuActions {
         LOGGER.info("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
-        da.registerNewUser(dc.connectionToDatabase(), regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+        da.registerNewUser(regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();
     }
 
-    public static void registrationNonExistingUser(Scanner scanner, DatabaseActions da, DatabaseConfig dc, String nonExistingUsername) throws SQLException {
+    public static void registrationNonExistingUser(Scanner scanner, DatabaseActions da, String nonExistingUsername) throws SQLException {
 
         LOGGER.info("\nEnter password: ");
         String regPassword = scanner.nextLine();
@@ -126,7 +125,7 @@ public class MeniuActions {
         LOGGER.info("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
-        da.registerNewUser(dc.connectionToDatabase(), nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
+        da.registerNewUser(nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();
     }
 

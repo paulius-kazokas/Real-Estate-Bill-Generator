@@ -2,7 +2,10 @@ package data;
 
 public class DataGenerator {
 
-    public void generateUtilitiesPrice(String loggedInUsername) {
+    // generate json
 
-    }
+    // generate users utility indicators
+
+    // data write to json
+
 }
