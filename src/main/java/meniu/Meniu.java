@@ -14,7 +14,7 @@ public class Meniu {
     }
 
     public static void mainMenu() throws SQLException {
-        LOGGER.info("\nUrban Taxes System\n\n" +
+        System.out.print("\nUrban Taxes System\n\n" +
                 "1.Sign up\n" +
                 "2.Register\n" +
                 "0.Exit\n");
@@ -22,7 +22,7 @@ public class Meniu {
     }
 
     public static void mainAccountMenu(String loggedInUsername) {
-        LOGGER.info("\n1.Check monthly bill\n" +
+        System.out.print("\n1.Check monthly bill\n" +
                 "2.Check bill for specific utility\n" +
                 "3.View account\n" +
                 "0.Log out");

@@ -12,12 +12,12 @@ public class MeniuActions {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MeniuActions.class);
 
-    public static void mainMenuActions() throws SQLException  {
+    public static void mainMenuActions() throws SQLException {
 
         DatabaseActions da = new DatabaseActions(new DatabaseConfig());
         Scanner scanner = new Scanner(System.in);
 
-        LOGGER.info("\nChoice: ");
+        System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
 
         switch(choice) {
@@ -34,7 +34,7 @@ public class MeniuActions {
 
     public static void signupBase(Scanner scanner, DatabaseActions da) throws SQLException {
 
-        LOGGER.info("\nEnter username: ");
+        System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
 
         if(da.checkIfUserExists(username) != null) {
@@ -51,20 +51,20 @@ public class MeniuActions {
 
     public static void signup(Scanner scanner, DatabaseActions da, String username) throws SQLException {
 
-        LOGGER.info("\nEnter password for {}: ", username);
+        System.out.print("\nEnter password for " + username + " : ");
         String password = scanner.nextLine();
         int maximumUnsuccessfullRetries = 4;
         int unsuccessfulLogin = 1;
         boolean rightPassword = false;
 
         if(da.checkIfPasswordMatches(username, password)) {
-            LOGGER.info("\nWelcome, {}", username);
+            System.out.print("\nWelcome, " + username);
             Meniu.mainAccountMenu(username);
         } else {
-            LOGGER.warn("\nPassword is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
+            LOGGER.warn("Password is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
 
             while(unsuccessfulLogin < maximumUnsuccessfullRetries) {
-                LOGGER.warn("\nTry again, enter password ({}): ", unsuccessfulLogin);
+                System.out.print("Try again, enter password (" + unsuccessfulLogin + "): ");
                 String unsuccessfullPassword = scanner.nextLine();
                 if(da.checkIfPasswordMatches(username, unsuccessfullPassword)) {
                     unsuccessfulLogin = maximumUnsuccessfullRetries;
@@ -75,10 +75,10 @@ public class MeniuActions {
             }
 
             if(rightPassword) {
-                LOGGER.info("\nWelcome, '{}'", username);
+                System.out.print("\nWelcome, " + username);
                 Meniu.mainAccountMenu(username);
             } else {
-                LOGGER.error("\n({}) Maximum retries exceeded, returning to the main menu..", unsuccessfulLogin);
+                System.out.print("\nFailed to login, returning to main menu..");
                 Meniu.mainMenu();
             }
         }
@@ -86,22 +86,22 @@ public class MeniuActions {
 
     public static void registration(Scanner scanner, DatabaseActions da) throws SQLException {
 
-        LOGGER.info("\nEnter username: ");
+        System.out.print("\nEnter username: ");
         String regUsername = scanner.nextLine();
 
-        LOGGER.info("\nEnter password: ");
+        System.out.print("\nEnter password: ");
         String regPassword = scanner.nextLine();
 
-        LOGGER.info("\nEnter name: ");
+        System.out.print("\nEnter name: ");
         String regName = scanner.nextLine();
 
-        LOGGER.info("\nEnter lastname: ");
+        System.out.print("\nEnter lastname: ");
         String regLastname = scanner.nextLine();
 
-        LOGGER.info("\nEnter email: ");
+        System.out.print("\nEnter email: ");
         String regEmail = scanner.nextLine();
 
-        LOGGER.info("\nEnter personal code: ");
+        System.out.print("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
         da.registerNewUser(regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
