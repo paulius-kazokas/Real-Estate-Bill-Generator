@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/InputVadility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/config/DatabaseConfigTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/database/DatabaseActionsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/utility/InputVadilityTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utility/InputVadility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/InputVadility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/config/DatabaseConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/database/DatabaseActionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/database/DatabaseActionsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +60,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -92,10 +91,10 @@
     <property name="SONARLINT_ANALYSIS_RESULTS_SPLIT_PROPORTION" value="0.37121212" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UTCD/sha256/sha256.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UTCD/sha256/local/java/sha256/sha256.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.40547946" />
+    <property name="project.structure.side.proportion" value="0.2593423" />
     <property name="settings.editor.selected.configurable" value="reactor" />
   </component>
   <component name="RecentsManager">
@@ -103,15 +102,39 @@
       <recent name="C:\Users\pauli\IdeaProjects\UTC\Urban-Taxes-Calculator\src\main\java\admin" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InputVadilityTest">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+  <component name="RunManager" selected="JUnit.DatabaseActionsTest$DeleteUser.test10">
+    <configuration name="DatabaseActionsTest$CheckIfUserExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="database" />
+      <option name="MAIN_CLASS_NAME" value="database.DatabaseActionsTest$CheckIfUserExists" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DatabaseActionsTest$RegisterNewUserTest.test12" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DatabaseActionsTest$DeleteUser.test10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="database" />
+      <option name="MAIN_CLASS_NAME" value="database.DatabaseActionsTest$DeleteUser" />
+      <option name="METHOD_NAME" value="test10" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DatabaseActionsTest$RegisterNewUserTest.test10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
@@ -121,7 +144,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="database" />
       <option name="MAIN_CLASS_NAME" value="database.DatabaseActionsTest$RegisterNewUserTest" />
-      <option name="METHOD_NAME" value="test12" />
+      <option name="METHOD_NAME" value="test10" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DatabaseActionsTest$RegisterNewUserTest.test9" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="database" />
+      <option name="MAIN_CLASS_NAME" value="database.DatabaseActionsTest$RegisterNewUserTest" />
+      <option name="METHOD_NAME" value="test9" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,44 +181,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InputVadilityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="utility.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="utility" />
-      <option name="MAIN_CLASS_NAME" value="utility.InputVadilityTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InputVadilityTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="utility.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="utility" />
-      <option name="MAIN_CLASS_NAME" value="utility.InputVadilityTest" />
-      <option name="METHOD_NAME" value="test1" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InputVadilityTest" />
-        <item itemvalue="JUnit.InputVadilityTest.test1" />
+        <item itemvalue="JUnit.DatabaseActionsTest$DeleteUser.test10" />
         <item itemvalue="JUnit.DatabaseActionsTest" />
-        <item itemvalue="JUnit.DatabaseActionsTest$RegisterNewUserTest.test12" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DatabaseActionsTest$RegisterNewUserTest.test10" />
+        <item itemvalue="JUnit.DatabaseActionsTest$RegisterNewUserTest.test9" />
+        <item itemvalue="JUnit.DatabaseActionsTest$CheckIfUserExists" />
       </list>
     </recent_temporary>
   </component>
@@ -223,7 +231,7 @@
       <workItem from="1593071588733" duration="12689000" />
       <workItem from="1593153503483" duration="12000" />
       <workItem from="1593154580586" duration="8699000" />
-      <workItem from="1593331495729" duration="24449000" />
+      <workItem from="1593331495729" duration="37837000" />
     </task>
     <servers />
   </component>
@@ -279,46 +287,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592483596961" />
-    <state x="246" y="241" key="DetectedRootsChooserDialog" timestamp="1593503752556">
+    <state x="246" y="241" width="773" height="563" key="DetectedRootsChooserDialog" timestamp="1594195551423">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="246" y="241" key="DetectedRootsChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593503752556" />
-    <state x="740" y="277" key="FileChooserDialogImpl" timestamp="1593503750500">
+    <state x="246" y="241" width="773" height="563" key="DetectedRootsChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594195551423" />
+    <state x="840" y="275" key="FileChooserDialogImpl" timestamp="1594195545998">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593503750500" />
-    <state width="1877" height="393" key="GridCell.Tab.0.bottom" timestamp="1594137374343">
+    <state x="840" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1594195545998" />
+    <state width="1877" height="359" key="GridCell.Tab.0.bottom" timestamp="1594243864988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="393" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594137374343" />
-    <state width="1877" height="393" key="GridCell.Tab.0.center" timestamp="1594137374343">
+    <state width="1877" height="359" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594243864988" />
+    <state width="1877" height="359" key="GridCell.Tab.0.center" timestamp="1594243864987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="393" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594137374343" />
-    <state width="1877" height="393" key="GridCell.Tab.0.left" timestamp="1594137374342">
+    <state width="1877" height="359" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594243864987" />
+    <state width="1877" height="359" key="GridCell.Tab.0.left" timestamp="1594243864987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="393" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594137374342" />
-    <state width="1877" height="393" key="GridCell.Tab.0.right" timestamp="1594137374343">
+    <state width="1877" height="359" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594243864987" />
+    <state width="1877" height="359" key="GridCell.Tab.0.right" timestamp="1594243864988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="393" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594137374343" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1594128418360">
+    <state width="1877" height="359" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594243864988" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1594240690237">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594128418360" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1594128418360">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594240690237" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1594240690237">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594128418360" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1594128418360">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594240690237" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1594240690237">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594128418360" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1594128418360">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594240690237" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1594240690237">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594128418360" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594240690237" />
     <state x="540" y="266" key="IDE.errors.dialog" timestamp="1592511360140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -327,10 +335,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="178" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594117928890" />
-    <state x="625" y="89" width="1253" height="845" key="SettingsEditor" timestamp="1594118279136">
+    <state x="243" y="106" width="1591" height="845" key="SettingsEditor" timestamp="1594196086542">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="625" y="89" width="1253" height="845" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594118279136" />
+    <state x="243" y="106" width="1591" height="845" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594196086542" />
     <state width="200" height="441" key="SqlResolveConfigurable" timestamp="1592481165692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

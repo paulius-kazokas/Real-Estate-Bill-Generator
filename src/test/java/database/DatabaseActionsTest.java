@@ -9,15 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Running tests for DatabaseActionsTest class")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DatabaseActionsTest {
 
-    DatabaseConfig dc;
     DatabaseActions da;
+    DatabaseConfig dc;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeAll
+    public void setup() throws SQLException {
         dc = new DatabaseConfig();
         da = new DatabaseActions(dc);
+        da.registerNewUser("123", "456", "test", "test", "test@test.test", "123456789");
+    }
+
+    @AfterAll
+    public void cleanup() throws SQLException {
+        da.deleteUserByUsername("123");
     }
 
     @Nested
@@ -29,35 +36,35 @@ public class DatabaseActionsTest {
         @DisplayName("User exists")
         public void test1() throws SQLException {
 
-            assertEquals("123", da.checkIfUserExists("123"));
+            assertEquals("123", da.getUserByUsername("123"));
         }
 
         @Order(2)
         @Test
         @DisplayName("User doesn't exist")
         public void test2() throws SQLException {
-            assertEquals(null, da.checkIfUserExists("7894123asd198FSRW16316ZZX5fa16"));
+            assertNull(null, da.getUserByUsername("7894123asd198FSRW16316ZZX5fa16"));
         }
 
         @Order(3)
         @Test
         @DisplayName("Checking with empty string")
         public void test3() {
-            assertThrows(IllegalArgumentException.class, () -> da.checkIfUserExists(""));
+            assertThrows(IllegalArgumentException.class, () -> da.getUserByUsername(""));
         }
 
         @Order(4)
         @Test
         @DisplayName("Checking with whitespace")
-        public void test31() throws SQLException {
-            assertThrows(IllegalArgumentException.class, () -> da.checkIfUserExists(" "));
+        public void test31(){
+            assertThrows(IllegalArgumentException.class, () -> da.getUserByUsername(" "));
         }
 
         @Order(5)
         @Test
         @DisplayName("Checking with null")
         public void test4() {
-            assertThrows(IllegalArgumentException.class, () ->  da.checkIfUserExists(null));
+            assertThrows(IllegalArgumentException.class, () ->  da.getUserByUsername(null));
         }
     }
 
@@ -82,21 +89,21 @@ public class DatabaseActionsTest {
         @Order(7)
         @Test
         @DisplayName("Password is empty string")
-        public void test7() throws SQLException {
+        public void test7() {
             assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", ""));
         }
 
         @Order(8)
         @Test
         @DisplayName("Password is whitespace")
-        public void test8() throws SQLException {
+        public void test8() {
             assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", " "));
         }
 
         @Order(8)
         @Test
         @DisplayName("Password is null")
-        public void test82() throws SQLException {
+        public void test82() {
             assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", null));
         }
     }
@@ -105,36 +112,28 @@ public class DatabaseActionsTest {
     @DisplayName("Checking if registered user")
     public class RegisterNewUserTest {
 
-        String testUsername = "testuser";
-
         @Order(9)
         @Test
         @DisplayName("Registering new user")
         public void test9() throws SQLException {
-            da.registerNewUser(testUsername, "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
-            assertEquals(testUsername, da.checkIfUserExists(testUsername));
-            da.deleteUserByUsername(testUsername);
+            da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
+            assertEquals("testuser", da.getUserByUsername("testuser"));
+            da.deleteUserByUsername("testuser");
         }
+    }
+
+    @Nested
+    @DisplayName("Checking if user deleted")
+    public class DeleteUser {
 
         @Order(10)
         @Test
-        @DisplayName("Registering new user with null")
-        public void test10() {
-            assertThrows(IllegalArgumentException.class, () -> da.registerNewUser(null, "testpwd", "testname", "testlastname", "test@mail.com", "123456789"));
-        }
-
-        @Order(11)
-        @Test
-        @DisplayName("Registering new user with empty string")
-        public void test11() throws SQLException {
-            assertThrows(IllegalArgumentException.class, () -> da.registerNewUser("", "", "", "", "", ""));
-        }
-
-        @Order(12)
-        @Test
-        @DisplayName("Registering new user with empty string")
-        public void test12() throws SQLException {
-            assertThrows(IllegalArgumentException.class, () -> da.registerNewUser(" ", " ", " ", " ", " ", " "));
+        @DisplayName("Deleting user")
+        public void test10() throws SQLException {
+            da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
+            da.deleteUserByUsername("testuser");
+            assertNull(null, da.getUserByUsername("testuser"));
         }
     }
+
 }

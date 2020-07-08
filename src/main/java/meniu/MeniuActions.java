@@ -2,8 +2,10 @@ package meniu;
 
 import config.DatabaseConfig;
 import database.DatabaseActions;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utility.InputVadility;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -37,7 +39,7 @@ public class MeniuActions {
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
 
-        if(da.checkIfUserExists(username) != null) {
+        if(da.getUserByUsername(username) != null) {
             signup(scanner, da, username);
         } else {
             LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y)");
@@ -86,6 +88,8 @@ public class MeniuActions {
 
     public static void registration(Scanner scanner, DatabaseActions da) throws SQLException {
 
+        InputVadility iv = new InputVadility();
+
         System.out.print("\nEnter username: ");
         String regUsername = scanner.nextLine();
 
@@ -104,11 +108,21 @@ public class MeniuActions {
         System.out.print("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
 
+        if (!da.getUserByUsername(regUsername).isBlank()) {
+            throw new IllegalArgumentException(regUsername + " already exists");
+        }
+
+        if (iv.checkArrayForFalseItemValue(ArrayUtils.toArray(regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode))) {
+            throw new IllegalArgumentException("Invalid user input detected");
+        }
+
         da.registerNewUser(regUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();
     }
 
     public static void registrationNonExistingUser(Scanner scanner, DatabaseActions da, String nonExistingUsername) throws SQLException {
+
+        InputVadility iv = new InputVadility();
 
         LOGGER.info("\nEnter password: ");
         String regPassword = scanner.nextLine();
@@ -124,6 +138,14 @@ public class MeniuActions {
 
         LOGGER.info("\nEnter personal code: ");
         String regPersonalCode = scanner.nextLine();
+
+        if (!da.getUserByUsername(nonExistingUsername).isBlank()) {
+            throw new IllegalArgumentException(nonExistingUsername + " already exists");
+        }
+
+        if (iv.checkArrayForFalseItemValue(ArrayUtils.toArray(nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode))) {
+            throw new IllegalArgumentException("Invalid user input detected");
+        }
 
         da.registerNewUser(nonExistingUsername, regPassword, regName, regLastname, regEmail, regPersonalCode);
         Meniu.mainMenu();

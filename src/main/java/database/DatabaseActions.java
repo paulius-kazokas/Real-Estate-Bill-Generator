@@ -1,14 +1,12 @@
 package database;
 
 import config.DatabaseConfig;
+import config.SystemConstants;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import utility.InputVadility;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseActions {
 
@@ -18,7 +16,7 @@ public class DatabaseActions {
         this.databaseConfig = dc;
     }
 
-    public String checkIfUserExists(String usernameInput) throws SQLException {
+    public String getUserByUsername(String usernameInput) throws SQLException {
 
         String username = null;
 
@@ -26,7 +24,7 @@ public class DatabaseActions {
             throw new IllegalArgumentException("Username cannot be empty or null");
         }
 
-        String query = "SELECT username FROM utc.users WHERE username = '" + usernameInput + "'";
+        String query = "SELECT username FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + usernameInput + "'";
         Statement st = databaseConfig.connectionToDatabase().createStatement();
 
         try (st; ResultSet rs = st.executeQuery(query)) {
@@ -51,7 +49,7 @@ public class DatabaseActions {
             throw new IllegalArgumentException("Password cannot be empty or null");
         }
 
-        String query = "SELECT password FROM utc.users WHERE username =" + usernameWithThisPassword;
+        String query = "SELECT password FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username =" + usernameWithThisPassword;
         Statement st = databaseConfig.connectionToDatabase().createStatement();
 
         try (st; ResultSet rs = st.executeQuery(query)) {
@@ -67,13 +65,7 @@ public class DatabaseActions {
 
     public void registerNewUser(String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode) throws SQLException {
 
-        InputVadility iv = new InputVadility();
-
-        if (iv.checkArrayForFalseValue(ArrayUtils.toArray(regUsername, regPassword, regName, regLastName, regEmail, regPersonalCode))) {
-            throw new IllegalArgumentException("Invalid user input detected");
-        }
-
-        String query = "INSERT INTO utc.users (id, username, password, name, lastname, email, personalcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO " + SystemConstants.UTC_USERS_TABLE + " (id, username, password, name, lastname, email, personalcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStmt = databaseConfig.connectionToDatabase().prepareStatement(query);
         preparedStmt.setString(1, null);
@@ -88,13 +80,12 @@ public class DatabaseActions {
         databaseConfig.connectionToDatabase().close();
     }
 
-    public int deleteUserByUsername(String deleteUsername) throws SQLException {
+    public void deleteUserByUsername(String deleteUsername) throws SQLException {
 
-        String query = "DELETE FROM utc.users WHERE username = '" + deleteUsername + "'";
+        String query = "DELETE FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + deleteUsername + "'";
         Statement st = databaseConfig.connectionToDatabase().createStatement();
-        int rs = st.executeUpdate(query);
+        st.executeUpdate(query);
         st.close();
-        return rs;
     }
 
     // utilities --

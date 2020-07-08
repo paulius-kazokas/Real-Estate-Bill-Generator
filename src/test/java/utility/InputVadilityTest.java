@@ -20,20 +20,20 @@ public class InputVadilityTest {
     @Test
     @DisplayName("When passing null")
     public void test1() {
-        assertTrue(iv.checkArrayForFalseValue(ArrayUtils.toArray(null, "item1", "item2")));
+        assertTrue(iv.checkArrayForFalseItemValue(ArrayUtils.toArray(null, "item1", "item2")));
     }
 
     @Order(2)
     @Test
     @DisplayName("When passing whitespace")
     public void test2() {
-        assertTrue(iv.checkArrayForFalseValue(ArrayUtils.toArray(" ", "item1", "item2")));
+        assertTrue(iv.checkArrayForFalseItemValue(ArrayUtils.toArray(" ", "item1", "item2")));
     }
 
     @Order(3)
     @Test
     @DisplayName("When passing empty string")
     public void test3() {
-        assertTrue(iv.checkArrayForFalseValue(ArrayUtils.toArray("", "item1", "item2")));
+        assertTrue(iv.checkArrayForFalseItemValue(ArrayUtils.toArray("", "item1", "item2")));
     }
 }
