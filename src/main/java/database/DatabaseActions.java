@@ -2,11 +2,12 @@ package database;
 
 import config.DatabaseConfig;
 import config.SystemConstants;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import utility.InputVadility;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseActions {
 
@@ -86,6 +87,22 @@ public class DatabaseActions {
         Statement st = databaseConfig.connectionToDatabase().createStatement();
         st.executeUpdate(query);
         st.close();
+    }
+
+    public String getPersonalCodeByUsername(String username) throws SQLException {
+
+        String personalCode = null;
+        String query = "SELECT personalcode FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
+        Statement st = databaseConfig.connectionToDatabase().createStatement();
+        try (st; ResultSet rs = st.executeQuery(query)) {
+            if (rs.next()) {
+                personalCode = rs.getString("personalcode");
+            }
+        }
+        st.close();
+        databaseConfig.connectionToDatabase().close();
+
+        return personalCode;
     }
 
     // utilities --

@@ -13,11 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DatabaseActionsTest {
 
     DatabaseActions da;
-    DatabaseConfig dc;
 
     @BeforeAll
     public void setup() throws SQLException {
-        dc = new DatabaseConfig();
+        DatabaseConfig dc = new DatabaseConfig();
         da = new DatabaseActions(dc);
         da.registerNewUser("123", "456", "test", "test", "test@test.test", "123456789");
     }

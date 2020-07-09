@@ -26,6 +26,7 @@ public class Meniu {
                 "2.Check bill for specific utility\n" +
                 "3.View account\n" +
                 "0.Log out");
+        MeniuActions.mainAccountMenuActions(loggedInUsername);
     }
 
     private static void billMenu() {
