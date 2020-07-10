@@ -23,7 +23,10 @@
 hs_err_pid*
 
 #idea
-**/.idea/
+**/.idea/*
 
 #target
-**/target/
+**/target/*
+
+#generated data files
+**/src/main/resources/data/*

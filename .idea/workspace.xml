@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/RandomGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/RandomGeneratorUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/heat_20200625_123456789.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/data/DataGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/DataGeneratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/456.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/heat_20200625_123456789.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/data/2020-07_UtilityPrices.json" afterDir="false" />
-    </list>
+    <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -230,7 +214,7 @@
       <workItem from="1593153503483" duration="12000" />
       <workItem from="1593154580586" duration="8699000" />
       <workItem from="1593331495729" duration="38235000" />
-      <workItem from="1594283779040" duration="30482000" />
+      <workItem from="1594283779040" duration="30815000" />
     </task>
     <servers />
   </component>
