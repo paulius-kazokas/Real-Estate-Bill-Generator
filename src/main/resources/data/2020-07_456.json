@@ -1,52 +1,48 @@
 {
   "date": "2020-07",
-  "total": 161.19,
+  "total": 153.94,
   "bill_number": "123456789",
+  "currency": "EUR",
   "utilities": [
     {
-      "pvm": 0.09,
+      "pvm": 0.08,
       "utility": "heat",
-      "utility_total_with_pvm": "7.18",
-      "currency": "EUR",
-      "indicators": 8,
-      "utility_total_without_pvm": "3.76",
-      "pvm_price": "3.42"
+      "utility_total_with_pvm": "19.35",
+      "indicators": 36,
+      "utility_total_without_pvm": "10.08",
+      "pvm_price": "9.27"
     },
     {
-      "pvm": 0.14,
+      "pvm": 0.09,
       "utility": "electricity",
-      "utility_total_with_pvm": "62.5",
-      "currency": "EUR",
-      "indicators": 80,
-      "utility_total_without_pvm": "33.6",
-      "pvm_price": "28.9"
-    },
-    {
-      "pvm": 0.07,
-      "utility": "water",
-      "utility_total_with_pvm": "50.18",
-      "currency": "EUR",
-      "indicators": 65,
-      "utility_total_without_pvm": "26",
-      "pvm_price": "24.18"
-    },
-    {
-      "pvm": 0.07,
-      "utility": "gas",
-      "utility_total_with_pvm": "21.02",
-      "currency": "EUR",
-      "indicators": 33,
-      "utility_total_without_pvm": "10.89",
-      "pvm_price": "10.13"
+      "utility_total_with_pvm": "27.05",
+      "indicators": 59,
+      "utility_total_without_pvm": "14.16",
+      "pvm_price": "12.89"
     },
     {
       "pvm": 0.14,
+      "utility": "water",
+      "utility_total_with_pvm": "41.92",
+      "indicators": 46,
+      "utility_total_without_pvm": "22.54",
+      "pvm_price": "19.38"
+    },
+    {
+      "pvm": 0.14,
+      "utility": "gas",
+      "utility_total_with_pvm": "61.12",
+      "indicators": 53,
+      "utility_total_without_pvm": "32.86",
+      "pvm_price": "28.26"
+    },
+    {
+      "pvm": 0.06,
       "utility": "trash",
-      "utility_total_with_pvm": "20.31",
-      "currency": "EUR",
-      "indicators": 39,
-      "utility_total_without_pvm": "10.92",
-      "pvm_price": "9.39"
+      "utility_total_with_pvm": "4.5",
+      "indicators": 8,
+      "utility_total_without_pvm": "2.32",
+      "pvm_price": "2.18"
     }
   ],
   "user_personal_code": "159753"

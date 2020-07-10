@@ -2,23 +2,23 @@
   "date": "2020-07",
   "utilities": [
     {
-      "unitPrice": 0.47,
+      "unitPrice": 0.28,
       "utility": "heat"
     },
     {
-      "unitPrice": 0.42,
+      "unitPrice": 0.24,
       "utility": "electricity"
     },
     {
-      "unitPrice": 0.4,
+      "unitPrice": 0.49,
       "utility": "water"
     },
     {
-      "unitPrice": 0.33,
+      "unitPrice": 0.62,
       "utility": "gas"
     },
     {
-      "unitPrice": 0.28,
+      "unitPrice": 0.29,
       "utility": "trash"
     }
   ]

@@ -2,23 +2,23 @@
   "date": "2020-07",
   "utilities_pvm": [
     {
-      "pvm": 0.09,
+      "pvm": 0.08,
       "utility": "heat"
     },
     {
-      "pvm": 0.14,
+      "pvm": 0.09,
       "utility": "electricity"
     },
     {
-      "pvm": 0.07,
+      "pvm": 0.14,
       "utility": "water"
     },
     {
-      "pvm": 0.07,
+      "pvm": 0.14,
       "utility": "gas"
     },
     {
-      "pvm": 0.14,
+      "pvm": 0.06,
       "utility": "trash"
     }
   ]

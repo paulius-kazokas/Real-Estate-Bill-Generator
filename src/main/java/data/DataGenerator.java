@@ -21,6 +21,9 @@ import static config.SystemConstants.*;
 
 public class DataGenerator {
 
+    // add additional check if with all prices and pvms dates allign with the same date (for rolling month)
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DataGenerator.class);
 
     // menesiniu paslaugu rodikliu reportas
@@ -100,7 +103,6 @@ public class DataGenerator {
 
             int randomAmount = rg.randomIndicatorGenerator();
             uJSON.put("indicators", randomAmount);
-            uJSON.put("currency", CURRENCY); // ideja: einancio dienos valiutos kursas
 
             String utilityTotalWithoutPVM = UTC_DECIMAL_FORMATER.format(((getUtilityUnitPrice(utility, UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES) * randomAmount) ));
             uJSON.put("utility_total_without_pvm", utilityTotalWithoutPVM);
@@ -116,6 +118,7 @@ public class DataGenerator {
             allUtilitiesTotal.put(utility, utilityPriceWithPVM);
         }
 
+        userBill.put("currency", CURRENCY); // ideja: einancio dienos valiutos kursas
         userBill.put("utilities", userBillUtilities);
         userBill.put("total", sumUtilityPrices(billUtilityTotalsWithPVM)); // ideja: jeigu suma gaunasi xx:x4, tai parasyti funkcija, kuri suapvalina iki xx:x9
 
