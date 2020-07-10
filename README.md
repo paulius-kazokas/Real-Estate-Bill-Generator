@@ -1,3 +1,13 @@
+Jul 10, 2020:
+
+1. Generates a user monthly bill.
+2. Generates Utility PVM monthly price report.
+3. Generates Utility Unit monthly price report.
+
+
+
+Jun 23, 2020:
+
 If image below doesn't load click here: https://drive.google.com/file/d/1zpSG0aVPqFjjHitsbTRivA1bUXgGkoRW/view?usp=sharing
 <p align="midlde">
   <img src="https://drive.google.com/uc?export=view&id=1zpSG0aVPqFjjHitsbTRivA1bUXgGkoRW" width="800" height="700">
