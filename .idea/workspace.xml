@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/utility/FileUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/RandomGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/RandomGeneratorUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/data/DataGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/data/DataGeneratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/2020-07_UtilityPrices.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/data/2020-07_UtilityPrices.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/data/2020-07_UtilityPrices.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +217,7 @@
       <workItem from="1593153503483" duration="12000" />
       <workItem from="1593154580586" duration="8699000" />
       <workItem from="1593331495729" duration="38235000" />
-      <workItem from="1594283779040" duration="19219000" />
+      <workItem from="1594283779040" duration="21117000" />
     </task>
     <servers />
   </component>
@@ -295,22 +285,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="840" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1594195545998" />
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom" timestamp="1594364162457">
+    <state width="1877" height="197" key="GridCell.Tab.0.bottom" timestamp="1594366050818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594364162457" />
-    <state width="1877" height="197" key="GridCell.Tab.0.center" timestamp="1594364162457">
+    <state width="1877" height="197" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594366050818" />
+    <state width="1877" height="197" key="GridCell.Tab.0.center" timestamp="1594366050818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594364162457" />
-    <state width="1877" height="197" key="GridCell.Tab.0.left" timestamp="1594364162457">
+    <state width="1877" height="197" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594366050818" />
+    <state width="1877" height="197" key="GridCell.Tab.0.left" timestamp="1594366050818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594364162457" />
-    <state width="1877" height="197" key="GridCell.Tab.0.right" timestamp="1594364162457">
+    <state width="1877" height="197" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594366050818" />
+    <state width="1877" height="197" key="GridCell.Tab.0.right" timestamp="1594366050818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594364162457" />
+    <state width="1877" height="197" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594366050818" />
     <state width="1877" height="282" key="GridCell.Tab.1.bottom" timestamp="1594363690697">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
