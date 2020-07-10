@@ -1,0 +1,53 @@
+{
+  "date": "2020-07",
+  "total": 161.19,
+  "bill_number": "123456789",
+  "utilities": [
+    {
+      "pvm": 0.09,
+      "utility": "heat",
+      "utility_total_with_pvm": "7.18",
+      "currency": "EUR",
+      "indicators": 8,
+      "utility_total_without_pvm": "3.76",
+      "pvm_price": "3.42"
+    },
+    {
+      "pvm": 0.14,
+      "utility": "electricity",
+      "utility_total_with_pvm": "62.5",
+      "currency": "EUR",
+      "indicators": 80,
+      "utility_total_without_pvm": "33.6",
+      "pvm_price": "28.9"
+    },
+    {
+      "pvm": 0.07,
+      "utility": "water",
+      "utility_total_with_pvm": "50.18",
+      "currency": "EUR",
+      "indicators": 65,
+      "utility_total_without_pvm": "26",
+      "pvm_price": "24.18"
+    },
+    {
+      "pvm": 0.07,
+      "utility": "gas",
+      "utility_total_with_pvm": "21.02",
+      "currency": "EUR",
+      "indicators": 33,
+      "utility_total_without_pvm": "10.89",
+      "pvm_price": "10.13"
+    },
+    {
+      "pvm": 0.14,
+      "utility": "trash",
+      "utility_total_with_pvm": "20.31",
+      "currency": "EUR",
+      "indicators": 39,
+      "utility_total_without_pvm": "10.92",
+      "pvm_price": "9.39"
+    }
+  ],
+  "user_personal_code": "159753"
+}

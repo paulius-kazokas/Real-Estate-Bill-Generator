@@ -1,20 +1,24 @@
 package utility;
 
-import config.SystemConstants;
-
 import java.util.Random;
+
+import static config.SystemConstants.*;
 
 public class RandomGeneratorUtility {
 
-    public String randomIndicatorGenerator() {
-        Random random = new Random();
-        return SystemConstants.UTC_DECIMAL_FORMATER
-                .format(SystemConstants.INDICATOR_MIN + (SystemConstants.INDICATOR_MAX - SystemConstants.INDICATOR_MIN) * random.nextDouble());
+    Random random = new Random();
+
+    public int randomIndicatorGenerator() {
+        return random.nextInt(INDICATOR_MAX - INDICATOR_MIN);
     }
 
-    public String randomPVMGenerator() {
-        Random random = new Random();
-        return SystemConstants.UTC_DECIMAL_FORMATER
-                .format(SystemConstants.PVM_MIN + (SystemConstants.PVM_MAX - SystemConstants.PVM_MIN) * random.nextDouble());
+    public double randomUtilityPriceGenerator() {
+        return Double.parseDouble(UTC_DECIMAL_FORMATER
+                .format(UTILITY_PRICE_MIN + (UTILITY_PRICE_MAX - UTILITY_PRICE_MIN) * random.nextDouble()));
+    }
+
+    public double randomPVMGenerator() {
+        return Double.parseDouble(UTC_DECIMAL_FORMATER
+                .format(PVM_MIN + (PVM_MAX - PVM_MIN) * random.nextDouble()));
     }
 }

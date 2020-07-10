@@ -92,6 +92,7 @@ public class DatabaseActions {
     public String getPersonalCodeByUsername(String username) throws SQLException {
 
         String personalCode = null;
+        String kazkas = "kazkas";
         String query = "SELECT personalcode FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
         Statement st = databaseConfig.connectionToDatabase().createStatement();
         try (st; ResultSet rs = st.executeQuery(query)) {

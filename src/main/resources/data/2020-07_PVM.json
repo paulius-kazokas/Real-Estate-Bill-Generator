@@ -1,24 +1,24 @@
 {
   "date": "2020-07",
-  "utilities": [
+  "utilities_pvm": [
     {
-      "unitPrice": 0.47,
+      "pvm": 0.09,
       "utility": "heat"
     },
     {
-      "unitPrice": 0.42,
+      "pvm": 0.14,
       "utility": "electricity"
     },
     {
-      "unitPrice": 0.4,
+      "pvm": 0.07,
       "utility": "water"
     },
     {
-      "unitPrice": 0.33,
+      "pvm": 0.07,
       "utility": "gas"
     },
     {
-      "unitPrice": 0.28,
+      "pvm": 0.14,
       "utility": "trash"
     }
   ]

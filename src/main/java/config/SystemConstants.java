@@ -24,14 +24,17 @@ public class SystemConstants {
     public static final String BILL_DESTINATION_PATH = "src/main/resources/data/";
     public static final String BILL_DESTINATION_TEST_PATH = "src/test/resources/data/";
 
-    public static final double INDICATOR_MIN = 0.50d;
-    public static final double INDICATOR_MAX = 4.00d;
+    public static final int INDICATOR_MIN = 10;
+    public static final int INDICATOR_MAX = 96;
+
+    public static final double UTILITY_PRICE_MIN = 0.09d;
+    public static final double UTILITY_PRICE_MAX = 0.64d;
 
     public static final double PVM_MIN = 0.05d;
     public static final double PVM_MAX = 0.15d;
 
     public static final List<String> UTILITIES = Arrays.asList("heat", "electricity", "water", "gas", "trash");
 
-    public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES = BILL_DESTINATION_TEST_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_UtilityPrices.json";
-    public static final String UTC_ROLLING_MONTH_USER_BILL = BILL_DESTINATION_TEST_PATH + UTC_CURRENT_MONTH_BILL_DATE;
+    public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_UtilityPrices.json";
+    public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES_PVM = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_PVM.json";
 }

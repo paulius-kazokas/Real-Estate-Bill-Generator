@@ -186,7 +186,7 @@ public class MeniuActions {
 
         // print total amount for the month
         DataGenerator dg = new DataGenerator();
-        dg.generateUserMonthlyBillReport("456");
+        dg.generateUserMonthlyBillReport("456"); // jei nera reporto sugeneruoti, jei yra nuskaityti
 
         System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
