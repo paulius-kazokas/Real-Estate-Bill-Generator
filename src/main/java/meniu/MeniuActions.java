@@ -1,6 +1,7 @@
 package meniu;
 
 import config.DatabaseConfig;
+import data.DataGenerator;
 import database.DatabaseActions;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class MeniuActions {
         System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
 
-        switch(choice) {
+        switch (choice) {
             case "0":
                 System.exit(0);
             case "1":
@@ -39,11 +40,11 @@ public class MeniuActions {
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
 
-        if(da.getUserByUsername(username) != null) {
+        if (da.getUserByUsername(username) != null) {
             signup(scanner, da, username);
         } else {
             LOGGER.info("\nUsername doesn't exist, would you like to register an account? (y)");
-            if(scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
+            if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
                 registrationNonExistingUser(scanner, da, username);
             } else {
                 Meniu.mainMenu();
@@ -59,16 +60,16 @@ public class MeniuActions {
         int unsuccessfulLogin = 1;
         boolean rightPassword = false;
 
-        if(da.checkIfPasswordMatches(username, password)) {
+        if (da.checkIfPasswordMatches(username, password)) {
             System.out.print("\nWelcome, " + username);
             Meniu.mainAccountMenu(username);
         } else {
             LOGGER.warn("Password is incorrect. ({}) retries left..", (maximumUnsuccessfullRetries - 1));
 
-            while(unsuccessfulLogin < maximumUnsuccessfullRetries) {
+            while (unsuccessfulLogin < maximumUnsuccessfullRetries) {
                 System.out.print("Try again, enter password (" + unsuccessfulLogin + "): ");
                 String unsuccessfullPassword = scanner.nextLine();
-                if(da.checkIfPasswordMatches(username, unsuccessfullPassword)) {
+                if (da.checkIfPasswordMatches(username, unsuccessfullPassword)) {
                     unsuccessfulLogin = maximumUnsuccessfullRetries;
                     rightPassword = true;
                 } else {
@@ -76,7 +77,7 @@ public class MeniuActions {
                 }
             }
 
-            if(rightPassword) {
+            if (rightPassword) {
                 System.out.print("\nWelcome, " + username);
                 Meniu.mainAccountMenu(username);
             } else {
@@ -151,14 +152,14 @@ public class MeniuActions {
         Meniu.mainMenu();
     }
 
-    public static void mainAccountMenuActions(String username) {
+    public static void mainAccountMenuActions(String username) throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
 
-        switch(choice) {
+        switch (choice) {
             case "0":
                 System.exit(0);
             case "1":
@@ -173,22 +174,24 @@ public class MeniuActions {
         }
     }
 
-    public static void accountMonthlyBillActions(Scanner scanner, String username) {
+    public static void accountMonthlyBillActions(Scanner scanner, String username) throws SQLException {
 
         /* shows report
-        * press 1 pay bill
-        * press 2 correct bill - send a request to admin for bill correction (upon utility indicators not matching with users utility device indicators)
-        * press 3 pay part of the bill
-        * press 4 cancel bill - send a request to admin that bill is already payed/got bill on mistake
-        * press 5 to go back to mainAccountMenuActions
-        */
+         * press 1 pay bill
+         * press 2 correct bill - send a request to admin for bill correction (upon utility indicators not matching with users utility device indicators)
+         * press 3 pay part of the bill
+         * press 4 cancel bill - send a request to admin that bill is already payed/got bill on mistake
+         * press 5 to go back to mainAccountMenuActions
+         */
 
         // print total amount for the month
+        DataGenerator dg = new DataGenerator();
+        dg.generateUserMonthlyBillReport("456");
 
         System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
 
-        switch(choice) {
+        switch (choice) {
             case "0":
                 System.exit(0);
             case "1":
@@ -206,18 +209,18 @@ public class MeniuActions {
     public static void accountSpecificUtilityReportActions(Scanner scanner, String username) {
 
         /* press 1 to get a specific utility total price for current month (utility + current month)
-        * press 2 to get a specific utility total for multiple months (utility + month range)
-        * press 3 to get a multiple utilities total for current month (multiple utilities + current month)
-        * press 4 to get a multiple utilities total for multiple months (multiple utilities + multiple months)
-        * press 5 to go back to mainAccountMenuActions
-        */
+         * press 2 to get a specific utility total for multiple months (utility + month range)
+         * press 3 to get a multiple utilities total for current month (multiple utilities + current month)
+         * press 4 to get a multiple utilities total for multiple months (multiple utilities + multiple months)
+         * press 5 to go back to mainAccountMenuActions
+         */
     }
 
     public static void accountViewActions(Scanner scanner, String username) {
 
         /* shows account minimal info
-        * press 1 to edit account info
-        * press 2 to get back to mainAccountMenuActions
-        */
+         * press 1 to edit account info
+         * press 2 to get back to mainAccountMenuActions
+         */
     }
 }

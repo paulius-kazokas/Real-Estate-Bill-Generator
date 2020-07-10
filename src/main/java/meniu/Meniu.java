@@ -21,7 +21,7 @@ public class Meniu {
         MeniuActions.mainMenuActions();
     }
 
-    public static void mainAccountMenu(String loggedInUsername) {
+    public static void mainAccountMenu(String loggedInUsername) throws SQLException {
         System.out.print("\n1.Check monthly bill\n" +
                 "2.Check bill for specific utility\n" +
                 "3.View account\n" +

@@ -1,4 +1,3 @@
-import config.SystemConstants;
 import data.DataGenerator;
 import meniu.Meniu;
 
@@ -10,9 +9,8 @@ public class Main {
 
         DataGenerator dg = new DataGenerator();
 
-        // utility unit price generation
-        dg.generateUtilitiesUnitPriceReport(SystemConstants.BILL_DESTINATION_PATH, SystemConstants.UTC_CURRENT_MONTH_BILL_DATE);
-        dg.generateUserMonthlyBillReport("456");
+        // utility unit price generation for rolling month
+        dg.generateUtilitiesUnitPriceReport();
 
         Meniu.init();
     }

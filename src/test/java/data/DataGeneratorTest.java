@@ -1,6 +1,5 @@
 package data;
 
-import config.SystemConstants;
 import org.junit.jupiter.api.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -23,7 +22,7 @@ public class DataGeneratorTest {
         @Test
         @DisplayName("Generating bill")
         public void test1() {
-            dg.generateUtilitiesUnitPriceReport(SystemConstants.BILL_DESTINATION_TEST_PATH, SystemConstants.UTC_CURRENT_MONTH_BILL_DATE);
+            dg.generateUtilitiesUnitPriceReport();
         }
     }
 }

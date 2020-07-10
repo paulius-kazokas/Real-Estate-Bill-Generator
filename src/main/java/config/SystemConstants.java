@@ -4,7 +4,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +19,8 @@ public class SystemConstants {
     public static final String UTC_USERS_TABLE = "utc.users";
 
     // Bill specifics
+    public static final String CURRENCY = "EUR";
+
     public static final String BILL_DESTINATION_PATH = "src/main/resources/data/";
     public static final String BILL_DESTINATION_TEST_PATH = "src/test/resources/data/";
 
@@ -31,4 +32,6 @@ public class SystemConstants {
 
     public static final List<String> UTILITIES = Arrays.asList("heat", "electricity", "water", "gas", "trash");
 
+    public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES = BILL_DESTINATION_TEST_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_UtilityPrices.json";
+    public static final String UTC_ROLLING_MONTH_USER_BILL = BILL_DESTINATION_TEST_PATH + UTC_CURRENT_MONTH_BILL_DATE;
 }

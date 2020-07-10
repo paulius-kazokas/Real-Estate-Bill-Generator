@@ -2,10 +2,9 @@ package utility;
 
 import config.SystemConstants;
 
-import java.text.DecimalFormat;
 import java.util.Random;
 
-public class RandomGenerator {
+public class RandomGeneratorUtility {
 
     public String randomIndicatorGenerator() {
         Random random = new Random();
