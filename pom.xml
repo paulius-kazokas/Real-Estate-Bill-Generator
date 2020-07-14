@@ -22,8 +22,14 @@
             <version>3.10</version>
         </dependency>
 
+        <!-- security -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.14</version>
+        </dependency>
 
-        <!-- actions with mysql database -->
+        <!-- actions with mysql repositories -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

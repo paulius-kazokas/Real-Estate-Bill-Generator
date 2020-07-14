@@ -16,7 +16,16 @@ public class SystemConstants {
     public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UTC_DATETIME_FORMATER));
 
     // Database specifics
-    public static final String UTC_USERS_TABLE = "utc.users";
+    public static final String UTC_USERS_TABLE = "utc.user";
+
+    // user
+    public static final String UTC_USERS_TABLE_ID = "id";
+    public static final String UTC_USERS_TABLE_PERSONAL_CODE = "personalcode";
+    public static final String UTC_USERS_TABLE_USERNAME = "username";
+    public static final String UTC_USERS_TABLE_PASSWORD = "password";
+    public static final String UTC_USERS_TABLE_NAME = "name";
+    public static final String UTC_USERS_TABLE_LASTNAME = "lastname";
+    public static final String UTC_USERS_TABLE_EMAIL = "email";
 
     // Bill specifics
     public static final String CURRENCY = "EUR";

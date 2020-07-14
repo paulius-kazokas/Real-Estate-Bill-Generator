@@ -1,7 +1,7 @@
 package data;
 
 import config.DatabaseConfig;
-import database.DatabaseActions;
+import repositories.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -21,6 +21,11 @@ import static config.SystemConstants.*;
 
 public class DataGenerator {
 
+    DatabaseConfig dc;
+
+    public DataGenerator(DatabaseConfig dc) {
+        this.dc = dc;
+    }
     // add additional check if with all prices and pvms dates allign with the same date (for rolling month)
 
 
@@ -81,7 +86,7 @@ public class DataGenerator {
 
         RandomGeneratorUtility rg = new RandomGeneratorUtility();
         DatabaseConfig dc = new DatabaseConfig();
-        DatabaseActions da = new DatabaseActions(dc);
+        UserRepository da = new UserRepository(dc);
 
         String userBillName = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + username + ".json";
         Map<String, String> allUtilitiesTotal = new HashMap<>();

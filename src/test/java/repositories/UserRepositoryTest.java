@@ -1,4 +1,4 @@
-package database;
+package repositories;
 
 import config.DatabaseConfig;
 import org.junit.jupiter.api.*;
@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Running tests for DatabaseActionsTest class")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class DatabaseActionsTest {
+public class UserRepositoryTest {
 
-    DatabaseActions da;
+    UserRepository da;
 
     @BeforeAll
     public void setup() throws SQLException {
         DatabaseConfig dc = new DatabaseConfig();
-        da = new DatabaseActions(dc);
+        da = new UserRepository(dc);
         da.registerNewUser("123", "456", "test", "test", "test@test.test", "123456789");
     }
 
@@ -35,35 +35,35 @@ public class DatabaseActionsTest {
         @DisplayName("User exists")
         public void test1() throws SQLException {
 
-            assertEquals("123", da.getUserByUsername("123"));
+            assertEquals("123", da.checkIfUserAlreadyExists("123"));
         }
 
         @Order(2)
         @Test
         @DisplayName("User doesn't exist")
         public void test2() throws SQLException {
-            assertNull(null, da.getUserByUsername("7894123asd198FSRW16316ZZX5fa16"));
+            assertNull(null, da.checkIfUserAlreadyExists("7894123asd198FSRW16316ZZX5fa16"));
         }
 
         @Order(3)
         @Test
         @DisplayName("Checking with empty string")
         public void test3() {
-            assertThrows(IllegalArgumentException.class, () -> da.getUserByUsername(""));
+            assertThrows(IllegalArgumentException.class, () -> da.checkIfUserAlreadyExists(""));
         }
 
         @Order(4)
         @Test
         @DisplayName("Checking with whitespace")
         public void test31(){
-            assertThrows(IllegalArgumentException.class, () -> da.getUserByUsername(" "));
+            assertThrows(IllegalArgumentException.class, () -> da.checkIfUserAlreadyExists(" "));
         }
 
         @Order(5)
         @Test
         @DisplayName("Checking with null")
         public void test4() {
-            assertThrows(IllegalArgumentException.class, () ->  da.getUserByUsername(null));
+            assertThrows(IllegalArgumentException.class, () ->  da.checkIfUserAlreadyExists(null));
         }
     }
 
@@ -116,7 +116,7 @@ public class DatabaseActionsTest {
         @DisplayName("Registering new user")
         public void test9() throws SQLException {
             da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
-            assertEquals("testuser", da.getUserByUsername("testuser"));
+            assertEquals("testuser", da.checkIfUserAlreadyExists("testuser"));
             da.deleteUserByUsername("testuser");
         }
     }
@@ -131,7 +131,7 @@ public class DatabaseActionsTest {
         public void test10() throws SQLException {
             da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
             da.deleteUserByUsername("testuser");
-            assertNull(null, da.getUserByUsername("testuser"));
+            assertNull(null, da.checkIfUserAlreadyExists("testuser"));
         }
     }
 

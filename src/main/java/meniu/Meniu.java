@@ -1,13 +1,10 @@
 package meniu;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import entities.User;
 
 import java.sql.SQLException;
 
 public class Meniu {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Meniu.class);
 
     public static void init() throws SQLException {
         mainMenu();
@@ -21,26 +18,10 @@ public class Meniu {
         MeniuActions.mainMenuActions();
     }
 
-    public static void mainAccountMenu(String loggedInUsername) throws SQLException {
-        System.out.print("\n1.Check monthly bill\n" +
-                "2.Check bill for specific utility\n" +
-                "3.View account\n" +
-                "0.Log out");
-        MeniuActions.mainAccountMenuActions(loggedInUsername);
+    public static void loggedInMenu(User user) throws SQLException {
+        System.out.print("Welcome, " + user.getUsername() +
+                "\n\n1.Check my properites" +
+                "\n0.Log out");
+        MeniuActions.loggedInMenuActions(user);
     }
-
-    private static void billMenu() {
-        // filtravimas pagal menesius, pagal paslauga ir sumos skaiciavimas
-    }
-
-    private static void utilitiesMenu() {
-        // admin and utility role persons only:  statistika saskaitu pagal tam tikras paslaugas tam tikrais menesiais
-        // utility role people - negali redaguoti savo paskyros, mato tik savo paslaugu statistikas ir gali jas filtruoti
-    }
-
-    private static void accountMenu() {
-        // asmenines informacijos atvaizdavimas ir redagavimas
-        // brainsotrm: norint pakeisti amwniniua duomenis i sistema, kur admin turi approvinti pakeitima
-    }
-
 }

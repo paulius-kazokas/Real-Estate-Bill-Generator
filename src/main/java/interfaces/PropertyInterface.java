@@ -6,6 +6,5 @@ import java.util.Map;
 
 public interface PropertyInterface {
 
-    Map<String, String> getUserProperties(User user);
-
+    Map<String, String> getUserProperties(String userPersonalCode);
 }

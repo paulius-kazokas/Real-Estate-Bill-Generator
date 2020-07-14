@@ -1,4 +1,4 @@
-package bill;
+package entities;
 
 import java.util.Date;
 import java.util.Map;

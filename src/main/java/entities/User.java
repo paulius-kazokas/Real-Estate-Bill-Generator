@@ -1,61 +1,86 @@
-package user;
-
-import java.util.Map;
+package entities;
 
 public class User {
 
+    private String username;
+    private String password;
     private String name;
     private String lastname;
     private String email;
+    private String personalCode;
 
-    private int personalCode;
+    public User() {}
 
-    private String city;
+    public User(String username) {
+        this.username = username;
+    }
 
-    private Map<Integer, String> realEstateList;
-
-    public User(String name, String lastname, String email, int personalCode, String city, Map<Integer, String> realEstateList) {
+    public User(String username, String password, String name, String lastname, String email, String personalCode) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.personalCode = personalCode;
-        this.city = city;
-        this.realEstateList = realEstateList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getLastname() {
         return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public int getPersonalCode() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPersonalCode() {
         return personalCode;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public Map<Integer, String> getRealEstateList() {
-        return realEstateList;
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
     }
 
     @Override
     public String toString() {
-        return "Vartotojas{" +
-                "name='" + name + '\'' +
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", personalCode=" + personalCode +
-                ", city='" + city + '\'' +
-                ", realEstateList=" + realEstateList +
                 '}';
     }
 }

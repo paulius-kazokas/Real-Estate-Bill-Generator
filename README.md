@@ -1,6 +1,6 @@
 Jul 10, 2020:
 
-1. Generates a user monthly bill.
+1. Generates a interfaces monthly bill.
 2. Generates Utility PVM monthly price report.
 3. Generates Utility Unit monthly price report.
 
