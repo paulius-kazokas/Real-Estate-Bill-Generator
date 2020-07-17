@@ -5,6 +5,7 @@ import entities.User;
 import org.apache.commons.lang3.ArrayUtils;
 import repositories.PropertyRepository;
 import repositories.UserRepository;
+import security.SecurityUtils;
 import utility.InputVadility;
 
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ public class MeniuActions {
 
     public static void mainMenuActions() throws SQLException {
 
+        SecurityUtils securityUtils = new SecurityUtils();
         UserRepository userRepository = new UserRepository(new DatabaseConfig());
         Scanner scanner = new Scanner(System.in);
 
@@ -26,53 +28,70 @@ public class MeniuActions {
             case "0":
                 System.exit(0);
             case "1":
-                login(scanner, userRepository);
+                login(scanner, userRepository, securityUtils);
                 break;
             case "2":
-                register(scanner, userRepository);
+                register(scanner, userRepository, securityUtils);
                 break;
         }
     }
 
-    public static void login(Scanner scanner, UserRepository userRepository) throws SQLException {
+    public static void login(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) throws SQLException {
 
         System.out.print("\nEnter username: ");
 
         String username = scanner.nextLine();
-        if (userRepository.checkIfUserAlreadyExists(username) != null) {
-            System.out.print("\nEnter password for " + username + " : ");
-            String password = scanner.nextLine();
+        if (userRepository.checkIfUserAlreadyExists(username)) {
+            int currentTry = 1;
+            int maximumRetires = 5;
 
-            if (userRepository.checkIfPasswordMatches(username, password)) {
-                Meniu.loggedInMenu(new User(
-                        username,
-                        password,
-                        userRepository.getInformationByUsername(username, UTC_USERS_TABLE_NAME),
-                        userRepository.getInformationByUsername(username, UTC_USERS_TABLE_LASTNAME),
-                        userRepository.getInformationByUsername(username, UTC_USERS_TABLE_EMAIL),
-                        userRepository.getInformationByUsername(username, UTC_USERS_TABLE_PERSONAL_CODE))
-                );
+            while (currentTry < maximumRetires) {
+                System.out.print("\nEnter password for " + username + " : ");
+                String password = scanner.nextLine();
+
+                String userDbPassword = userRepository.getInformationByUsername(username, "password");
+                String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
+
+                if (decryptedUserDbPassword.equals(password)) {
+                    Meniu.loggedInMenu(new User(
+                            username,
+                            password,
+                            userRepository.getInformationByUsername(username, UTC_USERS_TABLE_NAME),
+                            userRepository.getInformationByUsername(username, UTC_USERS_TABLE_LASTNAME),
+                            userRepository.getInformationByUsername(username, UTC_USERS_TABLE_EMAIL),
+                            userRepository.getInformationByUsername(username, UTC_USERS_TABLE_PERSONAL_CODE))
+                    );
+                } else {
+                    currentTry++;
+                    System.out.println("Failed to login , try again (" + (maximumRetires - currentTry) + ")");
+                }
             }
+
+            System.out.println("\nFailed to login, returning to main menu ...");
+            Meniu.mainMenu();
         } else {
             System.out.print("\nUsername doesn't exist, would you like to register an account? (y)");
             if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
-                registerFromSignup(scanner, userRepository, username);
+                registerFromSignup(scanner, userRepository, username, securityUtils);
             } else {
                 Meniu.mainMenu();
             }
         }
     }
 
-    public static void loginFromRegister(Scanner scanner, UserRepository userRepository, String username) throws SQLException {
+    public static void loginFromRegister(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) throws SQLException {
 
         int currentTry = 1;
-        int maximumRetires = 4;
+        int maximumRetires = 5;
 
         while (currentTry < maximumRetires) {
             System.out.print("\nEnter password for " + username + " : ");
             String password = scanner.nextLine();
 
-            if (userRepository.checkIfPasswordMatches(username, password)) {
+            String userDbPassword = userRepository.getInformationByUsername(username, "password");
+            String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
+
+            if (decryptedUserDbPassword.equals(password)) {
                 Meniu.loggedInMenu(new User(
                         username,
                         password,
@@ -81,28 +100,29 @@ public class MeniuActions {
                         userRepository.getInformationByUsername(username, UTC_USERS_TABLE_EMAIL),
                         userRepository.getInformationByUsername(username, UTC_USERS_TABLE_PERSONAL_CODE))
                 );
+            } else {
+                currentTry++;
+                System.out.println("Failed to login , try again (" + (maximumRetires - currentTry) + ")");
             }
-            currentTry++;
-            System.out.println("Failed to login , try again (" + (maximumRetires - currentTry) + ")");
         }
 
         System.out.println("\nFailed to login, returning to main menu ...");
         Meniu.mainMenu();
     }
 
-    public static void register(Scanner scanner, UserRepository userRepository) throws SQLException {
+    public static void register(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) throws SQLException {
 
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
 
-        if (userRepository.checkIfUserAlreadyExists(username) != null) {
-            
+        if (userRepository.checkIfUserAlreadyExists(username)) {
             System.out.println(username + " already exists, try to login ...");
-            loginFromRegister(scanner, userRepository, username);
+            loginFromRegister(scanner, userRepository, username, securityUtils);
         } else {
 
             System.out.print("\nEnter password: ");
             String password = scanner.nextLine();
+            String encryptedPassword = securityUtils.encrypt(password);
 
             System.out.print("\nEnter name: ");
             String name = scanner.nextLine();
@@ -121,19 +141,16 @@ public class MeniuActions {
                 throw new IllegalArgumentException("Invalid user input detected");
             }
 
-            if (userRepository.checkIfUserAlreadyExists(username) != null) {
-                System.out.println(username + " already exists, try to login ...");
-                loginFromRegister(scanner, userRepository, username);
-            }
-            userRepository.registerNewUser(username, password, name, lastname, email, personalCode);
-            Meniu.loggedInMenu(new User(username, password, name, lastname, email, personalCode));
+            userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+            Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
         }
     }
 
-    public static void registerFromSignup(Scanner scanner, UserRepository userRepository, String username) throws SQLException {
+    public static void registerFromSignup(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) throws SQLException {
 
         System.out.print("\nEnter password: ");
         String password = scanner.nextLine();
+        String encryptedPassword = securityUtils.encrypt(password);
 
         System.out.print("\nEnter name: ");
         String name = scanner.nextLine();
@@ -147,7 +164,7 @@ public class MeniuActions {
         System.out.print("\nEnter personal code: ");
         String personalCode = scanner.nextLine();
 
-        if (userRepository.checkIfUserAlreadyExists(username) != null) {
+        if (userRepository.checkIfUserAlreadyExists(username)) {
             throw new IllegalArgumentException(username + " already exists");
         }
 
@@ -156,10 +173,9 @@ public class MeniuActions {
             throw new IllegalArgumentException("Invalid user input detected");
         }
 
-        userRepository.registerNewUser(username, password, name, lastname, email, personalCode);
-        Meniu.loggedInMenu(new User(username, password, name, lastname, email, personalCode));
+        userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+        Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
     }
-
 
     public static void loggedInMenuActions(User user) throws SQLException {
 

@@ -46,4 +46,9 @@ public class SystemConstants {
 
     public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_UtilityPrices.json";
     public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES_PVM = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_PVM.json";
+
+    // security
+    public static final String AES_ALGORITHM = "AES";
+    public static final byte[] AES_KEY = "AESecurekeyconst".getBytes(); // 16 chars
+
 }

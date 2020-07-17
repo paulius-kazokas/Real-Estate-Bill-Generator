@@ -23,7 +23,7 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public String checkIfUserAlreadyExists(String username) {
+    public boolean checkIfUserAlreadyExists(String username) {
 
         if (StringUtils.isBlank(username)) {
             throw new IllegalArgumentException("Username cannot be empty or null");
@@ -31,15 +31,15 @@ public class UserRepository implements UserInterface {
 
         String query = "SELECT username FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
-            if (rs.next()) {
-                return rs.getString("username");
+            if (rs.next() && !rs.getString("username").isBlank()) {
+                return true;
             }
             databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
             LOGGER.error(e.toString());
         }
 
-        return null;
+        return false;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public boolean checkIfPasswordMatches(String username, String password) {
+    public boolean checkIfPasswordMatchesForUsername(String username, String password) {
 
         if (StringUtils.isBlank(username)) {
             throw new IllegalArgumentException("Username cannot be empty or null");

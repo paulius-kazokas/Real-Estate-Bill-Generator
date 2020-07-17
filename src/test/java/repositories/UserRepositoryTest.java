@@ -3,8 +3,6 @@ package repositories;
 import config.DatabaseConfig;
 import org.junit.jupiter.api.*;
 
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -15,14 +13,14 @@ public class UserRepositoryTest {
     UserRepository da;
 
     @BeforeAll
-    public void setup() throws SQLException {
+    public void setup() {
         DatabaseConfig dc = new DatabaseConfig();
         da = new UserRepository(dc);
         da.registerNewUser("123", "456", "test", "test", "test@test.test", "123456789");
     }
 
     @AfterAll
-    public void cleanup() throws SQLException {
+    public void cleanup() {
         da.deleteUserByUsername("123");
     }
 
@@ -33,16 +31,15 @@ public class UserRepositoryTest {
         @Order(1)
         @Test
         @DisplayName("User exists")
-        public void test1() throws SQLException {
-
-            assertEquals("123", da.checkIfUserAlreadyExists("123"));
+        public void test1() {
+            assertTrue(da.checkIfUserAlreadyExists("123"));
         }
 
         @Order(2)
         @Test
         @DisplayName("User doesn't exist")
-        public void test2() throws SQLException {
-            assertNull(null, da.checkIfUserAlreadyExists("7894123asd198FSRW16316ZZX5fa16"));
+        public void test2() {
+            assertFalse(da.checkIfUserAlreadyExists("7894123asd198FSRW16316ZZX5fa16"));
         }
 
         @Order(3)
@@ -74,36 +71,36 @@ public class UserRepositoryTest {
         @Order(5)
         @Test
         @DisplayName("Password matches")
-        public void test5() throws SQLException {
-            assertTrue(da.checkIfPasswordMatches("123", "456"));
+        public void test5() {
+            assertTrue(da.checkIfPasswordMatchesForUsername("123", "456"));
         }
 
         @Order(6)
         @Test
         @DisplayName("Password doesn't match")
-        public void test6() throws SQLException {
-            assertFalse(da.checkIfPasswordMatches("123", "123"));
+        public void test6() {
+            assertFalse(da.checkIfPasswordMatchesForUsername("123", "123"));
         }
 
         @Order(7)
         @Test
         @DisplayName("Password is empty string")
         public void test7() {
-            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", ""));
+            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatchesForUsername("123", ""));
         }
 
         @Order(8)
         @Test
         @DisplayName("Password is whitespace")
         public void test8() {
-            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", " "));
+            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatchesForUsername("123", " "));
         }
 
         @Order(8)
         @Test
         @DisplayName("Password is null")
         public void test82() {
-            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatches("123", null));
+            assertThrows(IllegalArgumentException.class, () -> da.checkIfPasswordMatchesForUsername("123", null));
         }
     }
 
@@ -114,9 +111,9 @@ public class UserRepositoryTest {
         @Order(9)
         @Test
         @DisplayName("Registering new user")
-        public void test9() throws SQLException {
-            da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
-            assertEquals("testuser", da.checkIfUserAlreadyExists("testuser"));
+        public void test9() {
+            da.registerNewUser("testuser2", "testpwd", "testname", "testlastname", "test@mail.com", "123456789");
+            assertTrue(da.checkIfUserAlreadyExists("testuser2"));
             da.deleteUserByUsername("testuser");
         }
     }
@@ -128,10 +125,10 @@ public class UserRepositoryTest {
         @Order(10)
         @Test
         @DisplayName("Deleting user")
-        public void test10() throws SQLException {
-            da.registerNewUser("testuser", "testpwd", "'testname'", "'testlastname'", "'test@mail.com'", "'123456789'");
+        public void test10() {
+            da.registerNewUser("testuser", "testpwd", "testname", "testlastname", "test@mail.com", "123456789");
             da.deleteUserByUsername("testuser");
-            assertNull(null, da.checkIfUserAlreadyExists("testuser"));
+            assertFalse(da.checkIfUserAlreadyExists("testuser"));
         }
     }
 
