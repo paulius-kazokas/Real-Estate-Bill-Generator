@@ -7,6 +7,7 @@ import entities.User;
 import entities.Utility;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.lang3.ArrayUtils;
+import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
 import repositories.UserRepository;
 import security.SecurityUtils;
@@ -208,7 +209,7 @@ public class MeniuActions {
                     System.out.println("\n" + properties);
                     break;
                 case "2":
-                    loggedInUserIndicators(scanner, pr, properties);
+                    loggedInUserIndicators(scanner, pr, properties, property, indicator);
                     break;
             }
         }
@@ -216,22 +217,44 @@ public class MeniuActions {
         Meniu.loggedInMenu(user);
     }
 
-    public static void loggedInUserIndicators(Scanner scanner, PropertyRepository pr, MultiValuedMap<String, String> properties) {
+    public static void loggedInUserIndicators
+            (Scanner scanner, PropertyRepository pr, MultiValuedMap<String, String> properties,
+             Property property, Indicator indicator) {
 
-        System.out.println("Available types:\n" + pr.getUserPropertiesCount(properties));
+        Map<Integer, String> amountUserProperties = pr.getUserPropertiesCount(properties);
+
+        System.out.println("Available types:" + amountUserProperties);
 
         System.out.println("Enter property type number: ");
         String propertyTypeInput = scanner.nextLine();
-        String propertyType = null;
+        String typeChoice = amountUserProperties.get(Integer.valueOf(propertyTypeInput));
+        Map<Integer, String> propertyAddresses = new HashMap<>();
 
         // reikia gauti entry value pagal key, jeigu sutampa priskirti propertyType ir testi
+        int addressId = 1;
+        if (properties.containsKey(typeChoice)) {
+            for (String address : properties.get(typeChoice)) {
+                propertyAddresses.put(addressId, address);
+                addressId++;
+            }
+        }
 
-//        for(MultiValuedMap.Entry<Integer, String> entry : pr.getUserPropertiesCount(properties).entrySet()) {
-//            propertyType = entry.getKey().equals(Integer.valueOf(propertyTypeInput)) ? entry.getValue() : null;
-//        }
+        System.out.println("Addresses: " + propertyAddresses);
 
-        System.out.println("propertyType:" + propertyType);
-        System.out.println(pr.getUserPropertyByType(properties, propertyType));
+        System.out.println("Choose address to visualize indicators: ");
+        String addressChoiceInput = scanner.nextLine();
+        String addressChoice = propertyAddresses.get(Integer.valueOf(addressChoiceInput));
+
+        System.out.println("addressChoice: " + addressChoice);
+
+        IndicatorRepository ir = new IndicatorRepository(new DatabaseConfig());
+
+        if (propertyAddresses.containsValue(addressChoice)) {
+
+            Map<String, String> propertyIndicators = ir.getpropertyIndicatorsByPropertyAddress(addressChoice);
+            System.out.println("Month start - " + propertyIndicators.keySet() +
+                               "\nMonth end - " + propertyIndicators.values());
+        }
 
     }
 

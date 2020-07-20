@@ -1,10 +1,8 @@
 package interfaces;
 
-import entities.Property;
-
-import java.util.List;
+import java.util.Map;
 
 public interface IndicatorInterface {
 
-    List<Property> getUserProperties(String username);
+    Map<String, String> getpropertyIndicatorsByPropertyAddress(String address);
 }
