@@ -2,20 +2,44 @@ package entities;
 
 public class Property {
 
+    private int propertyId;
+    private User user;
     private String ownderPersonalCode;
     private String type;
     private String address;
     private String numberOfRooms;
 
-    public Property(String ownderPersonalCode, String type, String address, String numberOfRooms) {
+    public Property(User user) {
+        this.user = user;
+    }
+
+    public Property(int propertyId, User user, String ownderPersonalCode, String type, String address, String numberOfRooms) {
+        this.propertyId = propertyId;
+        this.user = user;
         this.ownderPersonalCode = ownderPersonalCode;
         this.type = type;
         this.address = address;
         this.numberOfRooms = numberOfRooms;
     }
 
+    public int getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getOwnderPersonalCode() {
-        return ownderPersonalCode;
+        return user.getPersonalCode();
     }
 
     public void setOwnderPersonalCode(String ownderPersonalCode) {

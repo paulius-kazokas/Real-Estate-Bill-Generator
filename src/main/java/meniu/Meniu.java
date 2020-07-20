@@ -2,15 +2,13 @@ package meniu;
 
 import entities.User;
 
-import java.sql.SQLException;
-
 public class Meniu {
 
-    public static void init() throws SQLException {
+    public static void init() {
         mainMenu();
     }
 
-    public static void mainMenu() throws SQLException {
+    public static void mainMenu() {
         System.out.print("\nUrban Taxes System\n\n" +
                 "1.Sign up\n" +
                 "2.Register\n" +
@@ -18,10 +16,12 @@ public class Meniu {
         MeniuActions.mainMenuActions();
     }
 
-    public static void loggedInMenu(User user) throws SQLException {
-        System.out.print("Welcome, " + user.getUsername() +
-                "\n\n1.Check my properites" +
+    public static void loggedInMenu(User user) {
+        System.out.print("\n1.Check my properites" +
+                "\n2.Check my indicators" + // pagal property id listinti indicatorius
+                "\n3.Check my bills" + // printinami available saskaitos (history) - year+month
                 "\n0.Log out");
         MeniuActions.loggedInMenuActions(user);
     }
+
 }

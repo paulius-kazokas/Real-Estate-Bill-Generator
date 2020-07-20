@@ -1,21 +1,24 @@
 package meniu;
 
 import config.DatabaseConfig;
+import entities.Indicator;
+import entities.Property;
 import entities.User;
+import entities.Utility;
+import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.lang3.ArrayUtils;
 import repositories.PropertyRepository;
 import repositories.UserRepository;
 import security.SecurityUtils;
 import utility.InputVadility;
 
-import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.*;
 
 import static config.SystemConstants.*;
 
 public class MeniuActions {
 
-    public static void mainMenuActions() throws SQLException {
+    public static void mainMenuActions() {
 
         SecurityUtils securityUtils = new SecurityUtils();
         UserRepository userRepository = new UserRepository(new DatabaseConfig());
@@ -36,7 +39,7 @@ public class MeniuActions {
         }
     }
 
-    public static void login(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) throws SQLException {
+    public static void login(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) {
 
         System.out.print("\nEnter username: ");
 
@@ -53,6 +56,7 @@ public class MeniuActions {
                 String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
 
                 if (decryptedUserDbPassword.equals(password)) {
+                    System.out.print("\n(logged in as '" + username + "')");
                     Meniu.loggedInMenu(new User(
                             username,
                             password,
@@ -79,7 +83,7 @@ public class MeniuActions {
         }
     }
 
-    public static void loginFromRegister(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) throws SQLException {
+    public static void loginFromRegister(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) {
 
         int currentTry = 1;
         int maximumRetires = 5;
@@ -92,6 +96,7 @@ public class MeniuActions {
             String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
 
             if (decryptedUserDbPassword.equals(password)) {
+                System.out.print("\n(logged in as '" + username + "')");
                 Meniu.loggedInMenu(new User(
                         username,
                         password,
@@ -110,7 +115,7 @@ public class MeniuActions {
         Meniu.mainMenu();
     }
 
-    public static void register(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) throws SQLException {
+    public static void register(Scanner scanner, UserRepository userRepository, SecurityUtils securityUtils) {
 
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
@@ -142,11 +147,12 @@ public class MeniuActions {
             }
 
             userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+            System.out.print("\n(logged in as '" + username + "')");
             Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
         }
     }
 
-    public static void registerFromSignup(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) throws SQLException {
+    public static void registerFromSignup(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) {
 
         System.out.print("\nEnter password: ");
         String password = scanner.nextLine();
@@ -174,26 +180,59 @@ public class MeniuActions {
         }
 
         userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+        System.out.print("\n(logged in as '" + username + "')");
         Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
     }
 
-    public static void loggedInMenuActions(User user) throws SQLException {
-
-        PropertyRepository pr = new PropertyRepository(new DatabaseConfig());
+    public static void loggedInMenuActions(User user) {
 
         Scanner scanner = new Scanner(System.in);
+
+        Utility utility = new Utility();
+        Property property = new Property(user);
+        Indicator indicator = new Indicator(property, utility);
+        PropertyRepository pr = new PropertyRepository(new DatabaseConfig());
 
         System.out.print("\nChoice: ");
         String choice = scanner.nextLine();
 
-        switch (choice) {
-            case "0":
-                Meniu.mainMenu();
-            case "1":
-                System.out.println(pr.getUserProperties(user.getPersonalCode()));
-                break;
+        MultiValuedMap<String, String> properties = pr.getUserProperties(property.getOwnderPersonalCode());
+
+        if (pr.userHasProperties(properties)) {
+
+            switch (choice) {
+
+                case "0":
+                    Meniu.mainMenu();
+                case "1":
+                    System.out.println("\n" + properties);
+                    break;
+                case "2":
+                    loggedInUserIndicators(scanner, pr, properties);
+                    break;
+            }
         }
-        MeniuActions.loggedInMenuActions(user);
+
+        Meniu.loggedInMenu(user);
+    }
+
+    public static void loggedInUserIndicators(Scanner scanner, PropertyRepository pr, MultiValuedMap<String, String> properties) {
+
+        System.out.println("Available types:\n" + pr.getUserPropertiesCount(properties));
+
+        System.out.println("Enter property type number: ");
+        String propertyTypeInput = scanner.nextLine();
+        String propertyType = null;
+
+        // reikia gauti entry value pagal key, jeigu sutampa priskirti propertyType ir testi
+
+//        for(MultiValuedMap.Entry<Integer, String> entry : pr.getUserPropertiesCount(properties).entrySet()) {
+//            propertyType = entry.getKey().equals(Integer.valueOf(propertyTypeInput)) ? entry.getValue() : null;
+//        }
+
+        System.out.println("propertyType:" + propertyType);
+        System.out.println(pr.getUserPropertyByType(properties, propertyType));
+
     }
 
 }

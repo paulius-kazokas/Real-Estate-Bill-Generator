@@ -16,6 +16,12 @@ public class SystemConstants {
     public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UTC_DATETIME_FORMATER));
 
     // Database specifics
+
+    public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/utc?useSSL=true";
+    public static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
+    public static final String MYSQL_USER = "root";
+    public static final String MYSQL_PASSWORD = "root";
+
     public static final String UTC_USERS_TABLE = "utc.user";
 
     // user

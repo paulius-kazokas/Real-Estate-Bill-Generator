@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.*;
 
 import static config.SystemConstants.*;
@@ -79,13 +78,10 @@ public class DataGenerator {
         }
     } // date?
 
-    public void readUserMonthlyBillReport(String username) {} // TODO
-
     // vartotojo menesiniu paslaugu reportas
-    public void generateUserMonthlyBillReport(String username) throws SQLException { // date?
+    public void generateUserMonthlyBillReport(String username) { // date?
 
         RandomGeneratorUtility rg = new RandomGeneratorUtility();
-        DatabaseConfig dc = new DatabaseConfig();
         UserRepository da = new UserRepository(dc);
 
         String userBillName = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + username + ".json";
@@ -109,7 +105,7 @@ public class DataGenerator {
             int randomAmount = rg.randomIndicatorGenerator();
             uJSON.put("indicators", randomAmount);
 
-            String utilityTotalWithoutPVM = UTC_DECIMAL_FORMATER.format(((getUtilityUnitPrice(utility, UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES) * randomAmount) ));
+            String utilityTotalWithoutPVM = UTC_DECIMAL_FORMATER.format((getUtilityUnitPrice(utility, UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES) * randomAmount) );
             uJSON.put("utility_total_without_pvm", utilityTotalWithoutPVM);
 
             String utilityPVMPrice = UTC_DECIMAL_FORMATER.format(Double.parseDouble(utilityTotalWithoutPVM) - (Double.parseDouble(utilityTotalWithoutPVM) * utilityPVM));
