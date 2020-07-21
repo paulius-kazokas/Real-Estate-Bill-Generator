@@ -243,6 +243,8 @@ public class MeniuActions {
                 }
             }
 
+            System.out.println("\nAddresses: " + propertyAddresses);
+
             System.out.println("\nChoose address to visualize indicators: ");
             String addressChoiceInput = scanner.nextLine();
             String addressChoice = propertyAddresses.get(Integer.valueOf(addressChoiceInput));
