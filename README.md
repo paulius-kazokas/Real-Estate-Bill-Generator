@@ -2,47 +2,49 @@ Jul 21, 2020:
 
 Goals:
 
-1. Fetch data for rolling month yyyy-MM before user actions (Main.class).
+    1. Fetch data for rolling month yyyy-MM before user actions (Main.class).
 
-2. Add extra logic with indicators by using utility name (might be good as is, but double check).
+    2. Add extra logic with indicators by using utility name (might be good as is, but double check).
 
-3. Bill entity, interface, repository. Connections with user, bill, utility entities.
+    3. Bill entity, interface, repository. Connections with user, bill, utility entities.
 
-4. Add bill to loggedInMenuActions case 3.
+    4. Add bill to loggedInMenuActions case 3.
 
-5. Get back to DataGenerator.class logic.
+    5. Get back to DataGenerator.class logic.
 
-6. Add user info to loggedInMenuActions case 4.
+    6. Add user info to loggedInMenuActions case 4.
 
-7. Add user bank balance (so it could actually pay the bill).
+    7. Add user bank balance (so it could actually pay the bill).
 
     ...
    
-n-?. Separate utility prices for different citites.
+    n-?. Separate utility prices for different citites.
+    
+    ...
 
-(admin)
+    (admin)
 
-n-1. Add role system to separate admin and regular users (will need to add extra collumns into the db).
+    n-1. Add role system to separate admin and regular users (will need to add extra collumns into the db).
 
-n. Add very rough constant numbers for how many people can live in one building type building.
-(each building is individual: privatus namas, butas 5aukstai, butas 9aukstai, butas 13aukstu ...).
+    n. Add very rough constant numbers for how many people can live in one building type building.
+    (each building is individual: privatus namas, butas 5aukstai, butas 9aukstai, butas 13aukstu ...).
 
-n+1. Count same persons with current active address (to calculate members of building).
+    n+1. Count same persons with current active address (to calculate members of building).
 
-n+2. Calculate how many buildings city regions contains.
+    n+2. Calculate how many buildings city regions contains.
 
-n+3. Calculate how many regions city has (strict city region structure).
+    n+3. Calculate how many regions city has (strict city region structure).
 
-n+4. Calculate how many cities in country has.
+    n+4. Calculate how many cities in country has.
 
-n+5. Generate rough country sleeping city regions utility monthly report.
+    n+5. Generate rough country sleeping city regions utility monthly report.
 
 
 Jul 10, 2020:
 
-1. Generates a interfaces monthly bill.
-2. Generates Utility PVM monthly price report.
-3. Generates Utility Unit monthly price report.
+    1. Generates a interfaces monthly bill.
+    2. Generates Utility PVM monthly price report.
+    3. Generates Utility Unit monthly price report.
 
 
 
