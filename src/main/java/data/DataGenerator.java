@@ -1,11 +1,11 @@
 package data;
 
 import config.DatabaseConfig;
-import repositories.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import repositories.UserRepository;
 import utility.FileUtility;
 import utility.RandomGeneratorUtility;
 
@@ -14,7 +14,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static config.SystemConstants.*;
 
@@ -30,6 +33,8 @@ public class DataGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataGenerator.class);
 
+
+    // TODO: perdaryti
     // menesiniu paslaugu rodikliu reportas
     public void generateUtilitiesUnitPriceReport() {
 
@@ -105,7 +110,7 @@ public class DataGenerator {
             int randomAmount = rg.randomIndicatorGenerator();
             uJSON.put("indicators", randomAmount);
 
-            String utilityTotalWithoutPVM = UTC_DECIMAL_FORMATER.format((getUtilityUnitPrice(utility, UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES) * randomAmount) );
+            String utilityTotalWithoutPVM = UTC_DECIMAL_FORMATER.format((getUtilityUnitPrice(utility, UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES) * randomAmount));
             uJSON.put("utility_total_without_pvm", utilityTotalWithoutPVM);
 
             String utilityPVMPrice = UTC_DECIMAL_FORMATER.format(Double.parseDouble(utilityTotalWithoutPVM) - (Double.parseDouble(utilityTotalWithoutPVM) * utilityPVM));

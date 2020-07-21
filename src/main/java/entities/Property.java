@@ -7,19 +7,9 @@ public class Property {
     private String ownderPersonalCode;
     private String type;
     private String address;
-    private String numberOfRooms;
 
     public Property(User user) {
         this.user = user;
-    }
-
-    public Property(int propertyId, User user, String ownderPersonalCode, String type, String address, String numberOfRooms) {
-        this.propertyId = propertyId;
-        this.user = user;
-        this.ownderPersonalCode = ownderPersonalCode;
-        this.type = type;
-        this.address = address;
-        this.numberOfRooms = numberOfRooms;
     }
 
     public int getPropertyId() {
@@ -28,14 +18,6 @@ public class Property {
 
     public void setPropertyId(int propertyId) {
         this.propertyId = propertyId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getOwnderPersonalCode() {
@@ -62,21 +44,13 @@ public class Property {
         this.address = address;
     }
 
-    public String getNumberOfRooms() {
-        return numberOfRooms;
-    }
-
-    public void setNumberOfRooms(String numberOfRooms) {
-        this.numberOfRooms = numberOfRooms;
-    }
-
     @Override
     public String toString() {
         return "Property{" +
-                "ownderPersonalCode='" + ownderPersonalCode + '\'' +
+                "propertyId=" + propertyId +
+                ", ownderPersonalCode='" + ownderPersonalCode + '\'' +
                 ", type='" + type + '\'' +
                 ", address='" + address + '\'' +
-                ", numberOfRooms='" + numberOfRooms + '\'' +
                 '}';
     }
 }

@@ -30,11 +30,11 @@ public class UserRepository implements UserInterface {
         }
 
         String query = "SELECT username FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
+
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
             if (rs.next() && !rs.getString("username").isBlank()) {
                 return true;
             }
-            databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
             LOGGER.error(e.toString());
         }
@@ -46,6 +46,7 @@ public class UserRepository implements UserInterface {
     public String getInformationByUsername(String username, String criteria) {
 
         String query = "SELECT " + criteria + " FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
+
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
             if (rs.next()) {
                 return rs.getString(criteria);
@@ -76,7 +77,7 @@ public class UserRepository implements UserInterface {
             }
             databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
         return false;
@@ -99,7 +100,7 @@ public class UserRepository implements UserInterface {
 
             databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
     }
 
@@ -111,7 +112,7 @@ public class UserRepository implements UserInterface {
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
     }
 
@@ -125,9 +126,8 @@ public class UserRepository implements UserInterface {
             if (resultSet.next()) {
                 return resultSet.getString("personalcode");
             }
-            databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
         return null;

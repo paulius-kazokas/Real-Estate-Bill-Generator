@@ -2,7 +2,6 @@ package interfaces;
 
 import org.apache.commons.collections4.MultiValuedMap;
 
-import java.util.List;
 import java.util.Map;
 
 public interface PropertyInterface {
@@ -13,5 +12,5 @@ public interface PropertyInterface {
 
     Map<Integer, String> getUserPropertiesCount(MultiValuedMap<String, String> properties);
 
-    List<String> getUserPropertyByType(MultiValuedMap<String, String> allPropertyAddresses, String type);
+    Integer getPropertyIdByPropertyAddress(String address);
 }

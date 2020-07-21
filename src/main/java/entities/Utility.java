@@ -4,7 +4,8 @@ public class Utility {
 
     private String utilityName;
 
-    public Utility() {}
+    public Utility() {
+    }
 
     public Utility(String utilityName) {
         this.utilityName = utilityName;
@@ -12,10 +13,6 @@ public class Utility {
 
     public String getUtilityName() {
         return utilityName;
-    }
-
-    public void setUtilityName(String utilityName) {
-        this.utilityName = utilityName;
     }
 
     @Override

@@ -2,6 +2,8 @@ package repositories;
 
 import config.DatabaseConfig;
 import interfaces.IndicatorInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,49 +13,56 @@ import java.util.Map;
 
 public class IndicatorRepository implements IndicatorInterface {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorRepository.class);
+
     DatabaseConfig databaseConfig;
 
     public IndicatorRepository(DatabaseConfig databaseConfig) {
         this.databaseConfig = databaseConfig;
     }
 
-    // TODO: principle works, but REDO to more efficient way of getting indicators (hint: one query would be great)
     @Override
-    public Map<String, String> getpropertyIndicatorsByPropertyAddress(String address) {
+    public Integer getIndicatorIdByPropertyId(Integer propertyId) {
 
-        String queryAddressId = "SELECT id FROM utc.property WHERE address ='" + address + "'";
-        Integer addressId = null;
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement(); ResultSet resultSet = statement.executeQuery(queryAddressId)) {
-            while (resultSet.next()) {
-                addressId = resultSet.getInt("id");
+        String queryIndicatorsId = "SELECT id FROM utc.indicator WHERE property_id = " + propertyId;
+
+        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
+             ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
             }
-            databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
-        String queryIndicatorsId = "SELECT id FROM utc.indicator WHERE property_id = " + addressId;
-        Integer indicatorId = null;
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement(); ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
-            while (resultSet.next()) {
-                indicatorId = resultSet.getInt("id");
-            }
-            databaseConfig.connectionToDatabase().close();
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
+        return null;
+    }
+
+    @Override
+    public Map<Integer, String> getIndicatorsMonthStartEndAmountByIndicatorId(Integer indicatorId) {
 
         String queryIndicators = "SELECT month_start_amount, month_end_amount FROM utc.indicator WHERE id =" + indicatorId;
-        Map<String, String> indicators = new HashMap<>();
+
+        Map<Integer, String> indicators = new HashMap<>();
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement(); ResultSet resultSet = statement.executeQuery(queryIndicators)) {
-            while (resultSet.next()) {
-                indicators.put(resultSet.getString("month_start_amount"), resultSet.getString("month_end_amount"));
+            if (resultSet.next()) {
+                indicators.put(indicatorId, resultSet.getString("month_start_amount") + "," + resultSet.getString("month_end_amount"));
             }
-            databaseConfig.connectionToDatabase().close();
+            return indicators;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
-        return indicators;
+        return null;
     }
+
+    @Override
+    public Map<Integer, String> getPropertyIndicatorsByPropertyAddress(PropertyRepository pr, String address) {
+
+        Integer propertyId = pr.getPropertyIdByPropertyAddress(address);
+        Integer indicatorId = getIndicatorIdByPropertyId(propertyId);
+
+        return getIndicatorsMonthStartEndAmountByIndicatorId(indicatorId);
+    }
+
 }

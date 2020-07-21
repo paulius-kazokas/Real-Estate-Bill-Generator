@@ -18,7 +18,6 @@ import static config.SystemConstants.AES_KEY;
 
 public class SecurityUtils {
 
-    private static final String WATERMARK = "[SecurityUtils]";
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUtils.class);
 
     public String encrypt(String data) {
@@ -37,7 +36,7 @@ public class SecurityUtils {
 
             return new String(encryptedByteValue);
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
-            LOGGER.error(String.format("%s - %s", WATERMARK, e));
+            LOGGER.error(String.format("%s", e));
         }
 
         return null;
@@ -59,7 +58,7 @@ public class SecurityUtils {
 
             return new String(decrypted);
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
-            LOGGER.error(String.format("%s - %s", WATERMARK, e));
+            LOGGER.error(String.format("%s", e));
         }
 
         return null;
