@@ -52,7 +52,7 @@ public class IndicatorRepository implements IndicatorInterface {
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
             while (resultSet.next()) {
-                monthStartEndAmounts.add(resultSet.getString("month_start_amount") + "," + resultSet.getString("month_end_amount"));
+                monthStartEndAmounts.add(resultSet.getString("month_start_amount") + "-" + resultSet.getString("month_end_amount"));
             }
             return monthStartEndAmounts;
         } catch (SQLException e) {

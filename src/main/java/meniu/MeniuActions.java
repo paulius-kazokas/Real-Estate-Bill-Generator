@@ -199,7 +199,7 @@ public class MeniuActions {
         IndicatorRepository ir = new IndicatorRepository(dc);
         UtilityRepository ur = new UtilityRepository(dc);
 
-        MultiValuedMap<String, String> userProperties = userProperties(pr, property);
+        MultiValuedMap<String, String> userProperties = userProperties(pr, property.getOwnderPersonalCode());
 
         if (userProperties != null) {
             System.out.print("\nChoice: ");
@@ -207,9 +207,10 @@ public class MeniuActions {
 
             switch (choice) {
                 case "0":
+                    System.out.println("\nlogged out..");
                     Meniu.mainMenu();
                 case "1":
-                    System.out.println("\n" + userProperties);
+                    loggedInUserProperties(userProperties);
                     break;
                 case "2":
                     loggedInUserIndicators(scanner, ur, pr, ir, userProperties);
@@ -218,7 +219,7 @@ public class MeniuActions {
                     loggedInUserBillActions();
                     break;
                 case "4":
-                    System.out.println(user.toString());
+                    loggedInUserAccountInformation(user);
                     break;
             }
         } else {
@@ -228,9 +229,16 @@ public class MeniuActions {
         Meniu.loggedInMenu(user);
     }
 
-    public static MultiValuedMap<String, String> userProperties(PropertyRepository pr, Property property) {
-        MultiValuedMap<String, String> properties = pr.getUserProperties(property.getOwnderPersonalCode());
+    public static MultiValuedMap<String, String> userProperties(PropertyRepository pr, String ownerPersonalCode) {
+        MultiValuedMap<String, String> properties = pr.getUserProperties(ownerPersonalCode);
         return pr.userHasProperties(properties) ? properties : null;
+    }
+
+    public static void loggedInUserProperties(MultiValuedMap<String, String> userProperties) {
+        System.out.println("\nProperties:\n");
+        for(Map.Entry<String, String> entry : userProperties.entries()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 
     public static void loggedInUserIndicators(Scanner scanner, UtilityRepository ur, PropertyRepository pr, IndicatorRepository ir, MultiValuedMap<String, String> userProperties) {
@@ -238,8 +246,11 @@ public class MeniuActions {
         // veikia bet reikia perdaryti.. I think.. stuck
 
         // atvaizduojami properties tipai
+        System.out.println("\nProperties:");
         Map<Integer, String> userPropertyTypes = pr.getUserPropertiesCount(userProperties);
-        System.out.println("\nAvailable property types:\n" + userPropertyTypes);
+        for(Map.Entry<Integer, String> entry : userPropertyTypes.entrySet()) {
+            System.out.println(entry.getKey() + ". " + entry.getValue());
+        }
 
         System.out.print("\nSelect available property type: ");
         String propertyTypeChoice = scanner.nextLine();
@@ -269,12 +280,12 @@ public class MeniuActions {
         // gauti utility name pagal indicatorid
 
         // atvaizduojami visi indicatoriai
-        System.out.println("\nIndicators for " + address + ":\n");
+        System.out.println("\nIndicators for " + address + ":");
         List<Integer> indicatorIds = ir.getIndicatorIdsByPropertyId(propertyId);
         for (int indicatorId : indicatorIds) {
             int utilityId = ir.getUtilityIdByIndicatorId(indicatorId);
             String utilityName = ur.getUtilityNameByUtilityId(utilityId);
-            System.out.println(utilityName + " - " + ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId));
+            ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println("* " + utilityName + ": " +amount));
         }
     }
 
@@ -282,4 +293,10 @@ public class MeniuActions {
         System.out.println("to be implemented");
     }
 
+    public static void loggedInUserAccountInformation(User user) {
+
+        System.out.println("\nName: " + user.getName() +
+                "\nLast name: " + user.getLastname() +
+                "\nPersonal Code: " + user.getPersonalCode());
+    }
 }
