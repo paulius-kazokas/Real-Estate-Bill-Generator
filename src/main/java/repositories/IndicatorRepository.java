@@ -8,8 +8,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class IndicatorRepository implements IndicatorInterface {
 
@@ -22,47 +23,60 @@ public class IndicatorRepository implements IndicatorInterface {
     }
 
     @Override
-    public Integer getIndicatorIdByPropertyId(Integer propertyId) {
+    public List<Integer> getIndicatorIdsByPropertyId(Integer propertyId) {
+
+        List<Integer> indicators = new ArrayList<>();
 
         String queryIndicatorsId = "SELECT id FROM utc.indicator WHERE property_id = " + propertyId;
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
-            if (resultSet.next()) {
-                return resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
-        }
-
-        return null;
-    }
-
-    @Override
-    public Map<Integer, String> getIndicatorsMonthStartEndAmountByIndicatorId(Integer indicatorId) {
-
-        String queryIndicators = "SELECT month_start_amount, month_end_amount FROM utc.indicator WHERE id =" + indicatorId;
-
-        Map<Integer, String> indicators = new HashMap<>();
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement(); ResultSet resultSet = statement.executeQuery(queryIndicators)) {
-            if (resultSet.next()) {
-                indicators.put(indicatorId, resultSet.getString("month_start_amount") + "," + resultSet.getString("month_end_amount"));
+            while (resultSet.next()) {
+                indicators.add(resultSet.getInt("id"));
             }
             return indicators;
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
-    public Map<Integer, String> getPropertyIndicatorsByPropertyAddress(PropertyRepository pr, String address) {
+    public List<String> getIndicatorMonthStartEndAmountsByIndicatorId(int indicatorId) {
 
-        Integer propertyId = pr.getPropertyIdByPropertyAddress(address);
-        Integer indicatorId = getIndicatorIdByPropertyId(propertyId);
+        List<String> monthStartEndAmounts = new ArrayList<>();
 
-        return getIndicatorsMonthStartEndAmountByIndicatorId(indicatorId);
+        String queryIndicatorsId = "SELECT month_start_amount, month_end_amount FROM utc.indicator WHERE id = " + indicatorId;
+
+        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
+             ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
+            while (resultSet.next()) {
+                monthStartEndAmounts.add(resultSet.getString("month_start_amount") + "," + resultSet.getString("month_end_amount"));
+            }
+            return monthStartEndAmounts;
+        } catch (SQLException e) {
+            LOGGER.error(String.format("%s", e));
+        }
+
+        return Collections.emptyList();
     }
 
+    @Override
+    public Integer getUtilityIdByIndicatorId(Integer indicatorId) {
+
+
+        String queryUtilityId = "SELECT utility_id FROM utc.indicator WHERE id = " + indicatorId;
+
+        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
+             ResultSet resultSet = statement.executeQuery(queryUtilityId)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("utility_id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+
+        return null;
+    }
 }

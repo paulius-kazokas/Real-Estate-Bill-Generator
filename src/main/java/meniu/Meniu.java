@@ -19,7 +19,8 @@ public class Meniu {
     public static void loggedInMenu(User user) {
         System.out.print("\n1.Check my properites" +
                 "\n2.Check my indicators" +
-                "\n3.Check my bills" + // printinami available saskaitos (history) - year+month
+                "\n3.Check my bills" +
+                "\n4.Check my account info" +
                 "\n0.Log out");
         MeniuActions.loggedInMenuActions(user);
     }

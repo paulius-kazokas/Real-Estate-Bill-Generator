@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class PropertyRepository implements PropertyInterface {
 
@@ -74,10 +71,10 @@ public class PropertyRepository implements PropertyInterface {
     @Override
     public Integer getPropertyIdByPropertyAddress(String address) {
 
-        String queryAddressId = "SELECT id FROM utc.property WHERE address ='" + address + "'";
+        String query = "SELECT id FROM utc.property WHERE address ='" + address + "'";
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(queryAddressId)) {
+             ResultSet resultSet = statement.executeQuery(query)) {
             if (resultSet.next()) {
                 return resultSet.getInt("id");
             }
@@ -88,4 +85,23 @@ public class PropertyRepository implements PropertyInterface {
         return null;
     }
 
+    @Override
+    public List<String> getProprtyAddressByPropertyType(String propertyType) {
+
+        List<String> addresses = new ArrayList<>();
+
+        String query = "SELECT address FROM utc.property WHERE type = '" + propertyType + "'";
+
+        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                addresses.add(resultSet.getString("address"));
+            }
+            return addresses;
+        } catch (SQLException e) {
+            LOGGER.error(e.toString());
+        }
+
+        return Collections.emptyList();
+    }
 }

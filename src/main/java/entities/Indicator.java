@@ -5,23 +5,15 @@ public class Indicator {
     private Property property;
     private Utility utility;
 
+    private int utilityId;
     private int propertyId;
-    private String utilityType;
+
     private int monthStartAmount;
     private int monthEndAmount;
 
-    public Indicator(Property property, Utility utility) {
-        this.property = property;
+    public Indicator(Utility utility, Property property) {
         this.utility = utility;
-    }
-
-    public Indicator(Property property, Utility utility, int propertyId, String utilityType, int monthStartAmount, int monthEndAmount) {
         this.property = property;
-        this.utility = utility;
-        this.propertyId = propertyId;
-        this.utilityType = utilityType;
-        this.monthStartAmount = monthStartAmount;
-        this.monthEndAmount = monthEndAmount;
     }
 
     public Property getProperty() {
@@ -40,20 +32,20 @@ public class Indicator {
         this.utility = utility;
     }
 
+    public int getUtilityId() {
+        return utility.getUtilityId();
+    }
+
+    public void setUtilityId(int utilityId) {
+        this.utilityId = utilityId;
+    }
+
     public int getPropertyId() {
         return property.getPropertyId();
     }
 
     public void setPropertyId(int propertyId) {
         property.setPropertyId(propertyId);
-    }
-
-    public String getUtilityType() {
-        return utility.getUtilityName();
-    }
-
-    public void setUtilityType(String utilityType) {
-        this.utilityType = utilityType;
     }
 
     public int getMonthStartAmount() {
@@ -77,8 +69,8 @@ public class Indicator {
         return "Indicator{" +
                 "property=" + property +
                 ", utility=" + utility +
+                ", utilityId=" + utilityId +
                 ", propertyId=" + propertyId +
-                ", utilityType='" + utilityType + '\'' +
                 ", monthStartAmount=" + monthStartAmount +
                 ", monthEndAmount=" + monthEndAmount +
                 '}';
