@@ -198,9 +198,10 @@ public class MeniuActions {
         IndicatorRepository ir = new IndicatorRepository(dc);
         UtilityRepository ur = new UtilityRepository(dc);
 
-        MultiValuedMap<String, String> userProperties = userProperties(pr, property.getOwnderPersonalCode());
+        //MultiValuedMap<String, String> userProperties = userProperties(pr, property.getOwnderPersonalCode()); // properties
+        List<Property> properties = pr.getUserProperties(user);
 
-        if (userProperties != null) {
+        if (properties != null) {
             System.out.print("\nChoice: ");
             String choice = scanner.nextLine();
 
@@ -209,10 +210,10 @@ public class MeniuActions {
                     System.out.println("\nlogged out..");
                     Meniu.mainMenu();
                 case "1":
-                    loggedInUserProperties(userProperties);
+                    properties.forEach(System.out::println);
                     break;
                 case "2":
-                    loggedInUserIndicators(scanner, ur, pr, ir, userProperties);
+                    //loggedInUserIndicators(scanner, ur, pr, ir, userProperties);
                     break;
                 case "3":
                     loggedInUserBillActions();
@@ -228,14 +229,9 @@ public class MeniuActions {
         Meniu.loggedInMenu(user);
     }
 
-    public static MultiValuedMap<String, String> userProperties(PropertyRepository pr, String ownerPersonalCode) {
-        MultiValuedMap<String, String> properties = pr.getUserProperties(ownerPersonalCode);
-        return pr.userHasProperties(properties) ? properties : null;
-    }
-
     public static void loggedInUserProperties(MultiValuedMap<String, String> userProperties) {
         System.out.println("\nProperties:\n");
-        for(Map.Entry<String, String> entry : userProperties.entries()) {
+        for (Map.Entry<String, String> entry : userProperties.entries()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
     }
@@ -247,7 +243,7 @@ public class MeniuActions {
         // atvaizduojami properties tipai
         System.out.println("\nProperties:");
         Map<Integer, String> userPropertyTypes = pr.getUserPropertiesCount(userProperties);
-        for(Map.Entry<Integer, String> entry : userPropertyTypes.entrySet()) {
+        for (Map.Entry<Integer, String> entry : userPropertyTypes.entrySet()) {
             System.out.println(entry.getKey() + ". " + entry.getValue());
         }
 
@@ -284,7 +280,7 @@ public class MeniuActions {
         for (int indicatorId : indicatorIds) {
             int utilityId = ir.getUtilityIdByIndicatorId(indicatorId);
             String utilityName = ur.getUtilityNameByUtilityId(utilityId);
-            ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println("* " + utilityName + ": " +amount));
+            ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println("* " + utilityName + ": " + amount));
         }
     }
 

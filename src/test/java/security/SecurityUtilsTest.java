@@ -18,21 +18,15 @@ public class SecurityUtilsTest {
 
     @Order(1)
     @Test
-    @DisplayName("Successfull data encryption/decryption")
+    @DisplayName("Successful data hashing")
     public void test1() {
 
         String testData = "test1";
 
-        // encryption
+        // hashing
         String encryptedValue = su.sha512Hash("test1");
-        System.out.println(encryptedValue);
         assertFalse(encryptedValue.isBlank());
-        assertEquals(24, encryptedValue.length());
-
-        // decryption
-        String decryptedValue = su.decrypt(encryptedValue);
-        assertFalse(decryptedValue.isBlank());
-        assertEquals(testData.length(), decryptedValue.length());
+        assertEquals(128, encryptedValue.length());
     }
 
 }

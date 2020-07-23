@@ -1,10 +1,10 @@
 package repositories;
 
 import config.DatabaseConfig;
+import entities.Property;
+import entities.User;
 import interfaces.PropertyInterface;
-import org.apache.commons.collections4.MultiMapUtils;
 import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,18 +24,25 @@ public class PropertyRepository implements PropertyInterface {
     }
 
     @Override
-    public MultiValuedMap<String, String> getUserProperties(String userPersonalCode) {
+    public List<Property> getUserProperties(User user) {
 
-        MultiValuedMap<String, String> properties = new ArrayListValuedHashMap<>();
+        List<Property> properties = new ArrayList<>();
 
-        String query = "SELECT type, address FROM utc.property WHERE ownderPersonalCode = '" + userPersonalCode + "'";
+        String query = "SELECT id, type, address FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "'";
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                properties.put(resultSet.getString("type"), resultSet.getString("address"));
+                Property property = new Property(user);
+                property.setPropertyId(resultSet.getInt("id"));
+                property.setOwnderPersonalCode(user.getPersonalCode());
+                property.setType(resultSet.getString("type"));
+                property.setAddress(resultSet.getString("address"));
+
+                properties.add(property);
             }
-            return properties;
+
+            return !properties.isEmpty() ? properties : null;
         } catch (SQLException e) {
             LOGGER.error(e.toString());
         }
@@ -44,8 +51,8 @@ public class PropertyRepository implements PropertyInterface {
     }
 
     @Override
-    public boolean userHasProperties(MultiValuedMap<String, String> properties) {
-        return !MultiMapUtils.isEmpty(properties);
+    public boolean userHasProperties(List<Property> properties) {
+        return properties.size() != 0;
     }
 
     @Override

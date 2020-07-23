@@ -7,10 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/SecurityUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" afterDir="false" />
     </list>
@@ -108,21 +109,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecurityUtilsTest$Encrypt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="security" />
-      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest$Encrypt" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SecurityUtilsTest$Encrypt.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
@@ -170,20 +156,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SecurityUtilsTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="security" />
+      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.SecurityUtilsTest" />
-      <item itemvalue="JUnit.SecurityUtilsTest$Encrypt" />
       <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test1" />
       <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test2" />
+      <item itemvalue="JUnit.SecurityUtilsTest.test1" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.SecurityUtilsTest.test1" />
         <item itemvalue="JUnit.SecurityUtilsTest" />
         <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test2" />
         <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test1" />
-        <item itemvalue="JUnit.SecurityUtilsTest$Encrypt" />
       </list>
     </recent_temporary>
   </component>
@@ -234,7 +236,7 @@
       <workItem from="1595424417391" duration="4000" />
       <workItem from="1595424455058" duration="419000" />
       <workItem from="1595425749774" duration="119000" />
-      <workItem from="1595504337943" duration="1659000" />
+      <workItem from="1595504337943" duration="4212000" />
     </task>
     <servers />
   </component>
@@ -254,10 +256,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="181" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1593072432851" />
-    <state x="552" y="181" key="#SQL_Dialects" timestamp="1592481019641">
+    <state x="552" y="181" key="#SQL_Dialects" timestamp="1595507770492">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="181" key="#SQL_Dialects/0.0.1920.1040@0.0.1920.1040" timestamp="1592481019641" />
+    <state x="552" y="181" key="#SQL_Dialects/0.0.1920.1040@0.0.1920.1040" timestamp="1595507770492" />
     <state x="552" y="181" key="#SQL_Resolution_Scopes" timestamp="1592481167671">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -274,10 +276,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="474" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592473261479" />
-    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1595324790021">
+    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1595508060208">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1595324790021" />
+    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1595508060208" />
     <state x="768" y="318" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1595424628252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -322,22 +324,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1877" height="556" key="GridCell.Tab.0.bottom" timestamp="1595505892343">
+    <state width="1877" height="408" key="GridCell.Tab.0.bottom" timestamp="1595509099478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="556" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595505892343" />
-    <state width="1877" height="556" key="GridCell.Tab.0.center" timestamp="1595505892343">
+    <state width="1877" height="408" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
+    <state width="1877" height="408" key="GridCell.Tab.0.center" timestamp="1595509099478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="556" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595505892343" />
-    <state width="1877" height="556" key="GridCell.Tab.0.left" timestamp="1595505892343">
+    <state width="1877" height="408" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
+    <state width="1877" height="408" key="GridCell.Tab.0.left" timestamp="1595509099478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="556" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595505892343" />
-    <state width="1877" height="556" key="GridCell.Tab.0.right" timestamp="1595505892343">
+    <state width="1877" height="408" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
+    <state width="1877" height="408" key="GridCell.Tab.0.right" timestamp="1595509099478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="556" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595505892343" />
+    <state width="1877" height="408" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.bottom" timestamp="1595280899323">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -398,10 +400,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="342" y="224" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1594727774497" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1595280513035">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1595507652018">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1595280513035" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1595507652018" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595014937690">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -12,6 +12,14 @@ public class Property {
         this.user = user;
     }
 
+    public Property(int propertyId, User user, String ownderPersonalCode, String type, String address) {
+        this.propertyId = propertyId;
+        this.user = user;
+        this.ownderPersonalCode = ownderPersonalCode;
+        this.type = type;
+        this.address = address;
+    }
+
     public int getPropertyId() {
         return propertyId;
     }
