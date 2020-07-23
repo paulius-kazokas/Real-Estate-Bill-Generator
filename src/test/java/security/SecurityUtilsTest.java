@@ -24,7 +24,7 @@ public class SecurityUtilsTest {
         String testData = "test1";
 
         // encryption
-        String encryptedValue = su.encrypt("test1");
+        String encryptedValue = su.sha512Hash("test1");
         System.out.println(encryptedValue);
         assertFalse(encryptedValue.isBlank());
         assertEquals(24, encryptedValue.length());

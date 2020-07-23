@@ -9,5 +9,8 @@
         <module name="Urban-Taxes-Calculator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="11">
+      <module name="Urban-Taxes-Calculator" target="1.11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

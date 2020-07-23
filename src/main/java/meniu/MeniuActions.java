@@ -56,13 +56,12 @@ public class MeniuActions {
                 String password = scanner.nextLine();
 
                 String userDbPassword = userRepository.getInformationByUsername(username, "password");
-                String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
+                String hashedPasswordInput = securityUtils.sha512Hash(password);
 
-                if (decryptedUserDbPassword.equals(password)) {
+                if (hashedPasswordInput.equals(userDbPassword)) {
                     System.out.print("\n(logged in as '" + username + "')");
                     Meniu.loggedInMenu(new User(
                             username,
-                            password,
                             userRepository.getInformationByUsername(username, UTC_USERS_TABLE_NAME),
                             userRepository.getInformationByUsername(username, UTC_USERS_TABLE_LASTNAME),
                             userRepository.getInformationByUsername(username, UTC_USERS_TABLE_EMAIL),
@@ -96,13 +95,12 @@ public class MeniuActions {
             String password = scanner.nextLine();
 
             String userDbPassword = userRepository.getInformationByUsername(username, "password");
-            String decryptedUserDbPassword = securityUtils.decrypt(userDbPassword);
+            String hashedPasswordInput = securityUtils.sha512Hash(password);
 
-            if (decryptedUserDbPassword.equals(password)) {
+            if (hashedPasswordInput.equals(userDbPassword)) {
                 System.out.print("\n(logged in as '" + username + "')");
                 Meniu.loggedInMenu(new User(
                         username,
-                        password,
                         userRepository.getInformationByUsername(username, UTC_USERS_TABLE_NAME),
                         userRepository.getInformationByUsername(username, UTC_USERS_TABLE_LASTNAME),
                         userRepository.getInformationByUsername(username, UTC_USERS_TABLE_EMAIL),
@@ -130,7 +128,8 @@ public class MeniuActions {
 
             System.out.print("\nEnter password: ");
             String password = scanner.nextLine();
-            String encryptedPassword = securityUtils.encrypt(password);
+            String hashedPassword = securityUtils.sha512Hash(password);
+            System.out.println(hashedPassword + "(" + hashedPassword.length() + ")");
 
             System.out.print("\nEnter name: ");
             String name = scanner.nextLine();
@@ -149,9 +148,9 @@ public class MeniuActions {
                 throw new IllegalArgumentException("Invalid user input detected");
             }
 
-            userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+            userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
             System.out.print("\n(logged in as '" + username + "')");
-            Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
+            Meniu.loggedInMenu(new User(username, hashedPassword, name, lastname, email, personalCode));
         }
     }
 
@@ -159,7 +158,7 @@ public class MeniuActions {
 
         System.out.print("\nEnter password: ");
         String password = scanner.nextLine();
-        String encryptedPassword = securityUtils.encrypt(password);
+        String hashedPassword = securityUtils.sha512Hash(password);
 
         System.out.print("\nEnter name: ");
         String name = scanner.nextLine();
@@ -182,9 +181,9 @@ public class MeniuActions {
             throw new IllegalArgumentException("Invalid user input detected");
         }
 
-        userRepository.registerNewUser(username, encryptedPassword, name, lastname, email, personalCode);
+        userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
         System.out.print("\n(logged in as '" + username + "')");
-        Meniu.loggedInMenu(new User(username, encryptedPassword, name, lastname, email, personalCode));
+        Meniu.loggedInMenu(new User(username, hashedPassword, name, lastname, email, personalCode));
     }
 
     public static void loggedInMenuActions(User user) {
