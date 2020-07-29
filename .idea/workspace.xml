@@ -9,11 +9,9 @@
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/SecurityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +191,7 @@
     <option name="viewStates">
       <list>
         <serviceView>
-          <option name="contentProportion" value="0.19588745" />
+          <option name="contentProportion" value="0.30140692" />
           <treeState>
             <expand>
               <path>
@@ -203,7 +201,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@636e3aee" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@4c03a569" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -236,7 +234,9 @@
       <workItem from="1595424417391" duration="4000" />
       <workItem from="1595424455058" duration="419000" />
       <workItem from="1595425749774" duration="119000" />
-      <workItem from="1595504337943" duration="4212000" />
+      <workItem from="1595504337943" duration="9640000" />
+      <workItem from="1596006468928" duration="46000" />
+      <workItem from="1596006537160" duration="8092000" />
     </task>
     <servers />
   </component>
@@ -288,10 +288,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="601" y="449" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593529070724" />
-    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1594385459740">
+    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1596013656902">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594385459740" />
+    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596013656902" />
     <state x="690" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592483596961">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -324,22 +324,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1877" height="408" key="GridCell.Tab.0.bottom" timestamp="1595509099478">
+    <state width="1877" height="541" key="GridCell.Tab.0.bottom" timestamp="1596015759112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="408" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
-    <state width="1877" height="408" key="GridCell.Tab.0.center" timestamp="1595509099478">
+    <state width="1877" height="541" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
+    <state width="1877" height="541" key="GridCell.Tab.0.center" timestamp="1596015759112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="408" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
-    <state width="1877" height="408" key="GridCell.Tab.0.left" timestamp="1595509099478">
+    <state width="1877" height="541" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
+    <state width="1877" height="541" key="GridCell.Tab.0.left" timestamp="1596015759112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="408" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
-    <state width="1877" height="408" key="GridCell.Tab.0.right" timestamp="1595509099478">
+    <state width="1877" height="541" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
+    <state width="1877" height="541" key="GridCell.Tab.0.right" timestamp="1596015759112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="408" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595509099478" />
+    <state width="1877" height="541" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.bottom" timestamp="1595280899323">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

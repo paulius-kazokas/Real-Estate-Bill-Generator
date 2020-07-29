@@ -4,18 +4,21 @@ public class Property {
 
     private int propertyId;
     private User user;
-    private String ownderPersonalCode;
+    private String ownerPersonalCode;
     private String type;
     private String address;
 
+    public Property() {}
+
     public Property(User user) {
         this.user = user;
+        this.ownerPersonalCode = user.getPersonalCode();
     }
 
-    public Property(int propertyId, User user, String ownderPersonalCode, String type, String address) {
+    public Property(int propertyId, User user, String ownerPersonalCode, String type, String address) {
         this.propertyId = propertyId;
         this.user = user;
-        this.ownderPersonalCode = ownderPersonalCode;
+        this.ownerPersonalCode = ownerPersonalCode;
         this.type = type;
         this.address = address;
     }
@@ -28,12 +31,12 @@ public class Property {
         this.propertyId = propertyId;
     }
 
-    public String getOwnderPersonalCode() {
+    public String getOwnerPersonalCode() {
         return user.getPersonalCode();
     }
 
-    public void setOwnderPersonalCode(String ownderPersonalCode) {
-        this.ownderPersonalCode = ownderPersonalCode;
+    public void setOwnerPersonalCode(String ownerPersonalCode) {
+        this.ownerPersonalCode = ownerPersonalCode;
     }
 
     public String getType() {
@@ -56,7 +59,7 @@ public class Property {
     public String toString() {
         return "Property{" +
                 "propertyId=" + propertyId +
-                ", ownderPersonalCode='" + ownderPersonalCode + '\'' +
+                ", ownderPersonalCode='" + ownerPersonalCode + '\'' +
                 ", type='" + type + '\'' +
                 ", address='" + address + '\'' +
                 '}';

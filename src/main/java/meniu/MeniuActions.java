@@ -3,7 +3,6 @@ package meniu;
 import config.DatabaseConfig;
 import entities.Property;
 import entities.User;
-import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.lang3.ArrayUtils;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
@@ -78,7 +77,7 @@ public class MeniuActions {
         } else {
             System.out.print("\nUsername doesn't exist, would you like to register an account? (y)");
             if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
-                registerFromSignup(scanner, userRepository, username, securityUtils);
+                registerFromSignUp(scanner, userRepository, username, securityUtils);
             } else {
                 Meniu.mainMenu();
             }
@@ -154,7 +153,7 @@ public class MeniuActions {
         }
     }
 
-    public static void registerFromSignup(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) {
+    public static void registerFromSignUp(Scanner scanner, UserRepository userRepository, String username, SecurityUtils securityUtils) {
 
         System.out.print("\nEnter password: ");
         String password = scanner.nextLine();
@@ -189,17 +188,10 @@ public class MeniuActions {
     public static void loggedInMenuActions(User user) {
 
         Scanner scanner = new Scanner(System.in);
-
         DatabaseConfig dc = new DatabaseConfig();
-
-        Property property = new Property(user);
-
         PropertyRepository pr = new PropertyRepository(dc);
-        IndicatorRepository ir = new IndicatorRepository(dc);
-        UtilityRepository ur = new UtilityRepository(dc);
 
-        //MultiValuedMap<String, String> userProperties = userProperties(pr, property.getOwnderPersonalCode()); // properties
-        List<Property> properties = pr.getUserProperties(user);
+        List<Property> properties = pr.getPropertiesByUser(user);
 
         if (properties != null) {
             System.out.print("\nChoice: ");
@@ -210,10 +202,10 @@ public class MeniuActions {
                     System.out.println("\nlogged out..");
                     Meniu.mainMenu();
                 case "1":
-                    properties.forEach(System.out::println);
+                    userProperties(properties);
                     break;
                 case "2":
-                    //loggedInUserIndicators(scanner, ur, pr, ir, userProperties);
+                    loggedInUserIndicators(scanner, pr, dc, user);
                     break;
                 case "3":
                     loggedInUserBillActions();
@@ -229,20 +221,22 @@ public class MeniuActions {
         Meniu.loggedInMenu(user);
     }
 
-    public static void loggedInUserProperties(MultiValuedMap<String, String> userProperties) {
+    public static void userProperties(List<Property> properties) {
+
         System.out.println("\nProperties:\n");
-        for (Map.Entry<String, String> entry : userProperties.entries()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
+        for (Property property : properties) {
+            System.out.println(property.getType() + " - " + property.getAddress());
         }
     }
 
-    public static void loggedInUserIndicators(Scanner scanner, UtilityRepository ur, PropertyRepository pr, IndicatorRepository ir, MultiValuedMap<String, String> userProperties) {
+    public static void loggedInUserIndicators(Scanner scanner, PropertyRepository pr, DatabaseConfig dc, User user) {
 
-        // veikia bet reikia perdaryti.. I think.. stuck
+        IndicatorRepository ir = new IndicatorRepository(dc);
+        UtilityRepository ur = new UtilityRepository(dc);
 
-        // atvaizduojami properties tipai
-        System.out.println("\nProperties:");
-        Map<Integer, String> userPropertyTypes = pr.getUserPropertiesCount(userProperties);
+        System.out.println("\nProperty types:");
+
+        Map<Integer, String> userPropertyTypes = pr.getUserPropertiesCount(user);
         for (Map.Entry<Integer, String> entry : userPropertyTypes.entrySet()) {
             System.out.println(entry.getKey() + ". " + entry.getValue());
         }
@@ -250,37 +244,31 @@ public class MeniuActions {
         System.out.print("\nSelect available property type: ");
         String propertyTypeChoice = scanner.nextLine();
 
-        // pasirenkamas properties tipas
         String chosenPropertyType = userPropertyTypes.get(Integer.valueOf(propertyTypeChoice));
 
-        // atvaizduojami adresai pagal pasirinkta tipa
-        System.out.println("\nAvailable addresses:\n");
+        System.out.println("\nAvailable addresses:");
 
-        Map<Integer, String> chosenPropertyTypeAddresses = new LinkedHashMap<>();
+        Map<Integer, String> chosenAddresses = new LinkedHashMap<>();
         int addressCount = 1;
-        for (String address : pr.getProprtyAddressByPropertyType(chosenPropertyType)) {
+        for (Property property : pr.getPropertiesByType(user, chosenPropertyType)) {
+            String address = property.getAddress();
             System.out.println(addressCount + ". " + address);
-            chosenPropertyTypeAddresses.put(addressCount, address);
+            chosenAddresses.put(addressCount, address);
             addressCount++;
         }
 
-        // pasirenkamas adresas
         System.out.print("\nSelect address: ");
         String propertyAddressChoice = scanner.nextLine();
-        String address = chosenPropertyTypeAddresses.get(Integer.valueOf(propertyAddressChoice));
+        String address = chosenAddresses.get(Integer.valueOf(propertyAddressChoice));
 
-        int propertyId = pr.getPropertyIdByPropertyAddress(address);
-        System.out.println("propertyId: " + propertyId);
+        Property propertyByAddress = pr.getPropertyByAddress(address);
 
-        // gauti utility name pagal indicatorid
-
-        // atvaizduojami visi indicatoriai
         System.out.println("\nIndicators for " + address + ":");
-        List<Integer> indicatorIds = ir.getIndicatorIdsByPropertyId(propertyId);
+        List<Integer> indicatorIds = ir.getIndicatorIdsByPropertyId(propertyByAddress.getPropertyId());
         for (int indicatorId : indicatorIds) {
             int utilityId = ir.getUtilityIdByIndicatorId(indicatorId);
             String utilityName = ur.getUtilityNameByUtilityId(utilityId);
-            ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println("* " + utilityName + ": " + amount));
+            ir.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println(utilityName + ": " + amount));
         }
     }
 
@@ -294,4 +282,5 @@ public class MeniuActions {
                 "\nLast name: " + user.getLastname() +
                 "\nPersonal Code: " + user.getPersonalCode());
     }
+
 }
