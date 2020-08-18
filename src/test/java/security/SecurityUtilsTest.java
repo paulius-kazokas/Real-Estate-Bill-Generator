@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Running tests for SecurityUtils class")
-public class SecurityUtilsTest {
+class SecurityUtilsTest {
 
     SecurityUtils su;
 
@@ -19,7 +19,7 @@ public class SecurityUtilsTest {
     @Order(1)
     @Test
     @DisplayName("Successful data hashing")
-    public void test1() {
+    void test1() {
 
         String testData = "test1";
 

@@ -2,17 +2,18 @@ package repositories;
 
 import config.DatabaseConfig;
 import config.SystemConstants;
-import interfaces.UserInterface;
-import org.apache.commons.lang3.StringUtils;
+import entities.User;
+import interfaces.IUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import security.SecurityUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UserRepository implements UserInterface {
+public class UserRepository implements IUserRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
 
@@ -23,18 +24,12 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public boolean checkIfUserAlreadyExists(String username) {
-
-        if (StringUtils.isBlank(username)) {
-            throw new IllegalArgumentException("Username cannot be empty or null");
-        }
+    public boolean checkIfUserExists(String username) {
 
         String query = "SELECT username FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
 
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
-            if (rs.next() && !rs.getString("username").isBlank()) {
-                return true;
-            }
+            return rs.next() && !rs.getString("username").isBlank();
         } catch (SQLException e) {
             LOGGER.error(e.toString());
         }
@@ -43,13 +38,21 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public String getInformationByUsername(String username, String criteria) {
+    public User getUserByUsername(String username) {
 
-        String query = "SELECT " + criteria + " FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
+        String query = "SELECT * FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
 
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
             if (rs.next()) {
-                return rs.getString(criteria);
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setPersonalCode(rs.getString("personalcode"));
+
+                return user;
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
@@ -59,28 +62,8 @@ public class UserRepository implements UserInterface {
     }
 
     @Override
-    public boolean checkIfPasswordMatchesForUsername(String username, String password) {
-
-        if (StringUtils.isBlank(username)) {
-            throw new IllegalArgumentException("Username cannot be empty or null");
-        }
-        if (StringUtils.isBlank(password)) {
-            throw new IllegalArgumentException("Password cannot be empty or null");
-        }
-
-        String query = "SELECT password FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
-
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            if (rs.next()) {
-                return password.equals(rs.getString("password"));
-            }
-            databaseConfig.connectionToDatabase().close();
-        } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
-        }
-
-        return false;
+    public boolean checkIfPasswordMatches(String password, String userDatabasePassword, SecurityUtils securityUtils) {
+        return securityUtils.sha512Hash(password).equals(userDatabasePassword);
     }
 
     @Override
@@ -111,6 +94,7 @@ public class UserRepository implements UserInterface {
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement()) {
             statement.executeUpdate(query);
+            databaseConfig.connectionToDatabase().close();
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
         }
@@ -124,7 +108,8 @@ public class UserRepository implements UserInterface {
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             if (resultSet.next()) {
-                return resultSet.getString("personalcode");
+                String personalCode = resultSet.getString("personalcode");
+                if (!personalCode.isBlank()) return personalCode;
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));

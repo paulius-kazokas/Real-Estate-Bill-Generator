@@ -32,7 +32,6 @@ public class PropertyRepository implements IPropertyRepository {
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-
                 Property property = new Property(user);
                 property.setPropertyId(resultSet.getInt("id"));
                 property.setOwnerPersonalCode(user.getPersonalCode());
@@ -44,10 +43,10 @@ public class PropertyRepository implements IPropertyRepository {
 
             return properties;
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -80,7 +79,7 @@ public class PropertyRepository implements IPropertyRepository {
 
             return propertiesCount;
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
         return null;
@@ -104,7 +103,7 @@ public class PropertyRepository implements IPropertyRepository {
                 return property;
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
         return null;
@@ -113,7 +112,7 @@ public class PropertyRepository implements IPropertyRepository {
     @Override
     public List<Property> getPropertiesByType(User user, String type) {
 
-        String query = "SELECT * FROM utc.property WHERE type = '" + type + "' AND ownderPersonalCode = '" + user.getPersonalCode() +"'";
+        String query = "SELECT * FROM utc.property WHERE type = '" + type + "' AND ownderPersonalCode = '" + user.getPersonalCode() + "'";
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -132,7 +131,7 @@ public class PropertyRepository implements IPropertyRepository {
 
             return properties;
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error(String.format("%s", e));
         }
 
         return Collections.emptyList();

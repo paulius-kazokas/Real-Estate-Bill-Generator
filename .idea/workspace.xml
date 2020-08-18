@@ -7,11 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/main/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/playground/OptionalExample.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/PropertyInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/UserInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/Meniu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/MeniuActions.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/repositories/UserRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,105 +96,102 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SONARLINT_ANALYSIS_RESULTS_SPLIT_PROPORTION" value="0.55335534" />
+    <property name="SONARLINT_ISSUES_SPLIT_PROPORTION" value="0.47186148" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2593423" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pauli\IdeaProjects\UTC\Urban-Taxes-Calculator\src\main\java\admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Menu">
+    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="MAIN_CLASS_NAME" value="main.Main" />
+      <option name="MAIN_CLASS_NAME" value="main.Main2" />
       <module name="Urban-Taxes-Calculator" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecurityUtilsTest$Encrypt.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.Menu" />
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="security.*" />
+          <option name="PATTERN" value="main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="security" />
-      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest$Encrypt" />
-      <option name="METHOD_NAME" value="test1" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecurityUtilsTest$Encrypt.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Stdout" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="playground.Stdout" />
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="security.*" />
+          <option name="PATTERN" value="playground.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="security" />
-      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest$Encrypt" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecurityUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OptionalExample" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="security.*" />
+          <option name="PATTERN" value="playground.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="security" />
-      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest" />
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.OptionalExample" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SecurityUtilsTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OptionalExample.whenChainingThenOk" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="security.*" />
+          <option name="PATTERN" value="playground.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="security" />
-      <option name="MAIN_CLASS_NAME" value="security.SecurityUtilsTest" />
-      <option name="METHOD_NAME" value="test1" />
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.OptionalExample" />
+      <option name="METHOD_NAME" value="whenChainingThenOk" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.SecurityUtilsTest" />
-      <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test1" />
-      <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test2" />
-      <item itemvalue="JUnit.SecurityUtilsTest.test1" />
+      <item itemvalue="JUnit.OptionalExample" />
+      <item itemvalue="JUnit.OptionalExample.whenChainingThenOk" />
+      <item itemvalue="Application.Stdout" />
+      <item itemvalue="Application.Main2" />
+      <item itemvalue="Application.Menu" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.SecurityUtilsTest.test1" />
-        <item itemvalue="JUnit.SecurityUtilsTest" />
-        <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test2" />
-        <item itemvalue="JUnit.SecurityUtilsTest$Encrypt.test1" />
+        <item itemvalue="Application.Menu" />
+        <item itemvalue="Application.Stdout" />
+        <item itemvalue="Application.Main2" />
+        <item itemvalue="JUnit.OptionalExample" />
+        <item itemvalue="JUnit.OptionalExample.whenChainingThenOk" />
       </list>
     </recent_temporary>
   </component>
@@ -201,7 +209,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@4c03a569" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@219af226" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -236,7 +244,10 @@
       <workItem from="1595425749774" duration="119000" />
       <workItem from="1595504337943" duration="9640000" />
       <workItem from="1596006468928" duration="46000" />
-      <workItem from="1596006537160" duration="8092000" />
+      <workItem from="1596006537160" duration="8177000" />
+      <workItem from="1596110500403" duration="8137000" />
+      <workItem from="1597327216055" duration="6664000" />
+      <workItem from="1597495546563" duration="12633000" />
     </task>
     <servers />
   </component>
@@ -288,14 +299,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="601" y="449" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593529070724" />
-    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1596013656902">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2123" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597769687287">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596013656902" />
+    <state x="2123" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597769687287" />
+    <state x="203" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596627734173" />
     <state x="690" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592483596961">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592483596961" />
+    <state x="2631" y="380" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1597443213631">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2631" y="380" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443213631" />
     <state width="439" height="466" key="DebuggerActiveHint" timestamp="1594363210430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -324,37 +340,45 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1877" height="541" key="GridCell.Tab.0.bottom" timestamp="1596015759112">
+    <state width="1877" height="656" key="GridCell.Tab.0.bottom" timestamp="1597776012352">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="656" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
+    <state width="1877" height="386" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597330846393" />
+    <state width="1877" height="656" key="GridCell.Tab.0.center" timestamp="1597776012352">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="656" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
+    <state width="1877" height="386" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597330846392" />
+    <state width="1877" height="656" key="GridCell.Tab.0.left" timestamp="1597776012352">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="656" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
+    <state width="1877" height="386" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597330846392" />
+    <state width="1877" height="656" key="GridCell.Tab.0.right" timestamp="1597776012352">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="656" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
+    <state width="1877" height="386" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597330846392" />
+    <state x="0" y="781" width="1877" height="406" key="GridCell.Tab.1.bottom" timestamp="1597443546940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="541" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
-    <state width="1877" height="541" key="GridCell.Tab.0.center" timestamp="1596015759112">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="541" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
-    <state width="1877" height="541" key="GridCell.Tab.0.left" timestamp="1596015759112">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="541" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
-    <state width="1877" height="541" key="GridCell.Tab.0.right" timestamp="1596015759112">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="541" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596015759112" />
-    <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.bottom" timestamp="1595280899323">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
+    <state width="1877" height="406" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595280899323" />
-    <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.center" timestamp="1595280899319">
+    <state x="0" y="781" width="1877" height="406" key="GridCell.Tab.1.center" timestamp="1597443546940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="406" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595280899319" />
-    <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.left" timestamp="1595280899319">
+    <state x="0" y="781" width="1877" height="406" key="GridCell.Tab.1.left" timestamp="1597443546940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="406" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595280899319" />
-    <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.right" timestamp="1595280899319">
+    <state x="0" y="781" width="1877" height="406" key="GridCell.Tab.1.right" timestamp="1597443546940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="406" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
     <state x="0" y="781" width="938" height="682" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595280899319" />
     <state x="540" y="266" key="IDE.errors.dialog" timestamp="1592511360140">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -364,9 +388,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="178" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594117928890" />
-    <state x="243" y="106" width="1591" height="845" key="SettingsEditor" timestamp="1595424853187">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2163" y="106" width="1591" height="845" key="SettingsEditor" timestamp="1597495517900">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="2163" y="106" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597495517900" />
     <state x="243" y="106" width="1591" height="845" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1595424853187" />
     <state width="200" height="441" key="SqlResolveConfigurable" timestamp="1592481165692">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -392,9 +417,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1500" height="170" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1595242768278" />
-    <state x="667" y="154" width="586" height="732" key="find.popup" timestamp="1593085728635">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2466" y="418" key="extract.method.dialog" timestamp="1597772948995">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="2466" y="418" key="extract.method.dialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597772948995" />
+    <state x="2587" y="154" width="586" height="732" key="find.popup" timestamp="1597768729923">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2587" y="154" width="586" height="732" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597768729923" />
     <state x="667" y="154" width="586" height="732" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593085728635" />
     <state x="342" y="224" key="new project wizard" timestamp="1594727774497">
       <screen x="0" y="0" width="1920" height="1040" />

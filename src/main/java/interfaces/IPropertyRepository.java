@@ -2,7 +2,6 @@ package interfaces;
 
 import entities.Property;
 import entities.User;
-import org.apache.commons.collections4.MultiValuedMap;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,7 @@
 package data;
 
 import config.DatabaseConfig;
+import entities.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -87,7 +88,8 @@ public class DataGenerator {
     public void generateUserMonthlyBillReport(String username) { // date?
 
         RandomGeneratorUtility rg = new RandomGeneratorUtility();
-        UserRepository da = new UserRepository(dc);
+        UserRepository ur = new UserRepository(dc);
+        User user = ur.getUserByUsername(username);
 
         String userBillName = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + username + ".json";
         Map<String, String> allUtilitiesTotal = new HashMap<>();
@@ -97,7 +99,7 @@ public class DataGenerator {
 
         userBill.put("date", UTC_CURRENT_MONTH_BILL_DATE);
         userBill.put("bill_number", "123456789");
-        userBill.put("user_personal_code", da.getPersonalCodeByUsername(username));
+        userBill.put("user_personal_code", user.getPersonalCode());
 
         JSONArray userBillUtilities = new JSONArray();
         for (String utility : UTILITIES) {
