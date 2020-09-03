@@ -26,27 +26,18 @@ public class Menu {
         IndicatorRepository indicatorRepository = new IndicatorRepository(databaseConfig);
         UtilityRepository utilityRepository = new UtilityRepository(databaseConfig);
         SecurityUtils securityUtils = new SecurityUtils();
-
-        LoginMenuActions loginMenuActions = new LoginMenuActions(scanner, userRepository, indicatorRepository, utilityRepository, securityUtils);
         Menu menu = new Menu();
 
-        menu.init(loginMenuActions);
-    }
+        LoginMenuActions loginMenuActions = new LoginMenuActions(scanner, userRepository, indicatorRepository, utilityRepository, securityUtils, menu);
 
-    public void init(LoginMenuActions loginMenuActions) {
-        Menu menu = new Menu();
         menu.mainMenu(loginMenuActions);
     }
 
     public void mainMenu(LoginMenuActions loginMenuActions) {
-        System.out.print("\nUrban Taxes System\n\n" +
-                "\n1.Sign up" +
-                "\n2.Register" +
-                "\n0.Exit\n");
-        loginMenuActions.mainMenuActions();
+        loginMenuActions.mainMenuActions(loginMenuActions);
     }
 
-    public void loggedInMenu(LoginMenuActions loginMenuActions, User user) {
+    public void loggedInMenu(LoginMenuActions loginMenuActions, User user, Menu menu) {
         System.out.print("\n1.Check my properties" +
                 "\n2.Check my indicators" +
                 "\n3.Check my bills" +
@@ -59,7 +50,9 @@ public class Menu {
         UtilityRepository utilityRepository = new UtilityRepository(databaseConfig);
 
         AccountMenuActions accountMenuActions = new AccountMenuActions(loginMenuActions, propertyRepository, indicatorRepository, utilityRepository, user);
-        accountMenuActions.accountMenuActions(user);
+        accountMenuActions.accountMenuActions(user, menu, loginMenuActions);
+
+        mainMenu(loginMenuActions);
     }
 
 }

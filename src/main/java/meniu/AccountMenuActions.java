@@ -19,6 +19,8 @@ public class AccountMenuActions {
     private PropertyRepository propertyRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
+    // input stream  - irasai
+    // output stream - skaitai
 
     public AccountMenuActions(LoginMenuActions loginMenuActions, PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
         this.loginMenuActions = loginMenuActions;
@@ -28,24 +30,21 @@ public class AccountMenuActions {
         this.user = user;
     }
 
-    public void accountMenuActions(User user) {
-
-        AccountMenuActions accountMenuActions = new AccountMenuActions(loginMenuActions, propertyRepository, indicatorRepository, utilityRepository, user);
-        Menu menu = new Menu();
+    public void accountMenuActions(User user, Menu menu, LoginMenuActions loginMenuActions) {
 
         Scanner scanner = new Scanner(System.in);
 
         List<Property> properties = propertyRepository.getPropertiesByUser(user);
 
         if (!properties.isEmpty()) {
+            // cia meniu nupaisymas
             System.out.print("\nChoice: ");
             String choice = scanner.nextLine();
 
             switch (choice) {
                 case "0":
                     System.out.println("\nlogged out..");
-                    menu.mainMenu(loginMenuActions);
-                    break;
+                    return;
                 case "1":
                     // loggedInUserProperties
                     System.out.println("\nProperties:\n");
@@ -54,7 +53,7 @@ public class AccountMenuActions {
                     }
                     break;
                 case "2":
-                    accountMenuActions.loggedInUserIndicators(scanner, user);
+                    loggedInUserIndicators(scanner, user);
                     break;
                 case "3":
                     // loggedInUserBillActions
@@ -67,16 +66,15 @@ public class AccountMenuActions {
                             "\nPersonal Code: " + user.getPersonalCode());
                     break;
                 default:
-                    System.out.println("AccountMenuActions.accountMenuActions() failed.");
-                    menu.loggedInMenu(loginMenuActions, user);
+                    System.out.println("AccountMenuActions.accountMenuActions() failed");
                     break;
             }
         } else {
             System.out.println("\n\n'" + user.getUsername() + "' doesn't have any properties available");
-            menu.mainMenu(loginMenuActions);
+            return;
         }
-        menu.loggedInMenu(loginMenuActions, user);
 
+        menu.loggedInMenu(loginMenuActions, user, menu);
     }
 
     public void loggedInUserIndicators(Scanner scanner, User user) {

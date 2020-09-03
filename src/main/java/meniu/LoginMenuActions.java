@@ -19,21 +19,24 @@ public class LoginMenuActions {
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
     private SecurityUtils securityUtils;
+    private Menu menu;
 
-    public LoginMenuActions(Scanner scanner, UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, SecurityUtils securityUtils) {
+    public LoginMenuActions(Scanner scanner, UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, SecurityUtils securityUtils, Menu menu) {
         this.scanner = scanner;
         this.userRepository = userRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
         this.securityUtils = securityUtils;
+        this.menu = menu;
     }
 
-    public void mainMenuActions() {
+    public void mainMenuActions(LoginMenuActions lma) {
 
-        LoginMenuActions ma = new LoginMenuActions(scanner, userRepository, indicatorRepository, utilityRepository, securityUtils);
-        Menu menu = new Menu();
-
-        System.out.print("\nChoice: ");
+        System.out.print("\nUrban Taxes System\n\n" +
+                "\n1.Sign up" +
+                "\n2.Register" +
+                "\n0.Exit" +
+                "\nChoice: ");
         String choice = scanner.nextLine();
 
         switch (choice) {
@@ -41,20 +44,19 @@ public class LoginMenuActions {
                 System.exit(0);
                 break;
             case "1":
-                ma.login(ma, menu);
+                lma.login(lma);
                 break;
             case "2":
-                ma.preRegister(ma, menu);
+                lma.preRegister(lma);
                 break;
             default:
                 System.out.println("LoginMenuActions.mainMenuActions() failed.");
-                System.exit(0);
                 break;
         }
 
     }
 
-    public void login(LoginMenuActions ma, Menu menu) {
+    public void login(LoginMenuActions ma) {
 
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
@@ -77,7 +79,7 @@ public class LoginMenuActions {
         }
     }
 
-    public void preRegister(LoginMenuActions ma, Menu menu) {
+    public void preRegister(LoginMenuActions ma) {
 
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
@@ -98,7 +100,7 @@ public class LoginMenuActions {
 
         if (userRepository.checkIfPasswordMatches(password, userDbPassword, securityUtils)) {
             System.out.print("\n(logged in as '" + username + "')");
-            menu.loggedInMenu(ma, user);
+            menu.loggedInMenu(ma, user, menu);
         } else {
             System.out.println("\nWrong password");
             menu.mainMenu(ma);
@@ -130,15 +132,7 @@ public class LoginMenuActions {
 
         userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
         System.out.print("\n(logged in as '" + username + "')");
-        menu.loggedInMenu(ma, new User(username, hashedPassword, name, lastname, email, personalCode));
-    }
-
-
-// Logged in
-
-    public void loggedInMenuActions(User user) {
-
-        System.out.println("\n\nlogged in username:" + user.getUsername());
+        menu.loggedInMenu(ma, new User(username, hashedPassword, name, lastname, email, personalCode), menu);
     }
 
 }
