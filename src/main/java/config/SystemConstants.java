@@ -40,7 +40,7 @@ public class SystemConstants {
     public static final double UTILITY_PRICE_MAX = 0.64d;
     public static final double PVM_MIN = 0.05d;
     public static final double PVM_MAX = 0.15d;
-    public static final List<String> UTILITIES = Arrays.asList("heat", "electricity", "water", "gas", "trash");
+    public static final List<String> UTILITIES = Arrays.asList("Heat", "Electricity", "Water", "Gas", "Trash");
     public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_UtilityPrices.json";
     public static final String UTC_ROLLING_MONTH_UTILITY_UNIT_PRICES_PVM = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_PVM.json";
 

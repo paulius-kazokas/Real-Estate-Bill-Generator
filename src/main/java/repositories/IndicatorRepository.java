@@ -65,7 +65,6 @@ public class IndicatorRepository implements IndicatorInterface {
     @Override
     public Integer getUtilityIdByIndicatorId(Integer indicatorId) {
 
-
         String queryUtilityId = "SELECT utility_id FROM utc.indicator WHERE id = " + indicatorId;
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();

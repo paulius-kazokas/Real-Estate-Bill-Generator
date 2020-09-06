@@ -2,120 +2,178 @@ package meniu;
 
 import entities.Property;
 import entities.User;
-import main.Menu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
 import repositories.UtilityRepository;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.*;
 
 public class AccountMenuActions {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountMenuActions.class);
+
+    private InputStream input = System.in;
+    private OutputStream output = System.out;
+    private Scanner scanner = new Scanner(input);
+
     private User user;
-    private LoginMenuActions loginMenuActions;
     private PropertyRepository propertyRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
-    // input stream  - irasai
-    // output stream - skaitai
 
-    public AccountMenuActions(LoginMenuActions loginMenuActions, PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
-        this.loginMenuActions = loginMenuActions;
+    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
         this.propertyRepository = propertyRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
         this.user = user;
     }
 
-    public void accountMenuActions(User user, Menu menu, LoginMenuActions loginMenuActions) {
+    public void accountMenuActions() {
 
-        Scanner scanner = new Scanner(System.in);
+        try {
+            String choice = "not assigned";
+            List<Property> properties = propertyRepository.getPropertiesByUser(user);
 
-        List<Property> properties = propertyRepository.getPropertiesByUser(user);
+            if (!properties.isEmpty()) {
 
-        if (!properties.isEmpty()) {
-            // cia meniu nupaisymas
-            System.out.print("\nChoice: ");
-            String choice = scanner.nextLine();
+                while(!choice.equals("0")) {
+                    output.write("\n1.Check my properties\n2.Check my indicators\n3.Check my bills\n4.Check my account info\n0.Log out".getBytes());
 
-            switch (choice) {
-                case "0":
-                    System.out.println("\nlogged out..");
-                    return;
-                case "1":
-                    // loggedInUserProperties
-                    System.out.println("\nProperties:\n");
-                    for (Property property : properties) {
-                        System.out.println(property.getType() + " - " + property.getAddress());
+                    output.write("\nChoice: ".getBytes());
+                    choice = scanner.nextLine();
+
+                    if(!choice.isBlank()) {
+                        switch (choice) {
+                            case "0":
+                                output.write("\nlogged out".getBytes());
+                                return;
+                            case "1":
+                                checkUserProperties();
+                                break;
+                            case "2":
+                                checkUserIndicators();
+                                break;
+                            case "3":
+                                checkUserBills();
+                                break;
+                            case "4":
+                                checkUserInfo();
+                                break;
+                            default:
+                                output.write("Unexpected action".getBytes());
+                                break;
+                        }
                     }
-                    break;
-                case "2":
-                    loggedInUserIndicators(scanner, user);
-                    break;
-                case "3":
-                    // loggedInUserBillActions
-                    System.out.println("to be implemented");
-                    break;
-                case "4":
-                    // loggedInUserInformation
-                    System.out.println("\nName: " + user.getName() +
-                            "\nLast name: " + user.getLastname() +
-                            "\nPersonal Code: " + user.getPersonalCode());
-                    break;
-                default:
-                    System.out.println("AccountMenuActions.accountMenuActions() failed");
-                    break;
+                }
+            } else {
+                output.write(String.format("%n'%s' doesn't have any properties available", user.getUsername()).getBytes());
             }
-        } else {
-            System.out.println("\n\n'" + user.getUsername() + "' doesn't have any properties available");
-            return;
-        }
 
-        menu.loggedInMenu(loginMenuActions, user, menu);
+        } catch (IOException io) {
+            LOGGER.error(io.toString());
+        }
     }
 
-    public void loggedInUserIndicators(Scanner scanner, User user) {
+    public void checkUserProperties() {
 
-        System.out.println("\nProperty types:");
+        try {
+            output.write("\nProperties:\n".getBytes());
 
-        Map<Integer, String> userPropertyTypes = propertyRepository.getUserPropertiesCount(user);
-        for (Map.Entry<Integer, String> entry : userPropertyTypes.entrySet()) {
-            System.out.println(entry.getKey() + ". " + entry.getValue());
+            propertyRepository.getPropertiesByUser(user).forEach(property ->
+            {
+                try {
+                    output.write(String.format("%s - %s%n", property.getType(), property.getAddress()).getBytes());
+                } catch (IOException io) {
+                    LOGGER.error(io.toString());
+                }
+            });
+        } catch (IOException io) {
+            LOGGER.error(io.toString());
         }
 
-        System.out.print("\nSelect available property type: ");
-        String propertyTypeChoice = scanner.nextLine();
+    }
 
-        String chosenPropertyType = userPropertyTypes.get(Integer.valueOf(propertyTypeChoice));
+    public void checkUserIndicators() {
 
-        System.out.println("\nAvailable addresses:");
-        Map<Integer, String> chosenAddresses = new LinkedHashMap<>();
-        int addressCount = 1;
+        try {
+            output.write("\nProperty types:\n".getBytes());
+            Map<Integer, String> userPropertyTypes = propertyRepository.getUserPropertiesCount(user);
 
-        for (Property property : propertyRepository.getPropertiesByType(user, chosenPropertyType)) {
-            String address = property.getAddress();
-            System.out.println(addressCount + ". " + address);
+            userPropertyTypes.forEach((key, value) -> {
+                try {
+                    output.write(String.format("%s. %s%n", key, value).getBytes());
+                } catch (IOException io) {
+                    LOGGER.error(io.toString());
+                }
+            });
 
-            chosenAddresses.put(addressCount, address);
-            addressCount++;
+            output.write("\nSelect available property type: ".getBytes());
+            String propertyTypeChoice = scanner.nextLine();
+
+            String chosenPropertyType = userPropertyTypes.get(Integer.valueOf(propertyTypeChoice));
+
+            output.write("\nAvailable addresses:\n".getBytes());
+            Map<Integer, String> chosenAddresses = new LinkedHashMap<>();
+            int addressCount = 1;
+
+            for (Property property : propertyRepository.getPropertiesByType(user, chosenPropertyType)) {
+                String address = property.getAddress();
+                output.write(String.format("%s. %s%n", addressCount, address).getBytes());
+
+                chosenAddresses.put(addressCount, address);
+                addressCount++;
+            }
+
+            output.write("\nSelect address: ".getBytes());
+            String propertyAddressChoice = scanner.nextLine();
+            String address = chosenAddresses.get(Integer.valueOf(propertyAddressChoice));
+
+            Property propertyByAddress = propertyRepository.getPropertyByAddress(address);
+
+            output.write(String.format("%nIndicators for %s:%n", address).getBytes());
+            List<Integer> indicatorIds = indicatorRepository.getIndicatorIdsByPropertyId(propertyByAddress.getPropertyId());
+
+            indicatorIds.forEach(indicatorId -> {
+                int utilityId = indicatorRepository.getUtilityIdByIndicatorId(indicatorId);
+                String utilityName = utilityRepository.getUtilityNameByUtilityId(utilityId);
+
+                indicatorRepository.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> {
+                    try {
+                        output.write(String.format("%s: %s%n", utilityName, amount).getBytes());
+                    } catch (IOException io) {
+                        LOGGER.error(io.toString());
+                    }
+                });
+            });
+
+        } catch (IOException io) {
+            LOGGER.error(io.toString());
         }
 
-        System.out.print("\nSelect address: ");
-        String propertyAddressChoice = scanner.nextLine();
-        String address = chosenAddresses.get(Integer.valueOf(propertyAddressChoice));
+    }
 
-        Property propertyByAddress = propertyRepository.getPropertyByAddress(address);
+    public void checkUserBills() {
 
-        System.out.println("\nIndicators for " + address + ":");
-        List<Integer> indicatorIds = indicatorRepository.getIndicatorIdsByPropertyId(propertyByAddress.getPropertyId());
-        for (int indicatorId : indicatorIds) {
-            int utilityId = indicatorRepository.getUtilityIdByIndicatorId(indicatorId);
-            String utilityName = utilityRepository.getUtilityNameByUtilityId(utilityId);
+        try {
+            output.write("to be implemented".getBytes());
+        } catch (IOException io) {
+            LOGGER.error(io.toString());
+        }
 
-            indicatorRepository.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> System.out.println(utilityName + ": " + amount));
+    }
+
+    public void checkUserInfo() {
+
+        try {
+            output.write(String.format("%nName: %s%nLastname: %s%nPersonal code: %s%n",
+                    user.getName(), user.getLastname(), user.getPersonalCode()).getBytes());
+        } catch (IOException io) {
+            LOGGER.error(io.toString());
         }
 
     }

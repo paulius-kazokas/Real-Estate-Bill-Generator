@@ -16,7 +16,7 @@ public class PropertyRepository implements IPropertyRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyRepository.class);
 
-    DatabaseConfig databaseConfig;
+    private DatabaseConfig databaseConfig;
 
     public PropertyRepository(DatabaseConfig databaseConfig) {
         this.databaseConfig = databaseConfig;

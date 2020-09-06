@@ -17,7 +17,7 @@ public class UserRepository implements IUserRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
 
-    DatabaseConfig databaseConfig;
+    private DatabaseConfig databaseConfig;
 
     public UserRepository(DatabaseConfig dc) {
         this.databaseConfig = dc;
