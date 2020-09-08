@@ -1,4 +1,4 @@
-Latest activity: usage of lombok, code refactoring, clean up.
+Latest activity: usage of lombok, code refactoring, clean up, more dependant on SystemConstants
 
 Upcoming
 
