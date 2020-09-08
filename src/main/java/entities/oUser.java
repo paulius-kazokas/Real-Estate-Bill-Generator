@@ -1,6 +1,6 @@
 package entities;
 
-public class User {
+public class oUser {
 
     private String username;
     private String password;
@@ -9,10 +9,10 @@ public class User {
     private String email;
     private String personalCode;
 
-    public User() {
+    public oUser() {
     }
 
-    public User(String username, String name, String lastname, String email, String personalCode) {
+    public oUser(String username, String name, String lastname, String email, String personalCode) {
         this.username = username;
         this.name = name;
         this.lastname = lastname;
@@ -20,7 +20,7 @@ public class User {
         this.personalCode = personalCode;
     }
 
-    public User(String username, String password, String name, String lastname, String email, String personalCode) {
+    public oUser(String username, String password, String name, String lastname, String email, String personalCode) {
         this.username = username;
         this.password = password;
         this.name = name;

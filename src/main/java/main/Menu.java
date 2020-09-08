@@ -17,7 +17,7 @@ public class Menu {
         UserRepository userRepository = new UserRepository(databaseConfig);
         IndicatorRepository indicatorRepository = new IndicatorRepository(databaseConfig);
         UtilityRepository utilityRepository = new UtilityRepository(databaseConfig);
-        PropertyRepository propertyRepository = new PropertyRepository(databaseConfig);
+        PropertyRepository propertyRepository = new PropertyRepository(userRepository, databaseConfig);
 
         SecurityUtils securityUtils = new SecurityUtils();
 

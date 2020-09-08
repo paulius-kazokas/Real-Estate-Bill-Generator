@@ -1,8 +1,9 @@
 package repositories;
 
 import config.DatabaseConfig;
-import entities.Property;
-import entities.User;
+import config.SystemConstants;
+import entities.lProperty;
+import entities.lUser;
 import interfaces.IPropertyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,26 +18,30 @@ public class PropertyRepository implements IPropertyRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyRepository.class);
 
     private DatabaseConfig databaseConfig;
+    private UserRepository userRepository;
 
-    public PropertyRepository(DatabaseConfig databaseConfig) {
+    public PropertyRepository(UserRepository userRepository, DatabaseConfig databaseConfig) {
+        this.userRepository = userRepository;
         this.databaseConfig = databaseConfig;
     }
 
     @Override
-    public List<Property> getPropertiesByUser(User user) {
+    public List<lProperty> getPropertiesByUser(lUser user) {
 
-        List<Property> properties = new ArrayList<>();
+        List<lProperty> properties = new ArrayList<>();
 
         String query = "SELECT id, type, address FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "'";
+        System.out.println(query);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                Property property = new Property(user);
-                property.setPropertyId(resultSet.getInt("id"));
-                property.setOwnerPersonalCode(user.getPersonalCode());
-                property.setType(resultSet.getString("type"));
-                property.setAddress(resultSet.getString("address"));
+                lProperty property = lProperty.builder()
+                        .id(resultSet.getInt("id"))
+                        .ownerPersonalCode(user.getPersonalCode())
+                        .type(resultSet.getString("type"))
+                        .address(resultSet.getString("address"))
+                        .build();
 
                 properties.add(property);
             }
@@ -50,7 +55,7 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public Map<Integer, String> getUserPropertiesCount(User user) {
+    public Map<Integer, String> getUserPropertiesCount(lUser user) {
 
         String typeQuery = "SELECT DISTINCT(type) FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "'";
 
@@ -86,20 +91,22 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public Property getPropertyByAddress(String address) {
+    public lProperty getPropertyByAddress(String address) {
 
-        String query = "SELECT * FROM utc.property WHERE address ='" + address + "'";
+        String query = "SELECT * FROM " + SystemConstants.UTC_PROPERTY_TABLE + " WHERE address ='" + address + "'";
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             if (resultSet.next()) {
+                lProperty property = lProperty.builder()
+                        .user(userRepository.getUser(resultSet.getInt("ownderPersonalCode")))
+                        .id(resultSet.getInt("id"))
+                        .ownerPersonalCode(resultSet.getString("ownderPersonalCode"))
+                        .type(resultSet.getString("type"))
+                        .address(resultSet.getString("address"))
+                        .build();
 
-                Property property = new Property();
-                property.setPropertyId(resultSet.getInt("id"));
-                property.setOwnerPersonalCode(resultSet.getString("ownderPersonalCode"));
-                property.setType(resultSet.getString("type"));
-                property.setAddress(resultSet.getString("address"));
-
+                System.out.println(property);
                 return property;
             }
         } catch (SQLException e) {
@@ -110,21 +117,22 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public List<Property> getPropertiesByType(User user, String type) {
+    public List<lProperty> getPropertiesByType(lUser user, String type) {
 
         String query = "SELECT * FROM utc.property WHERE type = '" + type + "' AND ownderPersonalCode = '" + user.getPersonalCode() + "'";
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            List<Property> properties = new ArrayList<>();
+            List<lProperty> properties = new ArrayList<>();
             while (resultSet.next()) {
 
-                Property returnProperty = new Property();
-                returnProperty.setPropertyId(resultSet.getInt("id"));
-                returnProperty.setOwnerPersonalCode(resultSet.getString("ownderPersonalCode"));
-                returnProperty.setType(resultSet.getString("type"));
-                returnProperty.setAddress(resultSet.getString("address"));
+                lProperty returnProperty = lProperty.builder()
+                        .id(resultSet.getInt("id"))
+                        .ownerPersonalCode(resultSet.getString("ownderPersonalCode"))
+                        .type(resultSet.getString("type"))
+                        .address(resultSet.getString("address"))
+                        .build();
 
                 properties.add(returnProperty);
             }

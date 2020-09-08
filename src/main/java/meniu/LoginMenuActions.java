@@ -1,6 +1,7 @@
 package meniu;
 
-import entities.User;
+import config.SystemConstants;
+import entities.lUser;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -44,12 +45,12 @@ public class LoginMenuActions {
 
         try {
             String choice = "not assigned";
-            while(!choice.equals("0")) {
-            
+            while (!choice.equals("0")) {
+
                 output.write("\nUrban Taxes System\n\n\n1.Sign up\n2.Register\n0.Exit\nChoice: ".getBytes());
                 choice = scanner.nextLine();
 
-                if(!choice.isBlank()) {
+                if (!choice.isBlank()) {
                     switch (choice) {
                         case "0":
                             break;
@@ -75,7 +76,7 @@ public class LoginMenuActions {
 
     public void login() {
 
-        try{
+        try {
             output.write("\nEnter username: ".getBytes());
             String username = scanner.nextLine();
 
@@ -84,17 +85,16 @@ public class LoginMenuActions {
                     output.write(String.format("%nEnter password for %s: ", username).getBytes());
                     loginGate(username);
                 }
-                output.write("\nUser does not exist".getBytes());
-
             } else {
                 output.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
                 if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
                     register(username);
+                } else {
+                    mainMenuActions();
                 }
             }
-            mainMenuActions();
 
-        } catch(IOException io) {
+        } catch (IOException io) {
             LOGGER.error(io.toString());
         }
 
@@ -102,12 +102,11 @@ public class LoginMenuActions {
 
     public void preRegister() {
 
-        try{
+        try {
             output.write("\nEnter username: ".getBytes());
             String username = scanner.nextLine();
 
             if (userRepository.checkIfUserExists(username)) {
-                output.write(String.format("%s already exists, try to login%nEnter password for %s :", username, username).getBytes());
                 loginGate(username);
             }
             register(username);
@@ -120,22 +119,29 @@ public class LoginMenuActions {
 
     private void loginGate(String username) {
 
-        String password = scanner.nextLine();
-        User user = userRepository.getUserByUsername(username);
-        String userDbPassword = user.getPassword();
-
         try {
-            if (userRepository.checkIfPasswordMatches(password, userDbPassword, securityUtils)) {
-                output.write(String.format("%n(logged in as '%s')", username).getBytes());
+            while (SystemConstants.WRONG_PASSWORD_COUNT < SystemConstants.WRONG_PASSWORD_THRESHOLD) {
 
-                AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, user);
-                accountMenuActions.accountMenuActions();
+                output.write(String.format("%s already exists, try to login%nEnter password for '%s' :", username, username).getBytes());
 
-            } else {
-                output.write("\nWrong password".getBytes());
+                String password = scanner.nextLine();
+                lUser user = userRepository.getUserByUsername(username);
+                String userDbPassword = user.getPassword();
+
+                if (userRepository.checkIfPasswordMatches(password, userDbPassword, securityUtils)) {
+                    output.write(String.format("%n(logged in as '%s')", username).getBytes());
+
+                    AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, userRepository, user);
+                    accountMenuActions.accountMenuActions();
+
+                } else {
+                    output.write("\nWrong password".getBytes());
+                    SystemConstants.WRONG_PASSWORD_COUNT++;
+                }
             }
-            mainMenuActions();
 
+            output.write(String.format("Exceeded maximum password tries (%s)..", SystemConstants.WRONG_PASSWORD_THRESHOLD).getBytes());
+            mainMenuActions();
         } catch (IOException io) {
             LOGGER.error(io.toString());
         }
@@ -167,11 +173,16 @@ public class LoginMenuActions {
             userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
             output.write(String.format("%n(logged in as '%s')", username).getBytes());
 
-            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository,
-                    new User(username, hashedPassword, name, lastname, email, personalCode));
+            lUser user = lUser.builder()
+                    .username(username)
+                    .password(hashedPassword)
+                    .name(name)
+                    .lastname(lastname)
+                    .email(email)
+                    .personalCode(personalCode)
+                    .build();
+            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, userRepository, user);
             accountMenuActions.accountMenuActions();
-
-            mainMenuActions();
 
         } catch (IOException io) {
             LOGGER.error(io.toString());

@@ -3,19 +3,19 @@ package entities;
 public class Property {
 
     private int propertyId;
-    private User user;
+    private lUser user;
     private String ownerPersonalCode;
     private String type;
     private String address;
 
     public Property() {}
 
-    public Property(User user) {
+    public Property(lUser user) {
         this.user = user;
         this.ownerPersonalCode = user.getPersonalCode();
     }
 
-    public Property(int propertyId, User user, String ownerPersonalCode, String type, String address) {
+    public Property(int propertyId, lUser user, String ownerPersonalCode, String type, String address) {
         this.propertyId = propertyId;
         this.user = user;
         this.ownerPersonalCode = ownerPersonalCode;

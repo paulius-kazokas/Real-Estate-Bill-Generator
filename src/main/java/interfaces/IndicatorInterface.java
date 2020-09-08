@@ -1,10 +1,15 @@
 package interfaces;
 
+import entities.lIndicator;
+
 import java.util.List;
 
 public interface IndicatorInterface {
 
-    List<Integer> getIndicatorIdsByPropertyId(Integer propertyId);
+    lIndicator getIndicator(int propertyId);
+
+    //List<Integer> getIndicatorIdsByPropertyId(int propertyId);
+    List<lIndicator> getIndicatorsByPropertyId(int propertyId);
 
     List<String> getIndicatorMonthStartEndAmountsByIndicatorId(int indicatorId);
 

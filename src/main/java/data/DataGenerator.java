@@ -1,7 +1,8 @@
 package data;
 
 import config.DatabaseConfig;
-import entities.User;
+import entities.lUser;
+import entities.oUser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -89,7 +90,8 @@ public class DataGenerator {
 
         RandomGeneratorUtility rg = new RandomGeneratorUtility();
         UserRepository ur = new UserRepository(dc);
-        User user = ur.getUserByUsername(username);
+        //oUser user = ur.getUserByUsername(username);
+        lUser user = ur.getUserByUsername(username);
 
         String userBillName = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + username + ".json";
         Map<String, String> allUtilitiesTotal = new HashMap<>();

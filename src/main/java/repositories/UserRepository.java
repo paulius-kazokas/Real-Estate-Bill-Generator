@@ -2,7 +2,8 @@ package repositories;
 
 import config.DatabaseConfig;
 import config.SystemConstants;
-import entities.User;
+import entities.lUser;
+import entities.oUser;
 import interfaces.IUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,21 +39,45 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public lUser getUserByUsername(String username) {
 
         String query = "SELECT * FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE username = '" + username + "'";
 
         try (Statement st = databaseConfig.connectionToDatabase().createStatement(); ResultSet rs = st.executeQuery(query)) {
             if (rs.next()) {
-                User user = new User();
-                user.setUsername(username);
-                user.setPassword(rs.getString("password"));
-                user.setName(rs.getString("name"));
-                user.setLastname(rs.getString("lastname"));
-                user.setEmail(rs.getString("email"));
-                user.setPersonalCode(rs.getString("personalcode"));
+                return lUser.builder()
+                        .username(username)
+                        .password(rs.getString("password"))
+                        .name(rs.getString("name"))
+                        .lastname(rs.getString("lastname"))
+                        .email(rs.getString("email"))
+                        .personalCode(rs.getString("personalcode"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(String.format("%s", e));
+        }
 
-                return user;
+        return null;
+    }
+
+    @Override
+    public lUser getUser(int personalCode) {
+
+        String query = "SELECT * FROM " + SystemConstants.UTC_USERS_TABLE + " WHERE personalcode = '" + personalCode + "'";
+
+        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            if (resultSet.next()) {
+                return lUser.builder()
+                        .id(resultSet.getInt("id"))
+                        .personalCode(resultSet.getString("personalcode"))
+                        .username(resultSet.getString("username"))
+                        .password(resultSet.getString("password"))
+                        .name(resultSet.getString("name"))
+                        .lastname(resultSet.getString("lastname"))
+                        .email(resultSet.getString("email"))
+                        .build();
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));

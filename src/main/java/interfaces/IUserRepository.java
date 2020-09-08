@@ -1,13 +1,17 @@
 package interfaces;
 
-import entities.User;
+import entities.lUser;
+import entities.oUser;
 import security.SecurityUtils;
 
 public interface IUserRepository {
 
     boolean checkIfUserExists(String usernameInput);
 
-    User getUserByUsername(String username);
+    //oUser getUserByUsername(String username);
+    lUser getUserByUsername(String username);
+
+    lUser getUser(int personalCode);
 
     boolean checkIfPasswordMatches(String password, String storedPassword, SecurityUtils securityUtils);
 

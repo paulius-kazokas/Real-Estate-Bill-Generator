@@ -1,5 +1,6 @@
 package security;
 
+import config.SystemConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ public class SecurityUtils {
     public String sha512Hash(String password) {
 
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            MessageDigest md = MessageDigest.getInstance(SystemConstants.SHA512);
             byte[] data = md.digest(password.getBytes());
             StringBuilder sb = new StringBuilder();
 
