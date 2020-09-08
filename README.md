@@ -1,3 +1,5 @@
+Latest activity: usage of lombok, code refactoring, clean up.
+
 Upcoming
 
 Functionality:
