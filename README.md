@@ -1,5 +1,9 @@
 TODO
 
+Lombok of
+http://stevenmwesigwa.com/tutorials/project-lombok/9/how-to-use-data-annotation-with-project-lombok-in-java-applications
+
+
 Price:
 1. Create database
 2. Insert data
