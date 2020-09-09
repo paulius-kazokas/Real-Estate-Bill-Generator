@@ -1,3 +1,23 @@
+TODO
+
+Price:
+1. Create database
+2. Insert data
+(Future: multiple currency support (code))
+
+Structure - id, currency, course
+
+
+Bill:
+1. Create database
+2. Bind with Price
+3. Generate Bill
+4. Insert into database
+
+Structure - id, indicatorId, priceId
+
+---
+
 Latest activity: usage of lombok, code refactoring, clean up, more dependant on SystemConstants
 
 Upcoming
