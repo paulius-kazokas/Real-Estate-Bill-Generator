@@ -1,6 +1,7 @@
 package repositories;
 
 import config.DatabaseConfig;
+import entities.Utility;
 import interfaces.UtilityInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static config.SystemConstants.*;
 
 public class UtilityRepository implements UtilityInterface {
 
@@ -20,14 +23,21 @@ public class UtilityRepository implements UtilityInterface {
     }
 
     @Override
-    public String getUtilityNameByUtilityId(Integer utilityId) {
+    public Utility getUtility(Integer utilityId) {
 
-        String query = "SELECT name FROM utc.utility WHERE id = " + utilityId;
+        String query = String.format("SELECT %s FROM %s WHERE %s = %s",
+                SELECT_ALL,
+                UTC_UTILITY_TABLE,
+                UTC_UTILITY_TABLE_ID, utilityId);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
+
             if(resultSet.next()) {
-                return resultSet.getString("name");
+                return Utility.builder()
+                        .utilityId(resultSet.getInt(UTC_UTILITY_TABLE_ID))
+                        .utilityName(resultSet.getString(UTC_UTILITY_TABLE_NAME))
+                        .build();
             }
         } catch (SQLException e) {
             LOGGER.error(e.toString());
@@ -35,4 +45,5 @@ public class UtilityRepository implements UtilityInterface {
 
         return null;
     }
+
 }

@@ -1,14 +1,13 @@
 package repositories;
 
 import config.DatabaseConfig;
-import config.SystemConstants;
-import entities.lIndicator;
-import interfaces.IndicatorInterface;
+import entities.Indicator;
+import entities.User;
+import interfaces.IIndicatorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import static config.SystemConstants.*;
 
-public class IndicatorRepository implements IndicatorInterface {
+public class IndicatorRepository implements IIndicatorRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndicatorRepository.class);
 
@@ -27,60 +26,55 @@ public class IndicatorRepository implements IndicatorInterface {
         this.databaseConfig = databaseConfig;
     }
 
-    //    @Override
-//    public List<Integer> getIndicatorIdsByPropertyId(int propertyId) {
-//
-//        List<Integer> indicators = new ArrayList<>();
-//        String queryIndicatorsId = String.format("SELECT id FROM %s WHERE property_id = %s", SystemConstants.UTC_INDICATORS_TABLE, propertyId);
-//
-//        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-//             ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
-//            while (resultSet.next()) {
-//                indicators.add(resultSet.getInt(SystemConstants.UTC_INDICATORS_TABLE_ID));
-//            }
-//            return indicators;
-//        } catch (SQLException e) {
-//            LOGGER.error(String.format("%s", e));
-//        }
-//
-//        return Collections.emptyList();
-//    }
-
     @Override
-    public lIndicator getIndicator(int propertyId) {
+    public List<Indicator> getIndicators(int propertyId) {
 
-        String query = String.format("SELECT * FROM %s WHERE property_id = %s", SystemConstants.UTC_INDICATORS_TABLE, propertyId);
+        String query = String.format("SELECT %s FROM %s WHERE %s = %s",
+                SELECT_ALL,
+                UTC_INDICATORS_TABLE,
+                UTC_INDICATORS_TABLE_PROPERTY_ID, propertyId);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
-            if (resultSet.next()) {
-                System.out.println("month start: " + resultSet.getInt(UTC_INDICATORS_TABLE_MONTH_START_AMOUNT));
-                return lIndicator.builder()
+
+            List<Indicator> indicators = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                indicators.add(Indicator.builder()
                         .id(resultSet.getInt(UTC_INDICATORS_TABLE_ID))
                         .propertyId(resultSet.getInt(UTC_INDICATORS_TABLE_PROPERTY_ID))
                         .utilityId(resultSet.getInt(UTC_INDICATORS_TABLE_UTILITY_ID))
                         .date(resultSet.getString(UTC_INDICATORS_TABLE_DATE))
-                        .monthEndAmount(resultSet.getInt(UTC_INDICATORS_TABLE_MONTH_START_AMOUNT))
+                        .monthStartAmount(resultSet.getInt(UTC_INDICATORS_TABLE_MONTH_START_AMOUNT))
                         .monthEndAmount(resultSet.getInt(UTC_INDICATORS_TABLE_MONTH_END_AMOUNT))
-                        .build();
+                        .build()
+                );
             }
+
+            return indicators;
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
-    public List<lIndicator> getIndicatorsByPropertyId(int propertyId) {
+    public List<Indicator> getIndicatorsByPropertyId(int propertyId, User user) {
 
-        List<lIndicator> indicators = new ArrayList<>();
-        String queryIndicatorsId = String.format("SELECT id FROM %s WHERE property_id = %s", SystemConstants.UTC_INDICATORS_TABLE, propertyId);
+        String queryIndicatorsId = String.format("SELECT %s FROM %s WHERE %s = %s", // cia enhancinti query
+                UTC_INDICATORS_TABLE_ID,
+                UTC_INDICATORS_TABLE,
+                UTC_INDICATORS_TABLE_PROPERTY_ID, propertyId);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
+
+            List<Indicator> indicators = new ArrayList<>();
+
             while (resultSet.next()) {
-                indicators.add(getIndicator(resultSet.getInt(UTC_INDICATORS_TABLE_ID)));
+                indicators.addAll(getIndicators(resultSet.getInt(UTC_INDICATORS_TABLE_ID)));
             }
             return indicators;
         } catch (SQLException e) {
@@ -93,12 +87,16 @@ public class IndicatorRepository implements IndicatorInterface {
     @Override
     public List<String> getIndicatorMonthStartEndAmountsByIndicatorId(int indicatorId) {
 
-        List<String> monthStartEndAmounts = new ArrayList<>();
-
-        String queryIndicatorsId = "SELECT month_start_amount, month_end_amount FROM utc.indicator WHERE id = " + indicatorId;
+        String query = String.format("SELECT %s, %s FROM %s WHERE %s = %s",
+                UTC_INDICATORS_TABLE_MONTH_START_AMOUNT, UTC_INDICATORS_TABLE_MONTH_END_AMOUNT,
+                UTC_INDICATORS_TABLE,
+                UTC_INDICATORS_TABLE_ID, indicatorId);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(queryIndicatorsId)) {
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            List<String> monthStartEndAmounts = new ArrayList<>();
+
             while (resultSet.next()) {
                 monthStartEndAmounts.add(resultSet.getString("month_start_amount") + "-" + resultSet.getString("month_end_amount"));
             }
@@ -113,10 +111,14 @@ public class IndicatorRepository implements IndicatorInterface {
     @Override
     public Integer getUtilityIdByIndicatorId(Integer indicatorId) {
 
-        String queryUtilityId = "SELECT utility_id FROM utc.indicator WHERE id = " + indicatorId;
+        String query = String.format("SELECT %s FROM %s WHERE %s = %s",
+                UTC_INDICATORS_TABLE_UTILITY_ID,
+                UTC_INDICATORS_TABLE,
+                UTC_INDICATORS_TABLE_ID, indicatorId);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(queryUtilityId)) {
+             ResultSet resultSet = statement.executeQuery(query)) {
+
             if (resultSet.next()) {
                 return resultSet.getInt("utility_id");
             }
@@ -126,4 +128,5 @@ public class IndicatorRepository implements IndicatorInterface {
 
         return null;
     }
+
 }

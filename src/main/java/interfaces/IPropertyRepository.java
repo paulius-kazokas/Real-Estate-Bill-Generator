@@ -1,20 +1,19 @@
 package interfaces;
 
-import entities.lProperty;
-import entities.lUser;
-import repositories.UserRepository;
+import entities.Property;
+import entities.User;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IPropertyRepository {
 
-    List<lProperty> getPropertiesByUser(lUser user);
+    List<Property> getPropertiesByUser(User user);
 
-    Map<Integer, String> getUserPropertiesCount(lUser user);
+    Map<Integer, String> getUserPropertiesCount(User user);
 
-    lProperty getPropertyByAddress(String address);
+    Property getPropertyByAddress(String address);
 
-    List<lProperty> getPropertiesByType(lUser user, String type);
+    List<Property> getPropertiesByType(User user, String type);
 
 }

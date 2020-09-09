@@ -8,12 +8,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class lProperty {
+public class Price {
 
-    private lUser user;
     private int id;
-    private String ownerPersonalCode;
-    private String type;
-    private String address;
+    private String currency;
+    private float course;
 
 }

@@ -1,9 +1,8 @@
 package repositories;
 
 import config.DatabaseConfig;
-import config.SystemConstants;
-import entities.lProperty;
-import entities.lUser;
+import entities.Property;
+import entities.User;
 import interfaces.IPropertyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+
+import static config.SystemConstants.*;
 
 public class PropertyRepository implements IPropertyRepository {
 
@@ -26,21 +27,24 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public List<lProperty> getPropertiesByUser(lUser user) {
+    public List<Property> getPropertiesByUser(User user) {
 
-        List<lProperty> properties = new ArrayList<>();
-
-        String query = "SELECT id, type, address FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "'";
-        System.out.println(query);
+        String query = String.format("SELECT %s, %s, %s FROM %s WHERE %s = '%s'",
+                UTC_PROPERTY_TABLE_ID, UTC_PROPERTY_TABLE_TYPE, UTC_PROPERTY_TABLE_ADDRESS,
+                UTC_PROPERTY_TABLE,
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
+
+            List<Property> properties = new ArrayList<>();
+
             while (resultSet.next()) {
-                lProperty property = lProperty.builder()
-                        .id(resultSet.getInt("id"))
+                Property property = Property.builder()
+                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
                         .ownerPersonalCode(user.getPersonalCode())
-                        .type(resultSet.getString("type"))
-                        .address(resultSet.getString("address"))
+                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
+                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
                         .build();
 
                 properties.add(property);
@@ -55,9 +59,12 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public Map<Integer, String> getUserPropertiesCount(lUser user) {
+    public Map<Integer, String> getUserPropertiesCount(User user) {
 
-        String typeQuery = "SELECT DISTINCT(type) FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "'";
+        String typeQuery = String.format("SELECT DISTINCT(%s) FROM %s WHERE %s = '%s'",
+                UTC_PROPERTY_TABLE_TYPE,
+                UTC_PROPERTY_TABLE,
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
 
         try (Statement typeStatement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet typeResultSet = typeStatement.executeQuery(typeQuery)) {
@@ -65,13 +72,17 @@ public class PropertyRepository implements IPropertyRepository {
             List<String> propertyTypes = new ArrayList<>();
 
             while (typeResultSet.next()) {
-                propertyTypes.add(typeResultSet.getString("type"));
+                propertyTypes.add(typeResultSet.getString(UTC_PROPERTY_TABLE_TYPE));
             }
 
             Map<Integer, String> propertiesCount = new HashMap<>();
             for (String type : propertyTypes) {
 
-                String propertyQuery = "SELECT count(type) AS count FROM utc.property WHERE ownderPersonalCode = '" + user.getPersonalCode() + "' AND type = '" + type + "'";
+                String propertyQuery = String.format("SELECT count(%s) AS COUNT FROM %s WHERE %s = '%s' AND %s = '%s'",
+                        UTC_PROPERTY_TABLE_TYPE,
+                        UTC_PROPERTY_TABLE,
+                        UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode(),
+                        UTC_PROPERTY_TABLE_TYPE, type);
 
                 try (Statement countStatement = databaseConfig.connectionToDatabase().createStatement();
                      ResultSet countResultSet = countStatement.executeQuery(propertyQuery)) {
@@ -91,23 +102,24 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public lProperty getPropertyByAddress(String address) {
+    public Property getPropertyByAddress(String address) {
 
-        String query = "SELECT * FROM " + SystemConstants.UTC_PROPERTY_TABLE + " WHERE address ='" + address + "'";
+        String query = String.format("SELECT %s FROM %s WHERE %s = '%s'",
+                SELECT_ALL,
+                UTC_PROPERTY_TABLE,
+                UTC_PROPERTY_TABLE_ADDRESS, address);
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
-            if (resultSet.next()) {
-                lProperty property = lProperty.builder()
-                        .user(userRepository.getUser(resultSet.getInt("ownderPersonalCode")))
-                        .id(resultSet.getInt("id"))
-                        .ownerPersonalCode(resultSet.getString("ownderPersonalCode"))
-                        .type(resultSet.getString("type"))
-                        .address(resultSet.getString("address"))
-                        .build();
 
-                System.out.println(property);
-                return property;
+            if (resultSet.next()) {
+                return Property.builder()
+                        .user(userRepository.getUser(resultSet.getInt(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE)))
+                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
+                        .ownerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE))
+                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
+                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
+                        .build();
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
@@ -117,21 +129,26 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public List<lProperty> getPropertiesByType(lUser user, String type) {
+    public List<Property> getPropertiesByType(User user, String type) {
 
-        String query = "SELECT * FROM utc.property WHERE type = '" + type + "' AND ownderPersonalCode = '" + user.getPersonalCode() + "'";
+        String query = String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'",
+                SELECT_ALL,
+                UTC_PROPERTY_TABLE,
+                UTC_PROPERTY_TABLE_TYPE, type,
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
 
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            List<lProperty> properties = new ArrayList<>();
+            List<Property> properties = new ArrayList<>();
+
             while (resultSet.next()) {
 
-                lProperty returnProperty = lProperty.builder()
-                        .id(resultSet.getInt("id"))
-                        .ownerPersonalCode(resultSet.getString("ownderPersonalCode"))
-                        .type(resultSet.getString("type"))
-                        .address(resultSet.getString("address"))
+                Property returnProperty = Property.builder()
+                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
+                        .ownerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE))
+                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
+                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
                         .build();
 
                 properties.add(returnProperty);

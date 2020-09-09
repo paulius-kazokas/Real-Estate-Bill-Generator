@@ -1,6 +1,8 @@
 package interfaces;
 
+import entities.Utility;
+
 public interface UtilityInterface {
 
-    String getUtilityNameByUtilityId(Integer utilityId);
+    Utility getUtility(Integer utilityId);
 }

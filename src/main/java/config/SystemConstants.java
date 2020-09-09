@@ -11,16 +11,16 @@ public class SystemConstants {
 
     // General specifics
     public static final DecimalFormat UTC_DECIMAL_FORMATER = new DecimalFormat("#.##");
-    public static final String UTC_DATETIME_FORMATER = "yyyy-MM";
-    public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UTC_DATETIME_FORMATER));
-    public static int WRONG_PASSWORD_COUNT = 0;
-    public static final int WRONG_PASSWORD_THRESHOLD = 3;
+    public static final String UPC_DATETIME_FORMATTER = "yyyy-MM";
+    public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UPC_DATETIME_FORMATTER));
 
     // Database specifics
     public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/utc?useSSL=true";
     public static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String MYSQL_USER = "root";
     public static final String MYSQL_PASSWORD = "root";
+
+    public static final String SELECT_ALL = "*";
 
     // Database: User
     public static final String UTC_USERS_TABLE = "utc.user";
@@ -47,6 +47,23 @@ public class SystemConstants {
     public static final String UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE = "ownderPersonalCode";
     public static final String UTC_PROPERTY_TABLE_TYPE = "type";
     public static final String UTC_PROPERTY_TABLE_ADDRESS = "address";
+
+    // Database: Utility
+    public static final String UTC_UTILITY_TABLE = "utc.utility";
+    public static final String UTC_UTILITY_TABLE_ID = "id";
+    public static final String UTC_UTILITY_TABLE_NAME = "name";
+
+    // Database: Price
+    public static final String UTC_PRICE_TABLE = "utc.price";
+    public static final String UTC_PRICE_TABLE_ID = "id";
+    public static final String UTC_PRICE_TABLE_CURRENCY = "currency";
+    public static final String UTC_PRICE_TABLE_COURSE = "course";
+
+    // Database: Bill
+    public static final String UTC_BILL_TABLE = "utc.bill";
+    public static final String UTC_BILL_TABLE_ID = "id";
+    public static final String UTC_BILL_TABLE_INDICATOR_ID = "indicator_id";
+    public static final String UTC_BILL_TABLE_PRICE = "price";
 
     // Bill specifics
     public static final String CURRENCY = "EUR";

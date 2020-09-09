@@ -1,13 +1,12 @@
 package meniu;
 
-import entities.lIndicator;
-import entities.lProperty;
-import entities.lUser;
+import entities.Indicator;
+import entities.Property;
+import entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
-import repositories.UserRepository;
 import repositories.UtilityRepository;
 
 import java.io.IOException;
@@ -26,16 +25,14 @@ public class AccountMenuActions {
     private OutputStream output = System.out;
     private Scanner scanner = new Scanner(input);
 
-    private lUser user;
+    private User user;
     private PropertyRepository propertyRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
-    private UserRepository userRepository;
 
-    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, UserRepository userRepository, lUser user) {
+    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
         this.propertyRepository = propertyRepository;
         this.indicatorRepository = indicatorRepository;
-        this.utilityRepository = utilityRepository;
         this.utilityRepository = utilityRepository;
         this.user = user;
     }
@@ -44,7 +41,7 @@ public class AccountMenuActions {
 
         try {
             String choice = "not assigned";
-            List<lProperty> properties = propertyRepository.getPropertiesByUser(user);
+            List<Property> properties = propertyRepository.getPropertiesByUser(user);
 
             if (!properties.isEmpty()) {
 
@@ -57,7 +54,7 @@ public class AccountMenuActions {
                     if (!choice.isBlank()) {
                         switch (choice) {
                             case "0":
-                                output.write("\nlogged out".getBytes());
+                                output.write("\n(logged out)".getBytes());
                                 return;
                             case "1":
                                 checkUserProperties();
@@ -128,7 +125,7 @@ public class AccountMenuActions {
             Map<Integer, String> chosenAddresses = new LinkedHashMap<>();
             int addressCount = 1;
 
-            for (lProperty property : propertyRepository.getPropertiesByType(user, chosenPropertyType)) {
+            for (Property property : propertyRepository.getPropertiesByType(user, chosenPropertyType)) {
                 String address = property.getAddress();
                 output.write(String.format("%s. %s%n", addressCount, address).getBytes());
 
@@ -140,25 +137,16 @@ public class AccountMenuActions {
             String propertyAddressChoice = scanner.nextLine();
             String address = chosenAddresses.get(Integer.valueOf(propertyAddressChoice));
 
-            lProperty property = propertyRepository.getPropertyByAddress(address);
-            System.out.println(property.toString());
-
+            Property property = propertyRepository.getPropertyByAddress(address);
             output.write(String.format("%nIndicators for %s:%n", address).getBytes());
-            //List<Integer> indicatorIds = indicatorRepository.getIndicatorIdsByPropertyId(propertyByAddress.getPropertyId());
 
-            System.out.println("property id: " + property.getId());
-
-            // fix from here
-            // should return list of indicators
-            // enhance query - indicators by property id where user has same property id
-            List<lIndicator> indicators = indicatorRepository.getIndicatorsByPropertyId(property.getId());
-            System.out.println(indicators);
+            List<Indicator> indicators = indicatorRepository.getIndicatorsByPropertyId(property.getId(), user);
 
             indicators.forEach(indicator -> {
 
                 int indicatorId = indicator.getId();
                 int utilityId = indicatorRepository.getUtilityIdByIndicatorId(indicatorId);
-                String utilityName = utilityRepository.getUtilityNameByUtilityId(utilityId);
+                String utilityName = utilityRepository.getUtility(utilityId).getUtilityName();
 
                 indicatorRepository.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> {
                     try {
@@ -179,6 +167,13 @@ public class AccountMenuActions {
 
         try {
             output.write("to be implemented".getBytes());
+
+            String choice = "not assigned";
+
+            while (!choice.equals("0")) {
+
+            }
+
         } catch (IOException io) {
             LOGGER.error(io.toString());
         }
