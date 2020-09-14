@@ -1,8 +1,5 @@
 TODO
 
-Lombok of
-http://stevenmwesigwa.com/tutorials/project-lombok/9/how-to-use-data-annotation-with-project-lombok-in-java-applications
-
 
 Price:
 1. Create database
@@ -33,5 +30,5 @@ Functionality:
 Technologies:
 1. Stream API
 2. Use of functional pattern
-3. Lombok
+3. Lombok [Video](https://www.youtube.com/watch?v=goISFNxHEqc&ab_channel=MikeM%C3%B8llerNielsen), [Documentation](https://projectlombok.org/features/all)
 4. JUnit 5
