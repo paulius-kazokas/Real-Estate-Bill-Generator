@@ -40,7 +40,7 @@ public class IndicatorRepository implements IIndicatorRepository {
             List<Indicator> indicators = new ArrayList<>();
 
             while (resultSet.next()) {
-
+;
                 indicators.add(Indicator.builder()
                         .id(resultSet.getInt(UTC_INDICATORS_TABLE_ID))
                         .propertyId(resultSet.getInt(UTC_INDICATORS_TABLE_PROPERTY_ID))

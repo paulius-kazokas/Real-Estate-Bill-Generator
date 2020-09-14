@@ -7,32 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Price.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/IBillRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPriceRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/PriceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/playground/Alien.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/playground/AlienTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Bill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Indicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Indicator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Price.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/lIndicator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/lProperty.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/lUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/oUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IndicatorInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IIndicatorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/UtilityInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/UtilityInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/IndicatorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/IndicatorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UtilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UtilityRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +63,7 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -109,62 +94,29 @@
     <property name="SONARLINT_ISSUES_SPLIT_PROPORTION" value="0.47186148" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2593423" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="playground" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pauli\IdeaProjects\UTC\Urban-Taxes-Calculator\src\main\java\admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Menu">
-    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="MAIN_CLASS_NAME" value="main.Main2" />
-      <module name="Urban-Taxes-Calculator" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.Menu" />
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Menus" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="playground.Menus" />
-      <module name="Urban-Taxes-Calculator" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Stdout" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="playground.Stdout" />
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="playground.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OptionalExample" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AlienTest.sneakyThrows">
+    <configuration name="AlienTest.everyConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
         <pattern>
@@ -173,26 +125,91 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="playground" />
-      <option name="MAIN_CLASS_NAME" value="playground.OptionalExample" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
+      <option name="METHOD_NAME" value="everyConstructor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlienTest.objectWithNotNullValAndVarFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="playground.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
+      <option name="METHOD_NAME" value="objectWithNotNullValAndVarFields" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlienTest.objectWithValAndVarFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="playground.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
+      <option name="METHOD_NAME" value="objectWithValAndVarFields" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlienTest.reqConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="playground.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
+      <option name="METHOD_NAME" value="reqConstructor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlienTest.sneakyThrows" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="playground.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="playground" />
+      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
+      <option name="METHOD_NAME" value="sneakyThrows" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Stdout" />
-      <item itemvalue="Application.Main2" />
-      <item itemvalue="Application.Menu" />
-      <item itemvalue="Application.Menus" />
-      <item itemvalue="JUnit.OptionalExample" />
+      <item itemvalue="JUnit.AlienTest.objectWithValAndVarFields" />
+      <item itemvalue="JUnit.AlienTest.objectWithNotNullValAndVarFields" />
+      <item itemvalue="JUnit.AlienTest.reqConstructor" />
+      <item itemvalue="JUnit.AlienTest.everyConstructor" />
+      <item itemvalue="JUnit.AlienTest.sneakyThrows" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Menu" />
-        <item itemvalue="Application.Menus" />
-        <item itemvalue="Application.Stdout" />
-        <item itemvalue="Application.Main2" />
-        <item itemvalue="JUnit.OptionalExample" />
+        <item itemvalue="JUnit.AlienTest.sneakyThrows" />
+        <item itemvalue="JUnit.AlienTest.everyConstructor" />
+        <item itemvalue="JUnit.AlienTest.reqConstructor" />
+        <item itemvalue="JUnit.AlienTest.objectWithNotNullValAndVarFields" />
+        <item itemvalue="JUnit.AlienTest.objectWithValAndVarFields" />
       </list>
     </recent_temporary>
   </component>
@@ -202,17 +219,7 @@
         <serviceView>
           <option name="contentProportion" value="0.30140692" />
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@48c507f3" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -256,7 +263,9 @@
       <workItem from="1599212415203" duration="29850000" />
       <workItem from="1599554169774" duration="485000" />
       <workItem from="1599554684332" duration="18403000" />
-      <workItem from="1599637294544" duration="18560000" />
+      <workItem from="1599637294544" duration="19094000" />
+      <workItem from="1599737943829" duration="2374000" />
+      <workItem from="1600076616403" duration="13283000" />
     </task>
     <servers />
   </component>
@@ -300,10 +309,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="474" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1592473261479" />
-    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1599658235815">
+    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1599740521575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599658235815" />
+    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599740521575" />
     <state x="768" y="318" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1595424628252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -357,46 +366,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1877" height="731" key="GridCell.Tab.0.bottom" timestamp="1599654316537">
+    <state width="1877" height="248" key="GridCell.Tab.0.bottom" timestamp="1600092188324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="731" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599654316537" />
-    <state width="1877" height="731" key="GridCell.Tab.0.center" timestamp="1599654316537">
+    <state width="1877" height="248" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1600092188324" />
+    <state width="1877" height="248" key="GridCell.Tab.0.center" timestamp="1600092188323">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="731" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599654316537" />
-    <state width="1877" height="731" key="GridCell.Tab.0.left" timestamp="1599654316537">
+    <state width="1877" height="248" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1600092188323" />
+    <state width="1877" height="248" key="GridCell.Tab.0.left" timestamp="1600092188323">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="731" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599654316537" />
-    <state width="1877" height="731" key="GridCell.Tab.0.right" timestamp="1599654316537">
+    <state width="1877" height="248" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1600092188323" />
+    <state width="1877" height="248" key="GridCell.Tab.0.right" timestamp="1600092188324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="731" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599654316537" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom" timestamp="1599648168191">
+    <state width="1877" height="248" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1600092188324" />
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom" timestamp="1599660094325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599648168191" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center" timestamp="1599648168191">
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center" timestamp="1599660094325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599648168191" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left" timestamp="1599648168191">
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left" timestamp="1599660094325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599648168191" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right" timestamp="1599648168191">
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right" timestamp="1599660094325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599648168191" />
+    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
     <state x="540" y="266" key="IDE.errors.dialog" timestamp="1592511360140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -405,11 +414,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="178" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594117928890" />
-    <state x="243" y="106" width="1591" height="845" key="SettingsEditor" timestamp="1599554665274">
+    <state x="243" y="106" width="1591" height="845" key="SettingsEditor" timestamp="1600080308183">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="2163" y="106" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597495517900" />
-    <state x="243" y="106" width="1591" height="845" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1599554665274" />
+    <state x="243" y="106" width="1591" height="845" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1600080308183" />
     <state width="200" height="441" key="SqlResolveConfigurable" timestamp="1592481165692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -426,6 +435,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="216" y="438" key="com.intellij.jarRepository.RepositoryAttachDialog-SEARCH/0.0.1920.1040@0.0.1920.1040" timestamp="1593504299291" />
+    <state x="724" y="252" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1600080652119">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="724" y="252" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600080652119" />
     <state x="637" y="824" width="1501" height="198" key="dock-window-1" timestamp="1595242768278">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
