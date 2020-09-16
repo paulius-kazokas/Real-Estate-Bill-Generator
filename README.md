@@ -42,8 +42,6 @@
 [xml]: https://img.shields.io/badge/-xml-red.svg
 [json]: https://img.shields.io/badge/-json-green.svg
 
-[commit-activity-link]: https://img.shields.io/github/commit-activity/m/paulius-kazokas/Urban-Taxes-Calculator?color=red
-
 
 <!-- Dependencies bar -->
 [![apache-common-codec][apache-common-codec-shield]][apache-common-codec-link]
@@ -61,8 +59,6 @@
 [![java][java]][java]
 [![xml][xml]][xml]
 [![json][json]][json]
-
-![GitHub commit activity][commit-activity-link]
 
 # Urban Taxes Calculator
 
