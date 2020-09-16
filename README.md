@@ -1,7 +1,4 @@
 <!-- Links -->
-[forks-url]: https://github.com/paulius-kazokas/Urban-Taxes-Calculator/network/members
-[stars-shield]: https://img.shields.io/github/stars/paulius-kazokas/Urban-Taxes-Calculator.svg?style=flat-square
-
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/paulius-leonardas-kazokas/
 
@@ -35,6 +32,12 @@
 [slf4j-shield]: https://img.shields.io/badge/slf4j-v1.7.21-green.svg
 [slf4j-link]: https://github.com/qos-ch/slf4j
 
+[jdk-shield]: https://img.shields.io/badge/jdk-v11.0.7-blue.svg
+[jdk-link]: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+
+[repo-java-shield]: https://img.shields.io/github/languages/top/paulius-kazokas/Urban-Taxes-Calculator?label=Java&logoColor=red
+[repo-java-link]: https://github.com/paulius-kazokas/Urban-Taxes-Calculator/search?l=java
+
 
 <!-- Dependencies bar -->
 [![apache-common-codec][apache-common-codec-shield]][apache-common-codec-link]
@@ -48,8 +51,10 @@
 [![lombok][lombok-shield]][lombok-link]
 [![slf4j-shield]][slf4j-link]
 
-![GitHub top language](https://img.shields.io/github/languages/top/paulius-kazokas/Urban-Taxes-Calculator?label=Java&logoColor=red)
+[![jdk][jdk-shield]][jdk-link]
+[![java][repo-java-shield]][repo-java-link]
 
+# Urban Taxes Calculator
 
 ### Developer Notes
 
