@@ -40,12 +40,12 @@ public class PropertyRepository implements IPropertyRepository {
             List<Property> properties = new ArrayList<>();
 
             while (resultSet.next()) {
-                Property property = Property.builder()
-                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
-                        .ownerPersonalCode(user.getPersonalCode())
-                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
-                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
-                        .build();
+                Property property = Property.object();
+                property.setUser(user);
+                property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
+                property.setOwnerPersonalCode(user.getPersonalCode());
+                property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
+                property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
 
                 properties.add(property);
             }
@@ -113,13 +113,14 @@ public class PropertyRepository implements IPropertyRepository {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             if (resultSet.next()) {
-                return Property.builder()
-                        .user(userRepository.getUser(resultSet.getInt(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE)))
-                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
-                        .ownerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE))
-                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
-                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
-                        .build();
+                Property property = Property.object();
+                property.setUser(userRepository.getUser(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE)));
+                property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
+                property.setOwnerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE));
+                property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
+                property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
+
+                return property;
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("%s", e));
@@ -144,14 +145,14 @@ public class PropertyRepository implements IPropertyRepository {
 
             while (resultSet.next()) {
 
-                Property returnProperty = Property.builder()
-                        .id(resultSet.getInt(UTC_PROPERTY_TABLE_ID))
-                        .ownerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE))
-                        .type(resultSet.getString(UTC_PROPERTY_TABLE_TYPE))
-                        .address(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS))
-                        .build();
+                Property property = Property.object();
+                property.setUser(user);
+                property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
+                property.setOwnerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE));
+                property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
+                property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
 
-                properties.add(returnProperty);
+                properties.add(property);
             }
 
             return properties;

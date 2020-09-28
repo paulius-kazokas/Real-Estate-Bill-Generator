@@ -11,7 +11,7 @@ public interface IUserRepository {
 
     User getUserByUsername(String username);
 
-    User getUser(int personalCode);
+    User getUser(String personalCode);
 
     boolean checkIfPasswordMatches(String password, String storedPassword, SecurityUtils securityUtils);
 

@@ -1,9 +1,9 @@
 package entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 
-@Builder
-@Data
+@Data(staticConstructor = "object")
 @ToString
 public class Property {
 

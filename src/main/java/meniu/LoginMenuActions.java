@@ -1,6 +1,7 @@
 package meniu;
 
 import entities.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,13 +11,14 @@ import repositories.PropertyRepository;
 import repositories.UserRepository;
 import repositories.UtilityRepository;
 import security.SecurityUtils;
-import utility.InputVadility;
+import utility.InputValidity;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
 
+@Slf4j
 public class LoginMenuActions {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginMenuActions.class);
@@ -68,7 +70,7 @@ public class LoginMenuActions {
                 }
             }
         } catch (IOException io) {
-            LOGGER.error(io.toString());
+            log.error(io.toString());
         }
 
     }
@@ -83,18 +85,20 @@ public class LoginMenuActions {
                 if (userRepository.checkIfUserExists(username)) {
                     output.write(String.format("%nEnter password for %s: ", username).getBytes());
                     loginGate(username);
+                } else {
+                    output.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
+                    if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
+                        register(username);
+                    } else {
+                        mainMenuActions();
+                    }
                 }
             } else {
-                output.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
-                if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
-                    register(username);
-                } else {
-                    mainMenuActions();
-                }
+                log.error("Invalid username");
             }
 
         } catch (IOException io) {
-            LOGGER.error(io.toString());
+            log.error(io.toString());
         }
 
     }
@@ -111,7 +115,7 @@ public class LoginMenuActions {
             register(username);
 
         } catch (IOException io) {
-            LOGGER.error(io.toString());
+            log.error(io.toString());
         }
 
     }
@@ -134,7 +138,7 @@ public class LoginMenuActions {
             }
 
         } catch (IOException io) {
-            LOGGER.error(io.toString());
+            log.error(io.toString());
         }
 
     }
@@ -159,7 +163,7 @@ public class LoginMenuActions {
             output.write("\nEnter personal code: ".getBytes());
             String personalCode = scanner.nextLine();
 
-            if (InputVadility.checkArrayForFalseItemValue(ArrayUtils.toArray(username, password, name, lastname, email, personalCode))) {
+            if (InputValidity.checkArrayForFalseItemValue(ArrayUtils.toArray(username, password, name, lastname, email, personalCode))) {
                 throw new IllegalArgumentException("Invalid user input detected");
             }
 
@@ -180,7 +184,7 @@ public class LoginMenuActions {
             accountMenuActions.accountMenuActions();
 
         } catch (IOException io) {
-            LOGGER.error(io.toString());
+            log.error(io.toString());
         }
 
     }

@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Running tests for InputVadilityTest class")
 public class InputVadilityTest {
 
-    InputVadility iv;
+    InputValidity iv;
 
     @BeforeEach
     public void setup() {
-        iv = new InputVadility();
+        iv = new InputValidity();
     }
 
     @Order(1)
