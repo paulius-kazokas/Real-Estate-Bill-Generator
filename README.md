@@ -2,6 +2,9 @@
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/paulius-leonardas-kazokas/
 
+[stackoverflow-shield]: https://img.shields.io/badge/StackOverflow-lpkej-orange
+[stackoverflow-url]: https://stackoverflow.com/users/8631776/lpkej
+
 [apache-common-codec-shield]: https://img.shields.io/badge/apache--commons--codec-v4.4-red.svg
 [apache-common-codec-link]: https://github.com/apache/commons-codec
 
@@ -145,4 +148,5 @@ Github ReadMe
 
 
 [![LinkedIn][linkedin-shield]]([linkedin-url])
+[![StackOverflow][stackoverflow-shield]]([stackoverflow-url])
 
