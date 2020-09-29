@@ -55,7 +55,7 @@
 [json]: https://img.shields.io/badge/-json-green.svg
 
 
-<!-- Dependencies bar -->
+<!-- Dependencies section -->
 [![apache-common-codec][apache-common-codec-shield]][apache-common-codec-link]
 [![apache-commons-collections][apache-commons-collections-shield]][apache-commons-collections-link]
 [![apache-commons-lang][apache-commons-lang-shield]][apache-commons-lang-link]
@@ -77,18 +77,28 @@
 [![xml][xml]][xml]
 [![json][json]][json]
 
+<!-- SonarCloud section -->
+<!-- Note: in order to get sonar badges goto sonarcloud.io project and locate blue button "Get project badges" -->
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=alert_status)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=bugs)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=code_smells)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=ncloc)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=security_rating)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+
 # Urban Taxes Calculator
 
 ### CI/CD pipeline
 
-- Develop new feature
+- Develop new feature from project board
   - https://github.com/paulius-kazokas/roadmap/projects/1
 - Write tests
 - Sonar scan
-  - StartSonar.sh
-  - ```mvn sonar:sonar -DprojectKey=urban.taxes.calculator:Urban-Taxes-Calculator```
-  - http://localhost:9000/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator
-- Git
+  - Run ```mvn clean install sonar:sonar``` results will be located on [SonarCloud](https://sonarcloud.io/project/configuration?id=paulius-kazokas_Urban-Taxes-Calculator)
+  
+  Note. To scan locally run ```StartSonar.sh``` then run ```mvn clean install sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dsonar.host.url=http://localhost:9000``` and the results will be located on [Local SonarQube](http://localhost:9000/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+- Commit and push changes
   - ```mvn clean install ```
   - ```git add --all```
   - ```git commit -m ""```
