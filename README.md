@@ -41,9 +41,14 @@
 [maven-compiler-shield]: https://img.shields.io/badge/maven--compiler-v3.8.1-red.svg
 [maven-compiler-link]: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin/3.8.1
 
-
 [repo-java-shield]: https://img.shields.io/github/languages/top/paulius-kazokas/Urban-Taxes-Calculator?label=Java&logoColor=red
 [repo-java-link]: https://github.com/paulius-kazokas/Urban-Taxes-Calculator/search?l=java
+
+[sonarqube-shield]: https://img.shields.io/badge/sonarqube-v8.4.2.36762-green.svg
+[sonarqube-link]: https://www.sonarqube.org/success-download-community-edition/
+
+[sonarqube-maven-shield]: https://img.shields.io/badge/org--sonarsource--scanner--maven-v3.7.0.1746-green.svg
+[sonarqube-maven-link]: https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin/3.7.0.1746
 
 [java]: https://img.shields.io/badge/-java-blue.svg
 [xml]: https://img.shields.io/badge/-xml-red.svg
@@ -62,9 +67,11 @@
 [![lombok][lombok-shield]][lombok-link]
 [![slf4j-shield]][slf4j-link]
 [![maven-compiler][maven-compiler-shield]][maven-compiler-link]
+[![sonarqube-maven-scanner][sonarqube-maven-shield]][sonarqube-maven-link]
 
 [![jdk][jdk-shield]][jdk-link]
 [![maven][maven-shield]][maven-link]
+[![sonarqube][sonarqube-shield]][sonarqube-link]
 
 [![java][java]][java]
 [![xml][xml]][xml]
