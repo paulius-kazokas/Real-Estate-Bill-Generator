@@ -8,7 +8,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utility/InputValidity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utility/InputValidity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utility/InputVadilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utility/InputVadilityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,22 +142,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlienTest.objectWithNotNullValAndVarFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="pluralsightMockito.setup.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="playground" />
-      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
-      <option name="METHOD_NAME" value="objectWithNotNullValAndVarFields" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AlienTest.reqConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
@@ -186,20 +174,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserRepositoryTest.testReturnQueryResult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repositories" />
+      <option name="MAIN_CLASS_NAME" value="repositories.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="testReturnQueryResult" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Menu" />
-      <item itemvalue="JUnit.AlienTest.objectWithNotNullValAndVarFields" />
       <item itemvalue="JUnit.AlienTest.reqConstructor" />
       <item itemvalue="JUnit.AlienTest.everyConstructor" />
       <item itemvalue="JUnit.AlienTest.sneakyThrows" />
+      <item itemvalue="JUnit.UserRepositoryTest.testReturnQueryResult" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Menu" />
+        <item itemvalue="JUnit.UserRepositoryTest.testReturnQueryResult" />
         <item itemvalue="JUnit.AlienTest.sneakyThrows" />
         <item itemvalue="JUnit.AlienTest.everyConstructor" />
         <item itemvalue="JUnit.AlienTest.reqConstructor" />
-        <item itemvalue="JUnit.AlienTest.objectWithNotNullValAndVarFields" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +213,17 @@
         <serviceView>
           <option name="contentProportion" value="0.30140692" />
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@628dcfa" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -264,7 +278,8 @@
       <workItem from="1600940154099" duration="22000" />
       <workItem from="1600940198033" duration="18017000" />
       <workItem from="1601304703178" duration="8045000" />
-      <workItem from="1601378127804" duration="9261000" />
+      <workItem from="1601378127804" duration="9541000" />
+      <workItem from="1601394790283" duration="18954000" />
     </task>
     <servers />
   </component>
@@ -296,10 +311,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="474" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1600940358695" />
-    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1599740521575">
+    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1601406104707">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599740521575" />
+    <state x="543" y="296" width="619" height="562" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601406104707" />
     <state x="768" y="318" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1595424628252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -349,46 +364,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1877" height="322" key="GridCell.Tab.0.bottom" timestamp="1601374495593">
+    <state width="1877" height="322" key="GridCell.Tab.0.bottom" timestamp="1601415639460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="322" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601374495593" />
-    <state width="1877" height="322" key="GridCell.Tab.0.center" timestamp="1601374495593">
+    <state width="1877" height="322" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601415639460" />
+    <state width="1877" height="322" key="GridCell.Tab.0.center" timestamp="1601415639460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="322" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601374495593" />
-    <state width="1877" height="322" key="GridCell.Tab.0.left" timestamp="1601374495593">
+    <state width="1877" height="322" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601415639460" />
+    <state width="1877" height="322" key="GridCell.Tab.0.left" timestamp="1601415639460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="322" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601374495593" />
-    <state width="1877" height="322" key="GridCell.Tab.0.right" timestamp="1601374495593">
+    <state width="1877" height="322" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601415639460" />
+    <state width="1877" height="322" key="GridCell.Tab.0.right" timestamp="1601415639460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="656" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597776012352" />
-    <state width="1877" height="322" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601374495593" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom" timestamp="1599660094325">
+    <state width="1877" height="322" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601415639460" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1601415508997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center" timestamp="1599660094325">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1601415508997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left" timestamp="1599660094325">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1601415508997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right" timestamp="1599660094325">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1601415508997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="589" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599660094325" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
     <state x="490" y="178" key="Maven.ArtifactSearchDialog" timestamp="1594117928890">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

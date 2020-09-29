@@ -1,13 +1,11 @@
 package utility;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.Arrays;
 
 public class InputValidity {
 
-    public static boolean checkArrayForFalseItemValue(String[] itemsArr) {
-        return ArrayUtils.contains(itemsArr,null) ||
-               ArrayUtils.contains(itemsArr, " ") ||
-               ArrayUtils.contains(itemsArr, "");
+    public static boolean validArray(String[] itemsArr) {
+        return Arrays.stream(itemsArr).noneMatch(String::isBlank);
     }
 
 }

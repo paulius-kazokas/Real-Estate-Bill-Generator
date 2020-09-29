@@ -2,7 +2,6 @@ package meniu;
 
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
@@ -57,9 +56,7 @@ public class LoginMenuActions {
 
                 if (!choice.isBlank()) {
                     switch (choice) {
-                        case "0" -> {
-                            return;
-                        }
+                        case "0" -> { return; }
                         case "1" -> login();
                         case "2" -> preRegister();
                         default -> output.write("Unexpected action".getBytes());
@@ -162,7 +159,9 @@ public class LoginMenuActions {
             output.write("\nEnter personal code: ".getBytes());
             String personalCode = scanner.nextLine();
 
-            if (InputValidity.checkArrayForFalseItemValue(ArrayUtils.toArray(username, password, name, lastname, email, personalCode))) {
+            String[] newUser = {username, password, name, lastname, email, personalCode};
+
+            if (!InputValidity.validArray(newUser)) {
                 throw new IllegalArgumentException("Invalid user input detected");
             }
 
