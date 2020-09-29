@@ -32,8 +32,8 @@
 [slf4j-shield]: https://img.shields.io/badge/slf4j-v1.7.21-green.svg
 [slf4j-link]: https://github.com/qos-ch/slf4j
 
-[jdk-shield]: https://img.shields.io/badge/jdk-v11.0.7-blue.svg
-[jdk-link]: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+[jdk-shield]: https://img.shields.io/badge/jdk-v13.0.2-blue.svg
+[jdk-link]: https://www.oracle.com/java/technologies/javase/jdk13-archive-downloads.html
 
 [maven-shield]: https://img.shields.io/badge/maven-v3.6.3-red.svg
 [maven-link]: https://maven.apache.org/download.cgi#downloading-apache-maven-3-6-3
