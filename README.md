@@ -89,6 +89,7 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=ncloc)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=security_rating)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=coverage)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 
 # Urban Taxes Calculator
 
