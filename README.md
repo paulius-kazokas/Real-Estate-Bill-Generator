@@ -116,26 +116,17 @@
 
 ---
 
-### Technologies
+### Sources
 
-Object Oriented Design Pattern
-- [Medium](https://medium.com/edureka/java-oop-cheat-sheet-9c6ebb5e1175)
-
-Functional Design Pattern
-- [Medium](https://medium.com/better-programming/functional-patterns-in-java-b2b781f84124)
-
-Stream API
-- [Documentation](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
-- [Medium](https://praveergupta.in/practical-guide-to-java-stream-api-7aadc02908f7)
-
-Lombok
-- [Video](https://www.youtube.com/watch?v=goISFNxHEqc&ab_channel=MikeM%C3%B8llerNielsen)
-- [Documentation](https://projectlombok.org/features/all)
-
-JUnit 5
-
-Agile
-- [Video](https://www.youtube.com/watch?v=502ILHjX9EE)
+- [Object Oriented Programming](https://medium.com/edureka/java-oop-cheat-sheet-9c6ebb5e1175)
+- [Functional Design Pattern](https://medium.com/better-programming/functional-patterns-in-java-b2b781f84124)
+- [Stream API Documentation](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
+- [Stream API Practical Guide](https://praveergupta.in/practical-guide-to-java-stream-api-7aadc02908f7)
+- [Lombok Documentation](https://projectlombok.org/features/all)
+- [Lombok Walkthrough](https://www.youtube.com/watch?v=goISFNxHEqc&ab_channel=MikeM%C3%B8llerNielsen)
+- [Agile](https://www.youtube.com/watch?v=502ILHjX9EE)
+- [JUnit 5 Course](https://www.pluralsight.com/courses/tdd-junit5)
+- [Mockito Course](https://www.pluralsight.com/courses/mockito-getting-started)
 
 ---
 
