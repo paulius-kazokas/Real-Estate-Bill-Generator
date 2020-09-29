@@ -128,6 +128,7 @@
 - [Agile](https://www.youtube.com/watch?v=502ILHjX9EE)
 - [JUnit 5 Course](https://www.pluralsight.com/courses/tdd-junit5)
 - [Mockito Course](https://www.pluralsight.com/courses/mockito-getting-started)
+- [Java 13 Features](https://docs.oracle.com/en/java/javase/13/language/preview-language-and-vm-features.html)
 
 ---
 
