@@ -35,6 +35,13 @@
 [jdk-shield]: https://img.shields.io/badge/jdk-v11.0.7-blue.svg
 [jdk-link]: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
 
+[maven-shield]: https://img.shields.io/badge/maven-v3.6.3-red.svg
+[maven-link]: https://maven.apache.org/download.cgi#downloading-apache-maven-3-6-3
+
+[maven-compiler-shield]: https://img.shields.io/badge/maven--compiler-v3.8.1-red.svg
+[maven-compiler-link]: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin/3.8.1
+
+
 [repo-java-shield]: https://img.shields.io/github/languages/top/paulius-kazokas/Urban-Taxes-Calculator?label=Java&logoColor=red
 [repo-java-link]: https://github.com/paulius-kazokas/Urban-Taxes-Calculator/search?l=java
 
@@ -54,7 +61,10 @@
 [![mockito][mockito-shield]][mockito-link]
 [![lombok][lombok-shield]][lombok-link]
 [![slf4j-shield]][slf4j-link]
+[![maven-compiler][maven-compiler-shield]][maven-compiler-link]
+
 [![jdk][jdk-shield]][jdk-link]
+[![maven][maven-shield]][maven-link]
 
 [![java][java]][java]
 [![xml][xml]][xml]
