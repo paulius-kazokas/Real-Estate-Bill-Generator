@@ -12,6 +12,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sonar.sources>src/main/java</sonar.sources>
+        <!-- comment sonar properties bellow to scan locally with command   mvn clean install sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dsonar.host.url=http://localhost:9000 -DskipTests -->
+        <sonar.organization>paulius-kazokas</sonar.organization>
+        <sonar.login>a8922cbc9d5a1cf27ff17c7c5c17e14d03b162e9</sonar.login>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
 

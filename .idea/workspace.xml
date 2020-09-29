@@ -7,12 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +264,7 @@
       <workItem from="1600940154099" duration="22000" />
       <workItem from="1600940198033" duration="18017000" />
       <workItem from="1601304703178" duration="8045000" />
-      <workItem from="1601378127804" duration="5129000" />
+      <workItem from="1601378127804" duration="9261000" />
     </task>
     <servers />
   </component>
