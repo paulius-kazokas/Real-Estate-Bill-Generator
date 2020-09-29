@@ -99,7 +99,7 @@
   - https://github.com/paulius-kazokas/roadmap/projects/1
 - Write tests
 - Sonar scan
-  - Run ```mvn clean install sonar:sonar``` results will be located on [SonarCloud](https://sonarcloud.io/project/configuration?id=paulius-kazokas_Urban-Taxes-Calculator)
+  - Run ```mvn clean install sonar:sonar``` results will be located on [SonarCloud](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
   
   Note. To scan locally run ```StartSonar.sh``` then run ```mvn clean install sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dsonar.host.url=http://localhost:9000``` and the results will be located on [Local SonarQube](http://localhost:9000/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 - Commit and push changes
