@@ -79,27 +79,20 @@
 
 # Urban Taxes Calculator
 
-### Developer Notes
+### CI/CD pipeline
 
-Price:
-1. Create database
-2. Insert data
-(Future: multiple currency support (code))
-
-Structure - id, currency, course
-
-
-Bill:
-1. Create database
-2. Bind with Price
-3. Generate Bill
-4. Insert into database
-
-Structure - id, indicatorId, priceId
-
----
-
-Latest activity: usage of lombok, code refactoring, clean up, more dependant on SystemConstants
+- Develop new feature
+  - https://github.com/paulius-kazokas/roadmap/projects/1
+- Write tests
+- Sonar scan
+  - StartSonar.sh
+  - ```mvn sonar:sonar -DprojectKey=urban.taxes.calculator:Urban-Taxes-Calculator```
+  - http://localhost:9000/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator
+- Git
+  - ```mvn clean install ```
+  - ```git add --all```
+  - ```git commit -m ""```
+  - ```git push```
 
 ---
 
