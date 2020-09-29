@@ -32,11 +32,23 @@
 [slf4j-shield]: https://img.shields.io/badge/slf4j-v1.7.21-green.svg
 [slf4j-link]: https://github.com/qos-ch/slf4j
 
-[jdk-shield]: https://img.shields.io/badge/jdk-v11.0.7-blue.svg
-[jdk-link]: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+[jdk-shield]: https://img.shields.io/badge/jdk-v13.0.2-blue.svg
+[jdk-link]: https://www.oracle.com/java/technologies/javase/jdk13-archive-downloads.html
+
+[maven-shield]: https://img.shields.io/badge/maven-v3.6.3-red.svg
+[maven-link]: https://maven.apache.org/download.cgi#downloading-apache-maven-3-6-3
+
+[maven-compiler-shield]: https://img.shields.io/badge/maven--compiler-v3.8.1-red.svg
+[maven-compiler-link]: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin/3.8.1
 
 [repo-java-shield]: https://img.shields.io/github/languages/top/paulius-kazokas/Urban-Taxes-Calculator?label=Java&logoColor=red
 [repo-java-link]: https://github.com/paulius-kazokas/Urban-Taxes-Calculator/search?l=java
+
+[sonarqube-shield]: https://img.shields.io/badge/sonarqube-v8.4.2.36762-green.svg
+[sonarqube-link]: https://www.sonarqube.org/success-download-community-edition/
+
+[sonarqube-maven-shield]: https://img.shields.io/badge/org--sonarsource--scanner--maven-v3.7.0.1746-green.svg
+[sonarqube-maven-link]: https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin/3.7.0.1746
 
 [java]: https://img.shields.io/badge/-java-blue.svg
 [xml]: https://img.shields.io/badge/-xml-red.svg
@@ -54,7 +66,12 @@
 [![mockito][mockito-shield]][mockito-link]
 [![lombok][lombok-shield]][lombok-link]
 [![slf4j-shield]][slf4j-link]
+[![maven-compiler][maven-compiler-shield]][maven-compiler-link]
+[![sonarqube-maven-scanner][sonarqube-maven-shield]][sonarqube-maven-link]
+
 [![jdk][jdk-shield]][jdk-link]
+[![maven][maven-shield]][maven-link]
+[![sonarqube][sonarqube-shield]][sonarqube-link]
 
 [![java][java]][java]
 [![xml][xml]][xml]
@@ -62,27 +79,20 @@
 
 # Urban Taxes Calculator
 
-### Developer Notes
+### CI/CD pipeline
 
-Price:
-1. Create database
-2. Insert data
-(Future: multiple currency support (code))
-
-Structure - id, currency, course
-
-
-Bill:
-1. Create database
-2. Bind with Price
-3. Generate Bill
-4. Insert into database
-
-Structure - id, indicatorId, priceId
-
----
-
-Latest activity: usage of lombok, code refactoring, clean up, more dependant on SystemConstants
+- Develop new feature
+  - https://github.com/paulius-kazokas/roadmap/projects/1
+- Write tests
+- Sonar scan
+  - StartSonar.sh
+  - ```mvn sonar:sonar -DprojectKey=urban.taxes.calculator:Urban-Taxes-Calculator```
+  - http://localhost:9000/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator
+- Git
+  - ```mvn clean install ```
+  - ```git add --all```
+  - ```git commit -m ""```
+  - ```git push```
 
 ---
 
