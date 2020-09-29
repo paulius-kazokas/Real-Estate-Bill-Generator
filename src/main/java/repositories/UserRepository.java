@@ -99,7 +99,7 @@ public class UserRepository implements IUserRepository {
                 // array check
                 Integer userId = getUserId(username);
                 String userPassword = resultSet.getString(UTC_USERS_TABLE_PASSWORD);
-                String user
+                //String user
                 User user = User.builder()
                         .id(userId)
                         .username(username)

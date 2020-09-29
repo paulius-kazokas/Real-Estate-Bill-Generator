@@ -9,11 +9,78 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <sonar.sources>src/main/java</sonar.sources>
     </properties>
 
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <!-- maven -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>13</source>
+                        <target>13</target>
+                        <compilerArgs>--enable-preview</compilerArgs>
+                    </configuration>
+                </plugin>
+
+                <!-- jacoco -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.6</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                    <configuration>
+                        <compilerArgs>--enable-preview</compilerArgs>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                    <configuration>
+                        <outputDirectory>/target/surefire-reports</outputDirectory>
+                        <linkXRef>false</linkXRef>
+                        <compilerArgs>--enable-preview</compilerArgs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>during-tests</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
     <dependencies>
+
+        <!-- sonar -->
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.7.0.1746</version>
+        </dependency>
 
         <!-- additional tools -->
         <dependency>
@@ -61,7 +128,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.6.2</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
         <!-- working with files -->
@@ -93,6 +160,7 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 

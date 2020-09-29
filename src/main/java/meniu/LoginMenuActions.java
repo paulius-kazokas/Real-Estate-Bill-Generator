@@ -4,8 +4,6 @@ import entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
 import repositories.UserRepository;
@@ -20,8 +18,6 @@ import java.util.Scanner;
 
 @Slf4j
 public class LoginMenuActions {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginMenuActions.class);
 
     private InputStream input = System.in;
     private OutputStream output = System.out;
@@ -48,22 +44,25 @@ public class LoginMenuActions {
             String choice = "not assigned";
             while (!choice.equals("0")) {
 
-                output.write("\nUrban Taxes System\n\n\n1.Sign up\n2.Register\n0.Exit\nChoice: ".getBytes());
+                output.write("""
+
+                        Urban Taxes System
+
+                        1.Sign up
+                        2.Register
+                        0.Exit
+                        Choice: """.getBytes());
+
                 choice = scanner.nextLine();
 
                 if (!choice.isBlank()) {
                     switch (choice) {
-                        case "0":
-                            break;
-                        case "1":
-                            login();
-                            break;
-                        case "2":
-                            preRegister();
-                            break;
-                        default:
-                            output.write("Unexpected action".getBytes());
-                            break;
+                        case "0" -> {
+                            return;
+                        }
+                        case "1" -> login();
+                        case "2" -> preRegister();
+                        default -> output.write("Unexpected action".getBytes());
                     }
                 } else {
                     output.write("Empty input detected, type again".getBytes());

@@ -46,36 +46,36 @@ public class AccountMenuActions {
             if (!properties.isEmpty()) {
 
                 while (!choice.equals("0")) {
-                    output.write("\n1.Check my properties\n2.Check my indicators\n3.Check my bills\n4.Check my account info\n0.Log out".getBytes());
+                    output.write("""
 
-                    output.write("\nChoice: ".getBytes());
+                            Urban Taxes Calculator
+
+                            1.Check my properties
+                            2.Check my indicators
+                            3.Check my bills
+                            4.Check my account info
+                            0.Log out
+
+                            Choice: """.getBytes());
+
                     choice = scanner.nextLine();
 
                     if (!choice.isBlank()) {
                         switch (choice) {
-                            case "0":
+                            case "0" -> {
                                 output.write("\n(logged out)".getBytes());
                                 return;
-                            case "1":
-                                checkUserProperties();
-                                break;
-                            case "2":
-                                checkUserIndicators();
-                                break;
-                            case "3":
-                                checkUserBills();
-                                break;
-                            case "4":
-                                checkUserInfo();
-                                break;
-                            default:
-                                output.write("Unexpected action".getBytes());
-                                break;
+                            }
+                            case "1" -> checkUserProperties();
+                            case "2" -> checkUserIndicators();
+                            case "3" -> checkUserBills();
+                            case "4" -> checkUserInfo();
+                            default -> output.write("Unexpected action".getBytes());
                         }
                     }
                 }
             } else {
-                output.write(String.format("%n'%s' doesn't have any properties available", user.getUsername()).getBytes());
+                output.write(String.format("\n'%s' doesn't have any properties available", user.getUsername()).getBytes());
             }
 
         } catch (IOException io) {
@@ -86,7 +86,7 @@ public class AccountMenuActions {
     public void checkUserProperties() {
 
         try {
-            output.write("\nProperties:\n".getBytes());
+            output.write("\nProperties: ".getBytes());
 
             propertyRepository.getPropertiesByUser(user).forEach(property ->
             {
@@ -105,7 +105,7 @@ public class AccountMenuActions {
     public void checkUserIndicators() {
 
         try {
-            output.write("\nProperty types:\n".getBytes());
+            output.write("Property types:".getBytes());
             Map<Integer, String> userPropertyTypes = propertyRepository.getUserPropertiesCount(user);
 
             userPropertyTypes.forEach((key, value) -> {
@@ -121,7 +121,10 @@ public class AccountMenuActions {
 
             String chosenPropertyType = userPropertyTypes.get(Integer.valueOf(propertyTypeChoice));
 
-            output.write("\nAvailable addresses:\n".getBytes());
+            output.write("""
+
+                    Available addresses:
+                    """.getBytes());
             Map<Integer, String> chosenAddresses = new LinkedHashMap<>();
             int addressCount = 1;
 
@@ -133,7 +136,10 @@ public class AccountMenuActions {
                 addressCount++;
             }
 
-            output.write("\nSelect address: ".getBytes());
+            output.write("""
+
+                    Select address:
+                    """.getBytes());
             String propertyAddressChoice = scanner.nextLine();
             String address = chosenAddresses.get(Integer.valueOf(propertyAddressChoice));
 
@@ -150,7 +156,7 @@ public class AccountMenuActions {
 
                 indicatorRepository.getIndicatorMonthStartEndAmountsByIndicatorId(indicatorId).forEach(amount -> {
                     try {
-                        output.write(String.format("%s: %s%n", utilityName, amount).getBytes());
+                        output.write(String.format("%s: %s\n", utilityName, amount).getBytes());
                     } catch (IOException io) {
                         LOGGER.error(io.toString());
                     }
@@ -166,12 +172,36 @@ public class AccountMenuActions {
     public void checkUserBills() {
 
         try {
-            output.write("to be implemented".getBytes());
-
             String choice = "not assigned";
 
             while (!choice.equals("0")) {
+                output.write("""
 
+                            My bills
+
+                            1.By utility
+                            2.By month
+                            3.By month range
+                            4.Custom
+                            0.Log out
+
+                            Choice: """.getBytes());
+
+                choice = scanner.nextLine();
+
+                if (!choice.isBlank()) {
+                    switch (choice) {
+                        case "0" -> {
+                            output.write("\n(logged out)".getBytes());
+                            return;
+                        }
+                        case "1" -> checkUserProperties();
+                        case "2" -> checkUserIndicators();
+                        case "3" -> checkUserBills();
+                        case "4" -> checkUserInfo();
+                        default -> output.write("Unexpected action".getBytes());
+                    }
+                }
             }
 
         } catch (IOException io) {
