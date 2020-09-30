@@ -110,6 +110,13 @@
 
 ---
 
+### Database schema
+
+![image](https://drive.google.com/uc?export=view&id=1DDzPpfiH00Ah8i5mqYmio7XwvUlN2ncp)
+<!-- To do: add sandbox sql file -->
+
+---
+
 ### Upcoming
 
 - Generate user bill
