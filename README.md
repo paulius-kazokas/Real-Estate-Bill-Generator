@@ -112,7 +112,7 @@
 
 ### Database schema
 
-![image](https://drive.google.com/uc?export=view&id=1DDzPpfiH00Ah8i5mqYmio7XwvUlN2ncp)
+![image](https://drive.google.com/uc?export=view&id=1fQk6CQKrCDjfYvyrQEmNFA6gGWwGzqtN)
 <!-- To do: add sandbox sql file -->
 
 ---
