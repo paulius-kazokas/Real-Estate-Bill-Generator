@@ -95,7 +95,7 @@
 
 ### Sandbox
 
-- <a href="https://drive.google.com/uc?export=view&id=1ExMyyr8Y8gffDOlGJRsTbQrhKm3e8GEv" download>Sandbox database setup</a>
+- <a href="https://drive.google.com/uc?export=view&id=1yl5RxNSI3tf5IwM2GERUDNd7IEUV4jXT" download>Sandbox database setup</a>
 
 
 ### CI/CD pipeline
