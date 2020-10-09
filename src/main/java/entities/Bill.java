@@ -1,14 +1,19 @@
 package entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
-@Builder
-@Data
+@Data(staticConstructor = "object")
 @ToString
 public class Bill {
 
     private int id;
-    private int indicatorId;
-    private Price price;
+    private Indicator indicator;
+    private Property property;
+    private User user;
+    private DateTime date;
+    private double pvm;
+    private double amount;
 
 }

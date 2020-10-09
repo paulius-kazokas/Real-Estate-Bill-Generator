@@ -5,11 +5,9 @@ import lombok.ToString;
 
 @Data(staticConstructor = "object")
 @ToString
-public class Utility {
+public class UtilityProvider {
 
-    private Integer id;
-    private UtilityProvider utilityProvider;
+    private int id;
     private String name;
-    private String comment;
-
+    private String additionalInformation;
 }

@@ -4,8 +4,7 @@ import config.DatabaseConfig;
 import entities.Property;
 import entities.User;
 import interfaces.IPropertyRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,20 +13,21 @@ import java.util.*;
 
 import static config.SystemConstants.*;
 
+@Slf4j
 public class PropertyRepository implements IPropertyRepository {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyRepository.class);
 
     private DatabaseConfig databaseConfig;
     private UserRepository userRepository;
+    private IndicatorRepository indicatorRepository;
 
-    public PropertyRepository(UserRepository userRepository, DatabaseConfig databaseConfig) {
+    public PropertyRepository(UserRepository userRepository, IndicatorRepository indicatorRepository, DatabaseConfig databaseConfig) {
         this.userRepository = userRepository;
+        this.indicatorRepository = indicatorRepository;
         this.databaseConfig = databaseConfig;
     }
 
     @Override
-    public List<Property> getPropertiesByUser(User user) {
+    public Set<Property> getPropertiesByUser(User user) {
 
         String query = String.format("SELECT %s, %s, %s FROM %s WHERE %s = '%s'",
                 UTC_PROPERTY_TABLE_ID, UTC_PROPERTY_TABLE_TYPE, UTC_PROPERTY_TABLE_ADDRESS,
@@ -37,13 +37,13 @@ public class PropertyRepository implements IPropertyRepository {
         try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            List<Property> properties = new ArrayList<>();
+            Set<Property> properties = new HashSet<>();
 
             while (resultSet.next()) {
                 Property property = Property.object();
-                property.setUser(user);
                 property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
-                property.setOwnerPersonalCode(user.getPersonalCode());
+                property.setIndicators(indicatorRepository.getIndicatorsByUser(user));
+                property.setUser(user);
                 property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
                 property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
 
@@ -52,14 +52,14 @@ public class PropertyRepository implements IPropertyRepository {
 
             return properties;
         } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
+            log.error(String.format("%s", e));
         }
 
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 
     @Override
-    public Map<Integer, String> getUserPropertiesCount(User user) {
+    public Map<Integer, String> getUserProperties(User user) {
 
         String typeQuery = String.format("SELECT DISTINCT(%s) FROM %s WHERE %s = '%s'",
                 UTC_PROPERTY_TABLE_TYPE,
@@ -95,7 +95,7 @@ public class PropertyRepository implements IPropertyRepository {
 
             return propertiesCount;
         } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
+            log.error(String.format("%s", e));
         }
 
         return null;
@@ -113,17 +113,19 @@ public class PropertyRepository implements IPropertyRepository {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             if (resultSet.next()) {
+                int id = resultSet.getInt(UTC_PROPERTY_TABLE_ID);
+
                 Property property = Property.object();
                 property.setUser(userRepository.getUser(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE)));
-                property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
-                property.setOwnerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE));
+                property.setId(id);
+                property.setIndicators(indicatorRepository.getIndicatorsByPropertyId(id));
                 property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
                 property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
 
                 return property;
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
+            log.error(String.format("%s", e));
         }
 
         return null;
@@ -144,11 +146,12 @@ public class PropertyRepository implements IPropertyRepository {
             List<Property> properties = new ArrayList<>();
 
             while (resultSet.next()) {
+                int id = resultSet.getInt(UTC_PROPERTY_TABLE_ID);
 
                 Property property = Property.object();
+                property.setId(id);
+                property.setIndicators(indicatorRepository.getIndicatorsByPropertyId(id));
                 property.setUser(user);
-                property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
-                property.setOwnerPersonalCode(resultSet.getString(UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE));
                 property.setType(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
                 property.setAddress(resultSet.getString(UTC_PROPERTY_TABLE_ADDRESS));
 
@@ -157,7 +160,7 @@ public class PropertyRepository implements IPropertyRepository {
 
             return properties;
         } catch (SQLException e) {
-            LOGGER.error(String.format("%s", e));
+            log.error(String.format("%s", e));
         }
 
         return Collections.emptyList();

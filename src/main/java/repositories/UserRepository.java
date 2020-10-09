@@ -5,8 +5,8 @@ import entities.User;
 import interfaces.IUserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import security.SecurityUtils;
-import utility.InputValidity;
+import utils.SecurityUtils;
+import utils.InputUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,6 +27,7 @@ public class UserRepository implements IUserRepository {
         this.databaseConfig = dc;
     }
 
+    // TODO: perkelti į Utils clase ir is ten naudoti
     @SneakyThrows
     public ResultSet resultSet(String query, String queryParam) {
         if (!queryParam.isBlank() || !query.isBlank()) {
@@ -101,16 +102,17 @@ public class UserRepository implements IUserRepository {
                     String userPersonalCode = resultSet.getString(UTC_USERS_TABLE_PERSONAL_CODE);
                     databaseConfig.closeConnection();
 
-                    if (InputValidity.validArray(new String[]{userId.toString(), userPassword, username, userName, userLastname, userEmail, userPersonalCode})) {
-                        return User.builder()
-                                .id(userId)
-                                .username(username)
-                                .password(userPassword)
-                                .name(userName)
-                                .lastname(userLastname)
-                                .email(userEmail)
-                                .personalCode(userPersonalCode)
-                                .build();
+                    if (InputUtils.validArray(new String[]{userId.toString(), userPassword, username, userName, userLastname, userEmail, userPersonalCode})) {
+                        User user = User.object();
+                        user.setId(userId);
+                        user.setUsername(username);
+                        user.setPassword(userPassword);
+                        user.setName(userName);
+                        user.setLastname(userLastname);
+                        user.setEmail(userEmail);
+                        user.setPersonalCode(userPersonalCode);
+
+                        return user;
                     }
                 }
             } catch (SQLException sql) {
@@ -122,7 +124,6 @@ public class UserRepository implements IUserRepository {
         return null;
     }
 
-    @SneakyThrows
     @Override
     public User getUser(String personalCode) {
 
@@ -140,19 +141,19 @@ public class UserRepository implements IUserRepository {
                 databaseConfig.closeConnection();
 
                 String[] gatheredData = {Integer.toString(userId), userUsername, userPassword, userName, userLastname, userEmail, userPersonalCode};
-                boolean isValidData = InputValidity.validArray(gatheredData);
-
+                boolean isValidData = InputUtils.validArray(gatheredData);
 
                 if (isValidData) {
-                    return User.builder()
-                            .id(userId)
-                            .username(userUsername)
-                            .password(userPassword)
-                            .name(userName)
-                            .lastname(userLastname)
-                            .email(userEmail)
-                            .personalCode(userPersonalCode)
-                            .build();
+                    User user = User.object();
+                    user.setId(userId);
+                    user.setUsername(userUsername);
+                    user.setPassword(userPassword);
+                    user.setName(userName);
+                    user.setLastname(userLastname);
+                    user.setEmail(userEmail);
+                    user.setPersonalCode(userPersonalCode);
+
+                    return user;
                 }
             }
         } catch (SQLException sql) {
@@ -168,45 +169,37 @@ public class UserRepository implements IUserRepository {
         return securityUtils.sha512Hash(password).equals(userDatabasePassword);
     }
 
-    @SneakyThrows(SQLException.class)
     @Override
     public void registerNewUser(String username, String password, String name, String lastname, String email, String personalCode) {
 
         String query = String.format("INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)", UTC_USERS_TABLE, UTC_USERS_TABLE_USERNAME, UTC_USERS_TABLE_PASSWORD, UTC_USERS_TABLE_NAME, UTC_USERS_TABLE_LASTNAME, UTC_USERS_TABLE_EMAIL, UTC_USERS_TABLE_PERSONAL_CODE);
 
-        PreparedStatement statement = databaseConfig.connectionToDatabase().prepareStatement(query);
-        statement.setString(1, username);
-        statement.setString(2, password);
-        statement.setString(3, name);
-        statement.setString(4, lastname);
-        statement.setString(5, email);
-        statement.setString(6, personalCode);
+        try {
+            PreparedStatement statement = databaseConfig.connectionToDatabase().prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, name);
+            statement.setString(4, lastname);
+            statement.setString(5, email);
+            statement.setString(6, personalCode);
 
-        statement.execute();
-        databaseConfig.closeConnection();
-    }
-
-    @SneakyThrows(SQLException.class)
-    @Override
-    public void deleteUserByUsername(String username) {
-
-        Statement statement = databaseConfig.connectionToDatabase().createStatement();
-        statement.executeUpdate(String.format("DELETE FROM %s WHERE username = '%s'", UTC_USERS_TABLE, username));
-        databaseConfig.closeConnection();
-    }
-
-    @SneakyThrows(SQLException.class)
-    @Override
-    public String getPersonalCodeByUsername(String username) {
-
-        ResultSet resultSet = resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'", UTC_USERS_TABLE_PERSONAL_CODE, UTC_USERS_TABLE, UTC_USERS_TABLE_USERNAME, username), username);
-
-        if (resultSet.next()) {
-            String personalCode = resultSet.getString(UTC_USERS_TABLE_PERSONAL_CODE);
+            statement.execute();
             databaseConfig.closeConnection();
-            if (!personalCode.isBlank()) return personalCode;
+        } catch (SQLException sql) {
+            log.error(sql.toString());
         }
-        return null;
+
     }
 
+//    @Override
+//    public void deleteUserByUsername(String username) {
+//
+//        try {
+//            Statement statement = databaseConfig.connectionToDatabase().createStatement();
+//            statement.executeUpdate(String.format("DELETE FROM %s WHERE username = '%s'", UTC_USERS_TABLE, username));
+//            databaseConfig.closeConnection();
+//        } catch (SQLException sql) {
+//            log.error(sql.toString());
+//        }
+//    }
 }

@@ -2,6 +2,7 @@ package utility;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.*;
+import utils.InputUtils;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Running tests for InputVadilityTest class")
 public class InputVadilityTest {
 
-    InputValidity iv;
+    InputUtils iv;
 
     @BeforeEach
     public void setup() {
-        iv = new InputValidity();
+        iv = new InputUtils();
     }
 
     @Order(1)

@@ -7,8 +7,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import repositories.UserRepository;
-import utility.FileUtility;
-import utility.RandomGeneratorUtility;
+import utils.FileUtils;
+import utils.RandomUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -39,7 +39,7 @@ public class DataGenerator {
     // menesiniu paslaugu rodikliu reportas
     public void generateUtilitiesUnitPriceReport() {
 
-        RandomGeneratorUtility rg = new RandomGeneratorUtility();
+        RandomUtils rg = new RandomUtils();
         JSONObject utilityUnitPriceReport = new JSONObject();
         utilityUnitPriceReport.put("date", UTC_CURRENT_MONTH_BILL_DATE);
 
@@ -63,7 +63,7 @@ public class DataGenerator {
     // menesiniu paslaugu kainu pvm reportas
     public void generateMontlyUtilityPVMs() {
 
-        RandomGeneratorUtility rg = new RandomGeneratorUtility();
+        RandomUtils rg = new RandomUtils();
         JSONObject utilityUnitPricePVMReport = new JSONObject();
         utilityUnitPricePVMReport.put("date", UTC_CURRENT_MONTH_BILL_DATE);
 
@@ -87,7 +87,7 @@ public class DataGenerator {
     // vartotojo menesiniu paslaugu reportas
     public void generateUserMonthlyBillReport(String username) { // date?
 
-        RandomGeneratorUtility rg = new RandomGeneratorUtility();
+        RandomUtils rg = new RandomUtils();
         UserRepository ur = new UserRepository(dc);
         //oUser user = ur.getUserByUsername(username);
         User user = ur.getUserByUsername(username);
@@ -143,7 +143,7 @@ public class DataGenerator {
     // paslaugos kaina (nepriklauso nuo utility reporto isdestymo tvarkos)
     public Double getUtilityUnitPrice(String utility, String utilitiesUnitPriceReportPath) { // username ?
 
-        FileUtility fu = new FileUtility();
+        FileUtils fu = new FileUtils();
 
         try {
             if (fu.checkFileExistence(utilitiesUnitPriceReportPath)) {
@@ -170,7 +170,7 @@ public class DataGenerator {
     // paslaugos pvm (nepriklauso nuo pvm reporto isdestymo tvarkos)
     public Double getPVMForUtility(String utility, String utilitiesUnitPricePVMReportPath) {
 
-        FileUtility fu = new FileUtility();
+        FileUtils fu = new FileUtils();
 
         try {
             if (fu.checkFileExistence(utilitiesUnitPricePVMReportPath)) {

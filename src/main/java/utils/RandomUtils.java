@@ -1,10 +1,10 @@
-package utility;
+package utils;
 
 import java.util.Random;
 
 import static config.SystemConstants.*;
 
-public class RandomGeneratorUtility {
+public class RandomUtils {
 
     Random random = new Random();
 

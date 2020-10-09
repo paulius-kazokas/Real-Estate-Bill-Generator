@@ -42,6 +42,25 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.6</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>/test/java/playground/*</exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -49,7 +68,16 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
                     <configuration>
-                        <compilerArgs>--enable-preview</compilerArgs>
+                        <excludes>
+                            <exclude>playground/*</exclude>
+                            <exclude>playground/pluralsightMockito/tests/*</exclude>
+                        </excludes>
+                        <includes>
+                            <include>playground/repositories/*</include>
+                            <include>playground/utils/*</include>
+                            <include>playground/utility/*</include>
+                        </includes>
+                        <argLine>--enable-preview</argLine>
                     </configuration>
                 </plugin>
 
@@ -60,7 +88,6 @@
                     <configuration>
                         <outputDirectory>/target/surefire-reports</outputDirectory>
                         <linkXRef>false</linkXRef>
-                        <compilerArgs>--enable-preview</compilerArgs>
                     </configuration>
                     <executions>
                         <execution>
@@ -72,6 +99,7 @@
                         </execution>
                     </executions>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
@@ -99,7 +127,7 @@
             <version>4.4</version>
         </dependency>
 
-        <!-- security -->
+        <!-- utils -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>

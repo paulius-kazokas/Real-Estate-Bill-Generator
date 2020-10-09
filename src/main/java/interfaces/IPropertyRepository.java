@@ -5,12 +5,13 @@ import entities.User;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface IPropertyRepository {
 
-    List<Property> getPropertiesByUser(User user);
+    Set<Property> getPropertiesByUser(User user);
 
-    Map<Integer, String> getUserPropertiesCount(User user);
+    Map<Integer, String> getUserProperties(User user);
 
     Property getPropertyByAddress(String address);
 

@@ -4,21 +4,30 @@ import lombok.SneakyThrows;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import static config.SystemConstants.*;
 
 public class DatabaseConfig {
 
-    @SneakyThrows
     public Connection connectionToDatabase() {
 
-        Class.forName(MYSQL_DRIVER);
-        return DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
+        try {
+            Class.forName(MYSQL_DRIVER);
+            return DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    @SneakyThrows
     public void closeConnection() {
-        connectionToDatabase().close();
+
+        try {
+            connectionToDatabase().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

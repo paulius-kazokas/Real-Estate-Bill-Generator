@@ -3,12 +3,9 @@ package meniu;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import repositories.IndicatorRepository;
-import repositories.PropertyRepository;
-import repositories.UserRepository;
-import repositories.UtilityRepository;
-import security.SecurityUtils;
-import utility.InputValidity;
+import repositories.*;
+import utils.InputUtils;
+import utils.SecurityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,15 +22,17 @@ public class LoginMenuActions {
     private UserRepository userRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
+    private UtilityProviderRepository utilityProviderRepository;
     private PropertyRepository propertyRepository;
 
     private SecurityUtils securityUtils;
 
-    public LoginMenuActions(UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, PropertyRepository propertyRepository, SecurityUtils securityUtils) {
+    public LoginMenuActions(UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, PropertyRepository propertyRepository, UtilityProviderRepository utilityProviderRepository, SecurityUtils securityUtils) {
         this.userRepository = userRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
         this.propertyRepository = propertyRepository;
+        this.utilityProviderRepository = utilityProviderRepository;
         this.securityUtils = securityUtils;
     }
 
@@ -41,8 +40,8 @@ public class LoginMenuActions {
 
         try {
             String choice = "not assigned";
-            while (!choice.equals("0")) {
 
+            while (!choice.equals("0")) {
                 output.write("""
 
                         Urban Taxes System
@@ -51,12 +50,13 @@ public class LoginMenuActions {
                         2.Register
                         0.Exit
                         Choice: """.getBytes());
-
                 choice = scanner.nextLine();
 
                 if (!choice.isBlank()) {
                     switch (choice) {
-                        case "0" -> { return; }
+                        case "0" -> {
+                            return;
+                        }
                         case "1" -> login();
                         case "2" -> preRegister();
                         default -> output.write("Unexpected action".getBytes());
@@ -109,7 +109,6 @@ public class LoginMenuActions {
                 loginGate(username);
             }
             register(username);
-
         } catch (IOException io) {
             log.error(io.toString());
         }
@@ -119,15 +118,13 @@ public class LoginMenuActions {
     private void loginGate(String username) {
 
         try {
-
             String password = scanner.nextLine();
             User user = userRepository.getUserByUsername(username);
             String userDbPassword = user.getPassword();
 
             if (userRepository.checkIfPasswordMatches(password, userDbPassword, securityUtils)) {
-
                 output.write(String.format("%n(logged in as '%s')", username).getBytes());
-                AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, user);
+                AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, utilityProviderRepository, user);
                 accountMenuActions.accountMenuActions();
             } else {
                 output.write("\nWrong password".getBytes());
@@ -142,7 +139,6 @@ public class LoginMenuActions {
     public void register(String username) {
 
         try {
-
             output.write("\nEnter password: ".getBytes());
             String password = scanner.nextLine();
             String hashedPassword = securityUtils.sha512Hash(password);
@@ -159,26 +155,23 @@ public class LoginMenuActions {
             output.write("\nEnter personal code: ".getBytes());
             String personalCode = scanner.nextLine();
 
-            String[] newUser = {username, password, name, lastname, email, personalCode};
-
-            if (!InputValidity.validArray(newUser)) {
+            if (!InputUtils.validArray(new String[]{username, password, name, lastname, email, personalCode})) {
                 throw new IllegalArgumentException("Invalid user input detected");
             }
 
             userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
             output.write(String.format("%n(logged in as '%s')", username).getBytes());
 
-            User user = User.builder()
-                    .id(userRepository.getUserId(username))
-                    .username(username)
-                    .password(hashedPassword)
-                    .name(name)
-                    .lastname(lastname)
-                    .email(email)
-                    .personalCode(personalCode)
-                    .build();
+            User user = User.object();
+            user.setId(userRepository.getUserId(username));
+            user.setUsername(username);
+            user.setPassword(hashedPassword);
+            user.setName(name);
+            user.setLastname(lastname);
+            user.setEmail(email);
+            user.setPersonalCode(personalCode);
 
-            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, user);
+            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, utilityProviderRepository, user);
             accountMenuActions.accountMenuActions();
 
         } catch (IOException io) {

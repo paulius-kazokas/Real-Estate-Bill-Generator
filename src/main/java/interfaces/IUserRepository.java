@@ -1,7 +1,7 @@
 package interfaces;
 
 import entities.User;
-import security.SecurityUtils;
+import utils.SecurityUtils;
 
 public interface IUserRepository {
 
@@ -16,9 +16,5 @@ public interface IUserRepository {
     boolean checkIfPasswordMatches(String password, String storedPassword, SecurityUtils securityUtils);
 
     void registerNewUser(String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode);
-
-    void deleteUserByUsername(String deleteUsername);
-
-    String getPersonalCodeByUsername(String username);
 
 }

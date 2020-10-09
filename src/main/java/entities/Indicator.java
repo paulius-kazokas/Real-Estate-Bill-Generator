@@ -1,16 +1,16 @@
 package entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
-@Builder
-@Data
+@Data(staticConstructor = "object")
 @ToString
 public class Indicator {
 
     private int id;
-    private int utilityId;
-    private int propertyId;
-    private String date;
+    private Utility utility;
+    private DateTime date;
     private int monthStartAmount;
     private int monthEndAmount;
 
