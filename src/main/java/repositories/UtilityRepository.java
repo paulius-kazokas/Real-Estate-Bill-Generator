@@ -4,12 +4,9 @@ import config.DatabaseConfig;
 import entities.Utility;
 import interfaces.IUtilityRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +15,6 @@ import static config.SystemConstants.*;
 
 @Slf4j
 public class UtilityRepository implements IUtilityRepository {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilityRepository.class);
 
     DatabaseConfig databaseConfig;
     UtilityProviderRepository utilityProviderRepository;
@@ -30,19 +25,17 @@ public class UtilityRepository implements IUtilityRepository {
     }
 
     @Override
-    public Utility getUtility(int indicatorId) {
+    public Utility getUtility(Integer indicatorId) {
 
-        String query = String.format(
+        ResultSet resultSet = databaseConfig.resultSet(String.format(
                 "SELECT %s FROM %s " +
                         "WHERE %s = (SELECT %s FROM %s " +
                         "WHERE %s = %s)",
                 SELECT_ALL, UTC_UTILITY_TABLE,
                 UTC_UTILITY_TABLE_ID, UTC_INDICATORS_TABLE_UTILITY_ID, UTC_INDICATORS_TABLE,
-                UTC_INDICATORS_TABLE_ID, indicatorId);
+                UTC_INDICATORS_TABLE_ID, indicatorId), indicatorId.toString());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             if (resultSet.next()) {
                 Utility utility = Utility.object();
                 int id = resultSet.getInt(UTC_UTILITY_TABLE_ID);
@@ -55,7 +48,7 @@ public class UtilityRepository implements IUtilityRepository {
                 return utility;
             }
         } catch (SQLException e) {
-            LOGGER.error(e.toString());
+            log.error(e.toString());
         }
 
         return null;
@@ -68,18 +61,16 @@ public class UtilityRepository implements IUtilityRepository {
 //        WHERE id IN (SELECT id FROM indicator
 //                WHERE id IN (SELECT indicator_id FROM property
 //                        WHERE address = 'Akropolio g. 10, LT-12345, Vilnius'));
-        String query = String.format(
+        ResultSet resultSet = databaseConfig.resultSet(String.format(
                 "SELECT %s FROM %s WHERE %s IN (SELECT %s FROM %s WHERE %s IN (SELECT %s FROM %s WHERE %s = '%s'))",
                 SELECT_ALL, UTC_INDICATORS_TABLE,
                 UTC_INDICATORS_TABLE_ID, UTC_INDICATORS_TABLE_ID, UTC_INDICATORS_TABLE,
                 UTC_INDICATORS_TABLE_ID, UTC_PROPERTY_TABLE_INDICATOR_ID, UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_ADDRESS, address);
+                UTC_PROPERTY_TABLE_ADDRESS, address), address);
 
-        List<Utility> utilities = new ArrayList<>();
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
+            List<Utility> utilities = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt(UTC_UTILITY_TABLE_ID);
 
@@ -103,16 +94,13 @@ public class UtilityRepository implements IUtilityRepository {
     @Override
     public List<Utility> getUtilityListByIndicatorId(Integer indicatorId) {
 
-        String query = String.format("SELECT %s FROM %s WHERE %s = %s",
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = %s",
                 SELECT_ALL,
                 UTC_INDICATORS_TABLE,
-                UTC_INDICATORS_TABLE_ID, indicatorId);
+                UTC_INDICATORS_TABLE_ID, indicatorId), indicatorId.toString());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<Utility> utilities = new ArrayList<>();
-
             while (resultSet.next()) {
                 Utility utility = Utility.object();
                 int id = resultSet.getInt(UTC_UTILITY_TABLE_ID);

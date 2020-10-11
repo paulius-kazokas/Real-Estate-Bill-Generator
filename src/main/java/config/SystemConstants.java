@@ -4,6 +4,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 public class SystemConstants {
 
     // General specifics
+    public static final InputStream IN = System.in;
+    public static final OutputStream OUT = System.out;
+
     public static final DecimalFormat UTC_DECIMAL_FORMATER = new DecimalFormat("#.##");
     public static final String UPC_DATETIME_FORMATTER = "yyyy-MM";
     public static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern(UPC_DATETIME_FORMATTER);

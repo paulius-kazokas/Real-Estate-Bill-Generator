@@ -3,36 +3,36 @@ package meniu;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import repositories.*;
+import repositories.IndicatorRepository;
+import repositories.PropertyRepository;
+import repositories.UserRepository;
+import repositories.UtilityRepository;
 import utils.InputUtils;
 import utils.SecurityUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Scanner;
+
+import static config.SystemConstants.IN;
+import static config.SystemConstants.OUT;
 
 @Slf4j
 public class LoginMenuActions {
 
-    private InputStream input = System.in;
-    private OutputStream output = System.out;
-    private Scanner scanner = new Scanner(input);
+    private Scanner scanner = new Scanner(IN);
 
     private UserRepository userRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
-    private UtilityProviderRepository utilityProviderRepository;
     private PropertyRepository propertyRepository;
 
     private SecurityUtils securityUtils;
 
-    public LoginMenuActions(UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, PropertyRepository propertyRepository, UtilityProviderRepository utilityProviderRepository, SecurityUtils securityUtils) {
+    public LoginMenuActions(UserRepository userRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, PropertyRepository propertyRepository, SecurityUtils securityUtils) {
         this.userRepository = userRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
         this.propertyRepository = propertyRepository;
-        this.utilityProviderRepository = utilityProviderRepository;
         this.securityUtils = securityUtils;
     }
 
@@ -42,7 +42,7 @@ public class LoginMenuActions {
             String choice = "not assigned";
 
             while (!choice.equals("0")) {
-                output.write("""
+                OUT.write("""
 
                         Urban Taxes System
 
@@ -59,10 +59,10 @@ public class LoginMenuActions {
                         }
                         case "1" -> login();
                         case "2" -> preRegister();
-                        default -> output.write("Unexpected action".getBytes());
+                        default -> OUT.write("Unexpected action".getBytes());
                     }
                 } else {
-                    output.write("Empty input detected, type again".getBytes());
+                    OUT.write("Empty IN detected, type again".getBytes());
                 }
             }
         } catch (IOException io) {
@@ -74,15 +74,15 @@ public class LoginMenuActions {
     public void login() {
 
         try {
-            output.write("\nEnter username: ".getBytes());
+            OUT.write("\nEnter username: ".getBytes());
             String username = scanner.nextLine();
 
             if (!StringUtils.isBlank(username)) {
                 if (userRepository.checkIfUserExists(username)) {
-                    output.write(String.format("%nEnter password for %s: ", username).getBytes());
+                    OUT.write(String.format("%nEnter password for %s: ", username).getBytes());
                     loginGate(username);
                 } else {
-                    output.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
+                    OUT.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
                     if (scanner.nextLine().equals("y") || scanner.nextLine().equals("Y")) {
                         register(username);
                     } else {
@@ -102,7 +102,7 @@ public class LoginMenuActions {
     public void preRegister() {
 
         try {
-            output.write("\nEnter username: ".getBytes());
+            OUT.write("\nEnter username: ".getBytes());
             String username = scanner.nextLine();
 
             if (userRepository.checkIfUserExists(username)) {
@@ -123,11 +123,11 @@ public class LoginMenuActions {
             String userDbPassword = user.getPassword();
 
             if (userRepository.checkIfPasswordMatches(password, userDbPassword, securityUtils)) {
-                output.write(String.format("%n(logged in as '%s')", username).getBytes());
-                AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, utilityProviderRepository, user);
+                OUT.write(String.format("%n(logged in as '%s')", username).getBytes());
+                AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, user);
                 accountMenuActions.accountMenuActions();
             } else {
-                output.write("\nWrong password".getBytes());
+                OUT.write("\nWrong password".getBytes());
             }
 
         } catch (IOException io) {
@@ -139,28 +139,29 @@ public class LoginMenuActions {
     public void register(String username) {
 
         try {
-            output.write("\nEnter password: ".getBytes());
+            OUT.write("\nEnter password: ".getBytes());
             String password = scanner.nextLine();
             String hashedPassword = securityUtils.sha512Hash(password);
 
-            output.write("\nEnter name: ".getBytes());
+            OUT.write("\nEnter name: ".getBytes());
             String name = scanner.nextLine();
 
-            output.write("\nEnter lastname: ".getBytes());
+            OUT.write("\nEnter lastname: ".getBytes());
             String lastname = scanner.nextLine();
 
-            output.write("\nEnter email: ".getBytes());
+            OUT.write("\nEnter email: ".getBytes());
             String email = scanner.nextLine();
 
-            output.write("\nEnter personal code: ".getBytes());
+            OUT.write("\nEnter personal code: ".getBytes());
             String personalCode = scanner.nextLine();
 
             if (!InputUtils.validArray(new String[]{username, password, name, lastname, email, personalCode})) {
-                throw new IllegalArgumentException("Invalid user input detected");
+                OUT.write("Invalid user IN detected".getBytes());
+                return;
             }
 
             userRepository.registerNewUser(username, hashedPassword, name, lastname, email, personalCode);
-            output.write(String.format("%n(logged in as '%s')", username).getBytes());
+            OUT.write(String.format("%n(logged in as '%s')", username).getBytes());
 
             User user = User.object();
             user.setId(userRepository.getUserId(username));
@@ -171,7 +172,7 @@ public class LoginMenuActions {
             user.setEmail(email);
             user.setPersonalCode(personalCode);
 
-            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, utilityProviderRepository, user);
+            AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, user);
             accountMenuActions.accountMenuActions();
 
         } catch (IOException io) {

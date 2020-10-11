@@ -3,15 +3,11 @@ package repositories;
 import config.DatabaseConfig;
 import entities.Indicator;
 import entities.User;
-import entities.Utility;
 import interfaces.IIndicatorRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,18 +26,15 @@ public class IndicatorRepository implements IIndicatorRepository {
     }
 
     @Override
-    public List<Indicator> getIndicators(int indicatorId) {
+    public List<Indicator> getIndicators(Integer indicatorId) {
 
-        String query = String.format("SELECT %s FROM %s WHERE %s = %s",
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = %s",
                 SELECT_ALL,
                 UTC_INDICATORS_TABLE,
-                UTC_INDICATORS_TABLE_ID, indicatorId);
+                UTC_INDICATORS_TABLE_ID, indicatorId), indicatorId.toString());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<Indicator> indicators = new ArrayList<>();
-
             while (resultSet.next()) {
                 Indicator indicator = Indicator.object();
 
@@ -63,21 +56,18 @@ public class IndicatorRepository implements IIndicatorRepository {
     }
 
     @Override
-    public List<Indicator> getIndicatorsByPropertyId(int propertyId) {
+    public List<Indicator> getIndicatorsByPropertyId(Integer propertyId) {
 
-        String query = String.format(
+        ResultSet resultSet = databaseConfig.resultSet(String.format(
                 "SELECT %s FROM %s " +
-                    "WHERE %s IN (SELECT %s FROM %s " +
-                    "WHERE %s = %s)",
+                        "WHERE %s IN (SELECT %s FROM %s " +
+                        "WHERE %s = %s)",
                 SELECT_ALL, UTC_INDICATORS_TABLE,
                 UTC_INDICATORS_TABLE_ID, UTC_PROPERTY_TABLE_INDICATOR_ID, UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_ID, propertyId);
+                UTC_PROPERTY_TABLE_ID, propertyId), propertyId.toString());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<Indicator> indicators = new ArrayList<>();
-
             while (resultSet.next()) {
                 indicators.addAll(getIndicators(resultSet.getInt(UTC_INDICATORS_TABLE_ID)));
             }
@@ -90,18 +80,15 @@ public class IndicatorRepository implements IIndicatorRepository {
     }
 
     @Override
-    public List<String> getIndicatorMonthStartEndAmountsByIndicatorId(int indicatorId) {
+    public List<String> getIndicatorMonthStartEndAmountsByIndicatorId(Integer indicatorId) {
 
-        String query = String.format("SELECT %s, %s FROM %s WHERE %s = %s",
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s, %s FROM %s WHERE %s = %s",
                 UTC_INDICATORS_TABLE_MONTH_START_AMOUNT, UTC_INDICATORS_TABLE_MONTH_END_AMOUNT,
                 UTC_INDICATORS_TABLE,
-                UTC_INDICATORS_TABLE_ID, indicatorId);
+                UTC_INDICATORS_TABLE_ID, indicatorId), indicatorId.toString());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<String> monthStartEndAmounts = new ArrayList<>();
-
             while (resultSet.next()) {
                 monthStartEndAmounts.add(resultSet.getString("month_start_amount") + "-" + resultSet.getString("month_end_amount"));
             }
@@ -117,34 +104,31 @@ public class IndicatorRepository implements IIndicatorRepository {
     public List<Indicator> getIndicatorsByUser(User user) {
 
         // get indicators ids by users personal code (property)
-        String query1 = String.format("SELECT %s FROM %s WHERE %s = '%s'",
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'",
                 UTC_PROPERTY_TABLE_INDICATOR_ID,
                 UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode()), user.getPersonalCode());
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query1)) {
-
+        try {
             List<Integer> indicatorsIds = new ArrayList<>();
-
             while (resultSet.next()) {
                 indicatorsIds.add(resultSet.getInt(UTC_PROPERTY_TABLE_INDICATOR_ID));
             }
+            resultSet.close();
 
             // get indicators by ids from property table
 
-            for (int indicatorId : indicatorsIds) {
-                String query2 = String.format("SELECT %s FROM %s WHERE %s = %s",
+            for (Integer indicatorId : indicatorsIds) {
+
+                ResultSet resultSet2 = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = %s",
                         SELECT_ALL,
                         UTC_INDICATORS_TABLE,
-                        UTC_INDICATORS_TABLE_ID, indicatorId);
+                        UTC_INDICATORS_TABLE_ID, indicatorId), indicatorId.toString());
 
-                try (Statement statement2 = databaseConfig.connectionToDatabase().createStatement();
-                     ResultSet resultSet2 = statement2.executeQuery(query2)) {
-
+                try {
                     List<Indicator> indicators = new ArrayList<>();
-
-                    while (resultSet.next()) {
+                    while (resultSet2.next()) {
                         Indicator indicator = Indicator.object();
                         indicator.setId(indicatorId);
                         indicator.setUtility(utilityRepository.getUtility(indicatorId));
@@ -170,19 +154,16 @@ public class IndicatorRepository implements IIndicatorRepository {
     @Override
     public List<Indicator> getIndicatorsByProperty(String type, String address) {
 
-        String query = String.format("SELECT %s FROM %s " +
-                "WHERE %s IN (SELECT %s FROM %s\n" +
-                "    WHERE %s = '%s' AND %s = '%s')",
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s " +
+                        "WHERE %s IN (SELECT %s FROM %s\n" +
+                        "    WHERE %s = '%s' AND %s = '%s')",
                 SELECT_ALL, UTC_INDICATORS_TABLE,
                 UTC_INDICATORS_TABLE_ID, UTC_PROPERTY_TABLE_INDICATOR_ID, UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_TYPE, type, UTC_PROPERTY_TABLE_ADDRESS, address);
+                UTC_PROPERTY_TABLE_TYPE, type, UTC_PROPERTY_TABLE_ADDRESS, address), type, address);
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<Indicator> indicators = new ArrayList<>();
-
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id = resultSet.getInt(UTC_INDICATORS_TABLE_ID);
 
                 Indicator indicator = Indicator.object();

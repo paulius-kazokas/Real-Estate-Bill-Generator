@@ -19,7 +19,7 @@ public class Menu {
 
         SecurityUtils securityUtils = new SecurityUtils();
 
-        LoginMenuActions loginMenuActions = new LoginMenuActions(userRepository, indicatorRepository, utilityRepository, propertyRepository, utilityProviderRepository, securityUtils);
+        LoginMenuActions loginMenuActions = new LoginMenuActions(userRepository, indicatorRepository, utilityRepository, propertyRepository, securityUtils);
         loginMenuActions.mainMenuActions();
 
     }

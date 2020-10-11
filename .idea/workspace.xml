@@ -7,41 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2927a1f-ee99-48af-bc8b-34e88cb2bd0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/UtilityProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/UtilityProviderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/InputUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/DatabaseConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/SystemConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Indicator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Indicator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Price.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IBillRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IBillRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IIndicatorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IIndicatorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IPriceRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IPropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/UtilityInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/IUtilityRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/AccountMenuActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/meniu/LoginMenuActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/IndicatorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/IndicatorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PriceRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/PropertyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UtilityProviderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UtilityProviderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UtilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/UtilityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/SecurityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/FileUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/FileUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/InputValidity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utility/RandomGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/RandomUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/security/SecurityUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/SecurityUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/utility/InputVadilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utility/InputVadilityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/SecurityUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,22 +148,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AlienTest.reqConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Urban-Taxes-Calculator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="pluralsightMockito.setup.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="playground" />
-      <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
-      <option name="METHOD_NAME" value="reqConstructor" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AlienTest.sneakyThrows" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Urban-Taxes-Calculator" />
       <extension name="coverage">
@@ -195,6 +159,22 @@
       <option name="PACKAGE_NAME" value="playground" />
       <option name="MAIN_CLASS_NAME" value="playground.AlienTest" />
       <option name="METHOD_NAME" value="sneakyThrows" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRepositoryTest.getUserIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Urban-Taxes-Calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repositories" />
+      <option name="MAIN_CLASS_NAME" value="repositories.UserRepositoryTest" />
+      <option name="METHOD_NAME" value="getUserIdTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -218,18 +198,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Menu" />
-      <item itemvalue="JUnit.AlienTest.reqConstructor" />
       <item itemvalue="JUnit.AlienTest.everyConstructor" />
       <item itemvalue="JUnit.AlienTest.sneakyThrows" />
       <item itemvalue="JUnit.UserRepositoryTest.testReturnQueryResult" />
+      <item itemvalue="JUnit.UserRepositoryTest.getUserIdTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Menu" />
+        <item itemvalue="JUnit.UserRepositoryTest.getUserIdTest" />
         <item itemvalue="JUnit.UserRepositoryTest.testReturnQueryResult" />
         <item itemvalue="JUnit.AlienTest.sneakyThrows" />
         <item itemvalue="JUnit.AlienTest.everyConstructor" />
-        <item itemvalue="JUnit.AlienTest.reqConstructor" />
       </list>
     </recent_temporary>
   </component>
@@ -247,17 +227,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@33044576" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@312bc697" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@45879c48" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@5eea435" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -316,6 +286,8 @@
       <workItem from="1601304703178" duration="8045000" />
       <workItem from="1601378127804" duration="9541000" />
       <workItem from="1601394790283" duration="18954000" />
+      <workItem from="1602253634410" duration="1289000" />
+      <workItem from="1602401593511" duration="5036000" />
     </task>
     <servers />
   </component>
@@ -353,10 +325,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="768" y="318" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595424628252" />
-    <state x="601" y="449" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1593529070724">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="601" y="449" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593529070724" />
     <state x="761" y="389" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1602086740835">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -402,50 +370,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="325" y="383" width="1484" height="103" key="GridCell.Tab.-1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595242732962" />
-    <state width="1290" height="474" key="GridCell.Tab.0.bottom" timestamp="1602252589101">
+    <state width="1877" height="408" key="GridCell.Tab.0.bottom" timestamp="1602406793044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1290" height="380" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602167024868" />
     <state width="1877" height="268" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602236295995" />
-    <state width="1290" height="474" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602252589101" />
-    <state width="1290" height="474" key="GridCell.Tab.0.center" timestamp="1602252589101">
+    <state width="1877" height="408" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602406793044" />
+    <state width="1877" height="408" key="GridCell.Tab.0.center" timestamp="1602406793044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1290" height="380" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602167024868" />
     <state width="1877" height="268" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602236295995" />
-    <state width="1290" height="474" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602252589101" />
-    <state width="1290" height="474" key="GridCell.Tab.0.left" timestamp="1602252589101">
+    <state width="1877" height="408" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602406793044" />
+    <state width="1877" height="408" key="GridCell.Tab.0.left" timestamp="1602406793044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1290" height="380" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602167024867" />
     <state width="1877" height="268" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602236295995" />
-    <state width="1290" height="474" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602252589101" />
-    <state width="1290" height="474" key="GridCell.Tab.0.right" timestamp="1602252589101">
+    <state width="1877" height="408" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602406793044" />
+    <state width="1877" height="408" key="GridCell.Tab.0.right" timestamp="1602406793044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1290" height="380" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602167024868" />
     <state width="1877" height="268" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602236295995" />
-    <state width="1290" height="474" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602252589101" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1601415508997">
+    <state width="1877" height="408" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602406793044" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom" timestamp="1602403905331">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1601415508997">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1602403905331" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center" timestamp="1602403905331">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1601415508997">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1602403905331" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left" timestamp="1602403905331">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1601415508997">
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1602403905331" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right" timestamp="1602403905331">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="406" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1597443546940" />
-    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601415508997" />
+    <state x="0" y="781" width="1877" height="338" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1602403905331" />
     <state x="490" y="178" key="Maven.ArtifactSearchDialog" timestamp="1594117928890">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -468,10 +436,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="668" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595425765803" />
-    <state x="216" y="438" key="com.intellij.jarRepository.RepositoryAttachDialog-SEARCH" timestamp="1593504299291">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="216" y="438" key="com.intellij.jarRepository.RepositoryAttachDialog-SEARCH/0.0.1920.1040@0.0.1920.1040" timestamp="1593504299291" />
     <state x="613" y="138" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602084775522">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

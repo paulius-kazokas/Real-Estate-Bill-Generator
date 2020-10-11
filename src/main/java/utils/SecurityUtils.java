@@ -1,14 +1,12 @@
 package utils;
 
 import config.SystemConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.security.MessageDigest;
 
+@Slf4j
 public class SecurityUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUtils.class);
 
     public String sha512Hash(String password) {
 
@@ -23,7 +21,7 @@ public class SecurityUtils {
 
             return sb.toString();
         } catch (Exception e) {
-            LOGGER.error(String.format("%s", e));
+            log.error(String.format("%s", e));
         }
 
         return null;

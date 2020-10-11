@@ -29,16 +29,15 @@ public class PropertyRepository implements IPropertyRepository {
     @Override
     public Set<Property> getPropertiesByUser(User user) {
 
-        String query = String.format("SELECT %s, %s, %s FROM %s WHERE %s = '%s'",
+        String personalCode = user.getPersonalCode();
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s, %s, %s FROM %s WHERE %s = '%s'",
                 UTC_PROPERTY_TABLE_ID, UTC_PROPERTY_TABLE_TYPE, UTC_PROPERTY_TABLE_ADDRESS,
                 UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, personalCode), personalCode);
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             Set<Property> properties = new HashSet<>();
-
             while (resultSet.next()) {
                 Property property = Property.object();
                 property.setId(resultSet.getInt(UTC_PROPERTY_TABLE_ID));
@@ -61,18 +60,17 @@ public class PropertyRepository implements IPropertyRepository {
     @Override
     public Map<Integer, String> getUserProperties(User user) {
 
-        String typeQuery = String.format("SELECT DISTINCT(%s) FROM %s WHERE %s = '%s'",
+        String personalCode = user.getPersonalCode();
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT DISTINCT(%s) FROM %s WHERE %s = '%s'",
                 UTC_PROPERTY_TABLE_TYPE,
                 UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, personalCode), personalCode);
 
-        try (Statement typeStatement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet typeResultSet = typeStatement.executeQuery(typeQuery)) {
-
+        try {
             List<String> propertyTypes = new ArrayList<>();
-
-            while (typeResultSet.next()) {
-                propertyTypes.add(typeResultSet.getString(UTC_PROPERTY_TABLE_TYPE));
+            while (resultSet.next()) {
+                propertyTypes.add(resultSet.getString(UTC_PROPERTY_TABLE_TYPE));
             }
 
             Map<Integer, String> propertiesCount = new HashMap<>();
@@ -104,14 +102,12 @@ public class PropertyRepository implements IPropertyRepository {
     @Override
     public Property getPropertyByAddress(String address) {
 
-        String query = String.format("SELECT %s FROM %s WHERE %s = '%s'",
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'",
                 SELECT_ALL,
                 UTC_PROPERTY_TABLE,
-                UTC_PROPERTY_TABLE_ADDRESS, address);
+                UTC_PROPERTY_TABLE_ADDRESS, address), address);
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             if (resultSet.next()) {
                 int id = resultSet.getInt(UTC_PROPERTY_TABLE_ID);
 
@@ -134,17 +130,16 @@ public class PropertyRepository implements IPropertyRepository {
     @Override
     public List<Property> getPropertiesByType(User user, String type) {
 
-        String query = String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'",
+        String personalCode = user.getPersonalCode();
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'",
                 SELECT_ALL,
                 UTC_PROPERTY_TABLE,
                 UTC_PROPERTY_TABLE_TYPE, type,
-                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, user.getPersonalCode());
+                UTC_PROPERTY_TABLE_OWNER_PERSONAL_CODE, personalCode), type, personalCode);
 
-        try (Statement statement = databaseConfig.connectionToDatabase().createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
+        try {
             List<Property> properties = new ArrayList<>();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt(UTC_PROPERTY_TABLE_ID);
 

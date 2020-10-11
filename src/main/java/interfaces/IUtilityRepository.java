@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUtilityRepository {
 
-    Utility getUtility(int id);
+    Utility getUtility(Integer id);
 
     List<Utility> getUtilitiesByAddress(String address);
 

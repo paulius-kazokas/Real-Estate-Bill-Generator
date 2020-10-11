@@ -7,37 +7,31 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
-import repositories.UtilityProviderRepository;
 import repositories.UtilityRepository;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static config.SystemConstants.OTHER_UTILITY;
+import static config.SystemConstants.*;
 
 @Slf4j
 public class AccountMenuActions {
 
-    private static final InputStream IN = System.in;
-    private static final OutputStream OUT = System.out;
+
     private Scanner scanner = new Scanner(IN);
 
     private User user;
     private PropertyRepository propertyRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
-    private UtilityProviderRepository utilityProviderRepository;
 
-    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, UtilityProviderRepository utilityProviderRepository, User user) {
+    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
         this.propertyRepository = propertyRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
-        this.utilityProviderRepository = utilityProviderRepository;
         this.user = user;
     }
 
@@ -148,10 +142,11 @@ public class AccountMenuActions {
         //gauti tikrus indicatoriu id, o ne pagal mapo id, kad gauciau tikrus utility providerius
         Map<String, String> indicatorsReport = new HashMap<>();
         indicators.forEach(i -> {
-            String rawUtilityName = utilityRepository.getUtility(i.getId()).getName();
-            String utilityName = rawUtilityName.equals(OTHER_UTILITY) ? rawUtilityName + " (" + utilityProviderRepository.getUtilityProvider(i.getId()).getName() + ")" : rawUtilityName;
+            String utilityName = utilityRepository.getUtility(i.getId()).getName();
+            if (!utilityName.equals(OTHER_UTILITY)) {
+                indicatorsReport.put(utilityName, String.format("%s - %s", i.getMonthStartAmount(), i.getMonthEndAmount()));
+            }
 
-            indicatorsReport.put(utilityName, String.format("%s - %s", i.getMonthStartAmount(), i.getMonthEndAmount()));
         });
 
         indicatorsReport.forEach((utility, indicatorData) -> System.out.println(String.format("%s: %s", utility, indicatorData)));
@@ -172,7 +167,7 @@ public class AccountMenuActions {
                     2.By month
                     3.By month range
                     4.Custom
-                    0.Log out
+                    0.Back
 
                     Choice: """.getBytes());
 
@@ -181,7 +176,6 @@ public class AccountMenuActions {
             if (!choice.isBlank()) {
                 switch (choice) {
                     case "0" -> {
-                        OUT.write("\n(logged out)".getBytes());
                         return;
                     }
                     case "1" -> billByUtility();
