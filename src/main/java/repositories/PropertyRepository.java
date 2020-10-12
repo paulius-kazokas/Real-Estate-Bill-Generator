@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static config.SystemConstants.*;
 
@@ -24,6 +27,20 @@ public class PropertyRepository implements IPropertyRepository {
         this.userRepository = userRepository;
         this.indicatorRepository = indicatorRepository;
         this.databaseConfig = databaseConfig;
+    }
+
+    public Map<Integer, Property> propertiesTotMap(List<Property> elementList) {
+
+        Map<Integer, Property> elementMap = IntStream.range(0, elementList.size())
+                .boxed()
+                .collect(Collectors.toMap(Function.identity(),
+                        elementList::get,
+                        (k, v) -> k, LinkedHashMap::new
+                ));
+
+        elementMap.forEach((k, v) -> System.out.println(String.format("%s. %s", k, v)));
+
+        return elementMap;
     }
 
     @Override

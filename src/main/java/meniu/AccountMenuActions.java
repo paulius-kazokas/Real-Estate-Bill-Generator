@@ -1,16 +1,19 @@
 package meniu;
 
-import entities.Indicator;
-import entities.Property;
-import entities.User;
+import entities.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
 import repositories.UtilityRepository;
+import utils.RandomUtils;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -88,7 +91,7 @@ public class AccountMenuActions {
 
     }
 
-    public Map<Integer, String> propertyElementMap(List<String> elementList) {
+    public Map<Integer, String> elementToMap(List<String> elementList) {
 
         Map<Integer, String> elementMap = IntStream.range(0, elementList.size())
                 .boxed()
@@ -114,7 +117,7 @@ public class AccountMenuActions {
                 Select type:
                 """.getBytes());
 
-        Map<Integer, String> types = propertyElementMap(properties.stream().map(Property::getType).distinct().collect(Collectors.toList()));
+        Map<Integer, String> types = elementToMap(properties.stream().map(Property::getType).distinct().collect(Collectors.toList()));
 
         String type = scanner.nextLine();
         String chosenType = types.get(Integer.parseInt(type));
@@ -126,7 +129,7 @@ public class AccountMenuActions {
                 """.getBytes());
 
         List<Property> chosenTypeProperties = properties.stream().filter(pr -> pr.getType().equals(chosenType)).collect(Collectors.toList());
-        Map<Integer, String> addresses = propertyElementMap(chosenTypeProperties.stream().map(Property::getAddress).distinct().collect(Collectors.toList()));
+        Map<Integer, String> addresses = elementToMap(chosenTypeProperties.stream().map(Property::getAddress).distinct().collect(Collectors.toList()));
 
         String address = scanner.nextLine();
         String chosenAddress = addresses.get(Integer.parseInt(address));
@@ -166,7 +169,9 @@ public class AccountMenuActions {
                     1.By utility
                     2.By month
                     3.By month range
-                    4.Custom
+                    4.By address
+                    5.By year
+                    6.Custom
                     0.Back
 
                     Choice: """.getBytes());
@@ -178,12 +183,12 @@ public class AccountMenuActions {
                     case "0" -> {
                         return;
                     }
-                    case "1" -> billByUtility();
-                    case "2" -> billByMonth();
-                    case "3" -> billByMonthRange();
-                    case "4" -> billByAddress();
-                    case "5" -> billByYear();
-                    case "6" -> billByCustom();
+                    case "1" -> filterByUtility();
+                    case "2" -> filterByMonth();
+                    case "3" -> filterByMonthRange();
+                    case "4" -> filterByAddress();
+                    case "5" -> filterByYear();
+                    case "6" -> customFilter();
                     default -> OUT.write("Unexpected action".getBytes());
                 }
             }
@@ -191,22 +196,94 @@ public class AccountMenuActions {
 
     }
 
-    private void billByUtility() {
+    private void filterByUtility() {
     }
 
-    private void billByMonth() {
+    private void filterByMonth() {
     }
 
-    private void billByMonthRange() {
+    private void filterByMonthRange() {
     }
 
-    private void billByAddress() {
+    @SneakyThrows(IOException.class)
+    private void filterByAddress() {
+
+        JSONObject reportJson = new JSONObject();
+        reportJson.put("date", UTC_CURRENT_MONTH_BILL_DATE);
+
+        JSONArray userData = new JSONArray();
+        JSONObject ud = new JSONObject();
+        ud.put("name", user.getName());
+        ud.put("lastname", user.getLastname());
+        ud.put("personal_code", user.getPersonalCode());
+        userData.put(ud);
+
+        reportJson.put("user_data", userData);
+
+        JSONArray utilityIndicatorPriceData = new JSONArray();
+
+        // properties
+        Set<Property> userProperties = propertyRepository.getPropertiesByUser(user);
+        List<String> propertyAddresses = userProperties.stream().map(Property::getAddress).collect(Collectors.toList());
+
+        AtomicInteger index = new AtomicInteger();
+        propertyAddresses.forEach(address -> System.out.println(index.getAndIncrement() + ". " + address));
+        String addressChoice = scanner.nextLine();
+        String address = propertyAddresses.get(Integer.parseInt(addressChoice));
+        Property property = propertyRepository.getPropertyByAddress(address);
+
+        // get property indicators
+        List<Indicator> propertyIndicators = indicatorRepository.getIndicatorsByProperty(property.getType(), property.getAddress());
+        // get indicator utilities
+        List<String> utilities = propertyIndicators.stream().map(indicator -> indicator.getUtility().getName()).collect(Collectors.toList());
+        // get monthStart/End per utility <Utility, <Amount, Price>>
+
+        List<Double> prices = new ArrayList<>();
+
+        utilities.forEach(utility -> propertyIndicators.forEach(indicator -> {
+            if (indicator.getUtility().getName().equals(utility)) {
+
+                int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+                double pvm = RandomUtils.randomPVMGenerator();
+                Double price = Double.parseDouble(String.valueOf(amount * RandomUtils.randomUtilityUnitPriceGenerator() * pvm));
+                Double formattedPrice = Double.parseDouble(UPC_DECIMAL_FORMATTER.format(Double.parseDouble(String.valueOf(price))));
+
+                JSONObject iup = new JSONObject();
+                iup.put("utility", utility);
+                iup.put("indicators_amount", amount);
+                iup.put("pvm", pvm);
+                iup.put("price", formattedPrice);
+                utilityIndicatorPriceData.put(iup);
+
+                prices.add(formattedPrice);
+            }
+        }));
+
+        reportJson.put("utilities", utilityIndicatorPriceData);
+
+        // total price
+        double totalPrice = prices.stream().mapToDouble(utilityPrice -> utilityPrice).sum();
+        reportJson.put("total", totalPrice);
+
+        System.out.println(reportJson.toString());
+
+        // export
+        String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
+        try (FileWriter writter = new FileWriter(reportPath)) {
+            writter.write(reportJson.toString());
+            writter.flush();
+        } catch (IOException e) {
+            log.error(e.toString());
+        }
+
+        OUT.write(String.format("Report successfully exported to %s", reportPath).getBytes());
+
     }
 
-    private void billByYear() {
+    private void filterByYear() {
     }
 
-    private void billByCustom() {
+    private void customFilter() {
     }
 
     @SneakyThrows(IOException.class)
