@@ -154,6 +154,10 @@ User will be able to specify custom filter criteria which will generate bill rep
 
 Allow user to look which filters were used to generate bill reports. If entered filtering were used before, system will notify user and then will extract from database
 
+- Check user bills contains custom filter
+
+Custom filter will include users custom filtering, by that the filter will be parsed and json report will be generated, inserted into Bill table ( this will enable user history and instead generating report the already existed report will be suggested and showsn from database )
+
 ---
 
 ### Sources
