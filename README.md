@@ -91,7 +91,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=coverage)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 
-# Urban Taxes Calculator
+# Real Estate Bill Generator
 
 ### Sandbox
 
@@ -117,7 +117,7 @@
 
 ### Database schema
 
-![image](https://drive.google.com/uc?export=view&id=1HQZ1744mkivKzUrVeUScUpvtJ54Vyzs8)
+![image](https://drive.google.com/uc?export=view&id=1Eb7ljN4iCGaxSOgJ10mmeQA95YIc1QjF)
 <!-- To do: add sandbox sql file -->
 
 ---
