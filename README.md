@@ -124,8 +124,35 @@
 
 ### Upcoming
 
-- Generate user bill
-- Rolling month user indicator generator
+- Fixed Indicators database table
+
+Indicators table will have property ID. Property table will contain ID, type, address data only.
+
+- NEW Bill table
+
+Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table
+
+- Filtering
+
+Ability to specify custom filter for report generation
+
+Report filtering cmd structure - dates/months > real estate types > real estate addresses > utilities ( > as separator for categories and ; as separator for multiple choices in category )
+
+2020/01-05;2020/10;2020/11>'*'>Akropolio g. 10 LT-12345 Vilnius;Salmoniškių g. 97 LT-45781 Tauragė;Kaunas>Electricity,Water;'*';Water,Other(seniūnija)
+
+Meaning report will be generated for:
+- 2020/01-05 and 2020/10/12 dates
+- '*' for all real estate types
+- Akropolio g. 10 LT-12345 Vilnius, Salmoniškių g. 97 LT-45781 Tauragė, Kaunas addresses including all addresses in Kaunas
+- Electricity,Water;'*';Water,Other(seniūnija) - Electricity and Water for the first address, * all utilities for second address, Water and Other(seniūnija) for third address
+
+- Generate user bill using filtering
+
+User will be able to specify custom filter criteria which will generate bill report
+
+- User filtering history
+
+Allow user to look which filters were used to generate bill reports. If entered filtering were used before, system will notify user and then will extract from database
 
 ---
 
