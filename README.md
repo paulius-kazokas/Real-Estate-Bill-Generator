@@ -124,15 +124,15 @@
 
 ### Upcoming
 
-- Fixed Indicators database table
+__Fixed Indicators database table__
 
 Indicators table will have property ID. Property table will contain ID, type, address data only.
 
-- NEW Bill table
+__NEW Bill table__
 
 Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table
 
-- Filtering
+__Filtering__
 
 Ability to specify custom filter for report generation
 
@@ -146,15 +146,15 @@ Meaning report will be generated for:
 - Akropolio g. 10 LT-12345 Vilnius, Salmoniškių g. 97 LT-45781 Tauragė, Kaunas addresses including all addresses in Kaunas
 - Electricity,Water;'*';Water,Other(seniūnija) - Electricity and Water for the first address, * all utilities for second address, Water and Other(seniūnija) for third address
 
-- Generate user bill using filtering
+__Generate user bill using filtering__
 
 User will be able to specify custom filter criteria which will generate bill report
 
-- User filtering history
+__User filtering history__
 
 Allow user to look which filters were used to generate bill reports. If entered filtering were used before, system will notify user and then will extract from database
 
-- Check user bills contains custom filter
+__Check user bills contains custom filter__
 
 Custom filter will include users custom filtering, by that the filter will be parsed and json report will be generated, inserted into Bill table ( this will enable user history and instead generating report the already existed report will be suggested and showsn from database )
 
@@ -172,8 +172,6 @@ Custom filter will include users custom filtering, by that the filter will be pa
 - [JUnit 5 Course](https://www.pluralsight.com/courses/tdd-junit5)
 - [Mockito Course](https://www.pluralsight.com/courses/mockito-getting-started)
 - [Java 13 Features](https://docs.oracle.com/en/java/javase/13/language/preview-language-and-vm-features.html)
-
----
 
 Github ReadMe
 
