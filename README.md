@@ -93,6 +93,11 @@
 
 # Real Estate Bill Generator
 
+### 11/11/2020
+
+Cde
+* added bill generation by utility
+
 ### 11/10/2020
 
 Github
@@ -153,7 +158,7 @@ __Filtering__
 Ability to specify custom filter for report generation
 
 Filter by:
-- utility
+- ~~utility~~
 - month
 - month range
 - ~~address~~
