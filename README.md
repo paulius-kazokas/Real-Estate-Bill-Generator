@@ -91,11 +91,27 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=urban.taxes.calculator%3AUrban-Taxes-Calculator&metric=coverage)](https://sonarcloud.io/dashboard?id=urban.taxes.calculator%3AUrban-Taxes-Calculator)
 
-# Urban Taxes Calculator
+# Real Estate Bill Generator
 
-### Sandbox
+### 11/10/2020
 
-- <a href="https://drive.google.com/uc?export=view&id=1yl5RxNSI3tf5IwM2GERUDNd7IEUV4jXT" download>Sandbox database setup</a>
+Github
+* updated sandbox_database.sql file
+* uploaded database schema photo
+
+Code
+* fixed database schema
+* fixed getIndicatorsByProperty method to correctly get Indicator list
+* simplified DatabaseConfig
+* removed unused mothods
+* added bill generation by address
+
+(updated Upcoming section)
+
+
+### Getting Started
+
+- <a href="https://drive.google.com/uc?export=view&id=1yl5RxNSI3tf5IwM2GERUDNd7IEUV4jXT" download>sandbox_database.sql</a>
 
 
 ### CI/CD pipeline
@@ -124,8 +140,47 @@
 
 ### Upcoming
 
-- Generate user bill
-- Rolling month user indicator generator
+__Fixed Indicators database table__
+
+~~Indicators table will have property ID. Property table will contain ID, type, address data only.~~
+
+__NEW Bill table__
+
+~~Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table~~
+
+__Filtering__
+
+Ability to specify custom filter for report generation
+
+Filter by:
+- utility
+- month
+- month range
+- ~~address~~
+- year
+- custom
+
+Custom report filtering command line structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
+
+Examples:
+
+* 2020-01;butas;Akropolio g. 10 LT-12345 Vilnius;*
+
+* 2020-01/2020-05;* ;Kaunas;*
+
+* 2020-01/2021-07;butas/namas/kita;Kaunas/Klaipėda;Vanduo,Elektra,Šildymas,Kita
+
+__User filtering history__
+
+Allow user to look which filters were used to generate bill reports. If entered filtering were used before, system will notify user and then will extract from database
+
+__Check user bills contains custom filter__
+
+Custom filter will include users custom filtering, by that the filter will be parsed and json report will be generated, inserted into Bill table ( this will enable user history and instead generating report the already existed report will be suggested and showsn from database )
+
+__Recheck calculations__
+
+Check when using filters if correct calculations are applied to calculate utility and total prices
 
 ---
 
@@ -141,8 +196,6 @@
 - [JUnit 5 Course](https://www.pluralsight.com/courses/tdd-junit5)
 - [Mockito Course](https://www.pluralsight.com/courses/mockito-getting-started)
 - [Java 13 Features](https://docs.oracle.com/en/java/javase/13/language/preview-language-and-vm-features.html)
-
----
 
 Github ReadMe
 
