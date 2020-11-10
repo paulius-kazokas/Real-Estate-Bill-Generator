@@ -47,8 +47,8 @@ public class PropertyRepository implements IPropertyRepository {
     public Set<Property> getPropertiesByUser(User user) throws SQLException {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.property WHERE personal_code = %s", user.getPersonalCode()));
-
         Set<Property> properties = new HashSet<>();
+
         while (resultSet.next()) {
             Property property = Property.object();
             property.setId(resultSet.getInt("id"));
@@ -79,5 +79,26 @@ public class PropertyRepository implements IPropertyRepository {
 
         return property;
     }
+
+    @Override
+    public Set<Property> getPropertiesByUtilityType(User user, String utilityName) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.property WHERE id IN (SELECT property_id FROM utc.indicator WHERE utility_id IN (SELECT id FROM utc.utility WHERE name = '%s')) AND personal_code = '%s'", utilityName, user.getPersonalCode()));
+        Set<Property> properties = new HashSet<>();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+
+            Property property = Property.object();
+            property.setId(id);
+            property.setUser(userRepository.getUserByPropertyId(id));
+            property.setPropertyType(resultSet.getString("property_type"));
+            property.setAddress(resultSet.getString("address"));
+            properties.add(property);
+        }
+
+        return properties;
+    }
+
 
 }

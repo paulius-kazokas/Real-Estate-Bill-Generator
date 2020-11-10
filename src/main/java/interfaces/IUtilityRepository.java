@@ -8,4 +8,6 @@ public interface IUtilityRepository {
 
     Utility getUtility(Integer id) throws SQLException;
 
+    Utility getUtility(String utilityName) throws SQLException;
+
 }

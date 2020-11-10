@@ -37,4 +37,23 @@ public class UtilityRepository implements IUtilityRepository {
         return null;
     }
 
+    @Override
+    public Utility getUtility(String utilityName) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility WHERE name = '%s'", utilityName));
+        Utility utility = Utility.object();
+
+        if (resultSet.next()) {
+            int id = resultSet.getInt("id");
+
+            utility.setId(id);
+            utility.setUtilityProvider(utilityProviderRepository.getUtilityProvider(id));
+            utility.setName(resultSet.getString("name"));
+            utility.setComment(resultSet.getString("comment"));
+        }
+        resultSet.close();
+        return utility;
+    }
+
+
 }

@@ -110,22 +110,13 @@ public class AccountMenuActions {
                                             return;
                                         }
                                         // filter by utility
-                                        case "1" -> billReportFilteredByUtility();
+                                        case "1" -> exportBill(billReportFilteredByUtility());
                                         // filter by month
                                         case "2" -> billReportFilteredByMonth();
                                         // filter by month range
                                         case "3" -> billReportFilteredByMonthRange();
                                         // filter by address
-                                        case "4" -> {
-                                            JSONObject report = billReportFilteredByAddress();
-                                            OUT.write("""
-
-                                                    Export bill?(y) """.getBytes());
-                                            String export = scanner.nextLine();
-                                            if (export.equals("y") || export.equals("Y")) {
-                                                exportBill(report);
-                                            }
-                                        }
+                                        case "4" -> exportBill(billReportFilteredByAddress());
                                         // filter by year
                                         case "5" -> billReportFilteredByYear();
                                         // custom filter
@@ -171,6 +162,8 @@ public class AccountMenuActions {
 
         return elementMap;
     }
+
+
 
     @SneakyThrows(IOException.class)
     public Map<String, String> userIndicators() throws SQLException {
@@ -222,16 +215,7 @@ public class AccountMenuActions {
 
     }
 
-    private void billReportFilteredByUtility() {
-    }
-
-    private void billReportFilteredByMonth() {
-    }
-
-    private void billReportFilteredByMonthRange() {
-    }
-
-    private JSONObject billReportFilteredByAddress() throws SQLException {
+    private JSONObject billBase() {
 
         JSONObject bill = new JSONObject();
         bill.put("date", UTC_CURRENT_MONTH_BILL_DATE);
@@ -244,6 +228,88 @@ public class AccountMenuActions {
         userData.put(ud);
 
         bill.put("user_data", userData);
+
+        return bill;
+    }
+
+    @SneakyThrows(IOException.class)
+    private JSONObject billReportFilteredByUtility() throws SQLException {
+
+        JSONObject bill = billBase();
+
+        // list properties
+        OUT.write("""
+
+                Utilities:
+                """.getBytes());
+        AtomicInteger utilityIndex = new AtomicInteger();
+        UTILITIES.forEach(utility -> System.out.println(utilityIndex.getAndIncrement() + ". " + utility));
+        String utilityChoice = scanner.nextLine();
+        String utility = UTILITIES.get(Integer.parseInt(utilityChoice));
+
+        // get properties with chosen type with user personal_code
+        Set<Property> properties = propertyRepository.getPropertiesByUtilityType(user, utility);
+        List<String> propertyAddresses = properties.stream().map(Property::getAddress).collect(Collectors.toList());
+        OUT.write("""
+
+                Addresses:
+                """.getBytes());
+        AtomicInteger addressIndex = new AtomicInteger();
+        propertyAddresses.forEach(address -> System.out.println(addressIndex.getAndIncrement() + ". " + address));
+        String addressChoice = scanner.nextLine();
+        String address = propertyAddresses.get(Integer.parseInt(addressChoice));
+        Property property = propertyRepository.getPropertyByAddress(address);
+        property.setUser(user);
+
+        // print available dates for address with specific utility
+        List<String> availableDatesForAddressWithChosenUtility = indicatorRepository.getIndicatorsByAddressAndUtilityName(user, property, utility);
+        OUT.write("""
+
+                Available dates:
+                """.getBytes());
+        AtomicInteger dateIndex = new AtomicInteger();
+        availableDatesForAddressWithChosenUtility.forEach(date -> System.out.println(dateIndex.getAndIncrement() + ". " + date));
+        String dateChoice = scanner.nextLine();
+        String date = availableDatesForAddressWithChosenUtility.get(Integer.parseInt(dateChoice));
+
+        // get prices and store to bill
+        System.out.println(utility + " " + address + " " + date);
+        int utilityId = utilityRepository.getUtility(utility).getId();
+        Indicator indicator = indicatorRepository.getIndicator(property, utilityId, date);
+
+        // calculations
+        int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+        double pvm = RandomUtils.randomPVMGenerator();
+        Double price = Double.parseDouble(String.valueOf((amount * RandomUtils.randomUtilityUnitPriceGenerator()) * pvm));
+        Double formattedPrice = Double.parseDouble(UPC_DECIMAL_FORMATTER.format(Double.parseDouble(String.valueOf(price))));
+
+        JSONArray utilityIndicatorPriceData = new JSONArray();
+
+        JSONObject iup = new JSONObject();
+        iup.put("utility", utility);
+        iup.put("indicators_amount", amount);
+        iup.put("for_date", date);
+        iup.put("pvm", pvm);
+        iup.put("price", formattedPrice);
+        utilityIndicatorPriceData.put(iup);
+
+        bill.put("utilities", utilityIndicatorPriceData);
+
+        // save to the database
+        billRepository.saveBill(property, bill);
+
+        return bill;
+    }
+
+    private void billReportFilteredByMonth() {
+    }
+
+    private void billReportFilteredByMonthRange() {
+    }
+
+    private JSONObject billReportFilteredByAddress() throws SQLException {
+
+        JSONObject bill = billBase();
 
         JSONArray utilityIndicatorPriceData = new JSONArray();
 
@@ -271,7 +337,7 @@ public class AccountMenuActions {
 
                 int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
                 double pvm = RandomUtils.randomPVMGenerator();
-                Double price = Double.parseDouble(String.valueOf(amount * RandomUtils.randomUtilityUnitPriceGenerator() * pvm));
+                Double price = Double.parseDouble(String.valueOf((amount * RandomUtils.randomUtilityUnitPriceGenerator()) * pvm));
                 Double formattedPrice = Double.parseDouble(UPC_DECIMAL_FORMATTER.format(Double.parseDouble(String.valueOf(price))));
 
                 JSONObject iup = new JSONObject();
@@ -305,13 +371,20 @@ public class AccountMenuActions {
 
     @SneakyThrows(IOException.class)
     private void exportBill(JSONObject report) {
-        String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
-        try (FileWriter writer = new FileWriter(reportPath)) {
-            writer.write(report.toString());
-            writer.flush();
-        }
 
-        OUT.write(String.format("Report successfully exported to %s\n", reportPath).getBytes());
+        OUT.write("""
+
+            Export bill?(y) """.getBytes());
+        String export = scanner.nextLine();
+        if (export.equals("y") || export.equals("Y")) {
+            String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
+            try (FileWriter writer = new FileWriter(reportPath)) {
+                writer.write(report.toString());
+                writer.flush();
+            }
+
+            OUT.write(String.format("Report successfully exported to %s\n", reportPath).getBytes());
+        }
     }
 
 }

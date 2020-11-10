@@ -6,7 +6,10 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 
 public class SystemConstants {
 
@@ -26,6 +29,7 @@ public class SystemConstants {
     public static final String MYSQL_PASSWORD = "root";
 
     // Available utilities: Water, Heat, Electricity, Gas, Other
+    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other");
 
     // ToDo: specify - indicator amount min/max, unit price min/max, pvm min/max for each utility
 
