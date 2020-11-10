@@ -136,15 +136,16 @@ __Filtering__
 
 Ability to specify custom filter for report generation
 
-Report filtering cmd structure - dates/months > real estate types > real estate addresses > utilities ( > as separator for categories and ; as separator for multiple choices in category )
+Report filtering cmd structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
 
-2020/01-05;2020/10;2020/11>'*'>Akropolio g. 10 LT-12345 Vilnius;Salmoniškių g. 97 LT-45781 Tauragė;Kaunas>Electricity,Water;'*';Water,Other(seniūnija)
+Examples:
 
-Meaning report will be generated for:
-- 2020/01-05 and 2020/10/12 dates
-- '*' for all real estate types
-- Akropolio g. 10 LT-12345 Vilnius, Salmoniškių g. 97 LT-45781 Tauragė, Kaunas addresses including all addresses in Kaunas
-- Electricity,Water;'*';Water,Other(seniūnija) - Electricity and Water for the first address, * all utilities for second address, Water and Other(seniūnija) for third address
+* 2020-01;butas;Akropolio g. 10 LT-12345 Vilnius;*
+
+* 2020-01/2020-05;* ;Kaunas;*
+
+* 2020-01/2021-07;butas/namas/kita;Kaunas/Klaipėda;Vanduo,Elektra,Šildymas,Kita
+
 
 __Generate user bill using filtering__
 
