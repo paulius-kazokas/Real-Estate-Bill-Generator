@@ -93,6 +93,22 @@
 
 # Real Estate Bill Generator
 
+### 11/10/2020
+
+Github
+* updated sandbox_database.sql file
+* uploaded database schema photo
+
+Code
+* fixed database schema
+* fixed getIndicatorsByProperty method to correctly get Indicator list
+* simplified DatabaseConfig
+* removed unused mothods
+* added bill generation by address
+
+(updated Upcoming section)
+
+
 ### Getting Started
 
 - <a href="https://drive.google.com/uc?export=view&id=1yl5RxNSI3tf5IwM2GERUDNd7IEUV4jXT" download>sandbox_database.sql</a>
@@ -126,17 +142,25 @@
 
 __Fixed Indicators database table__
 
-Indicators table will have property ID. Property table will contain ID, type, address data only.
+~~Indicators table will have property ID. Property table will contain ID, type, address data only.~~
 
 __NEW Bill table__
 
-Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table
+~~Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table~~
 
 __Filtering__
 
 Ability to specify custom filter for report generation
 
-Report filtering cmd structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
+Filter by:
+- utility
+- month
+- month range
+- ~~address~~
+- year
+- custom
+
+Custom report filtering command line structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
 
 Examples:
 
@@ -145,11 +169,6 @@ Examples:
 * 2020-01/2020-05;* ;Kaunas;*
 
 * 2020-01/2021-07;butas/namas/kita;Kaunas/Klaipėda;Vanduo,Elektra,Šildymas,Kita
-
-
-__Generate user bill using filtering__
-
-User will be able to specify custom filter criteria which will generate bill report
 
 __User filtering history__
 
