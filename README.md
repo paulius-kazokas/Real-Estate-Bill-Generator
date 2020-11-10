@@ -93,9 +93,9 @@
 
 # Real Estate Bill Generator
 
-### Sandbox
+### Getting Started
 
-- <a href="https://drive.google.com/uc?export=view&id=1Qvk0HHDlgeX0-ACnS9e1kkErNAUqVylj" download>sandbox.sql</a>
+- <a href="https://drive.google.com/uc?export=view&id=1yl5RxNSI3tf5IwM2GERUDNd7IEUV4jXT" download>sandbox_database.sql</a>
 
 
 ### CI/CD pipeline
@@ -117,7 +117,7 @@
 
 ### Database schema
 
-![image](https://drive.google.com/uc?export=view&id=1Eb7ljN4iCGaxSOgJ10mmeQA95YIc1QjF)
+![image](https://drive.google.com/uc?export=view&id=1HQZ1744mkivKzUrVeUScUpvtJ54Vyzs8)
 <!-- To do: add sandbox sql file -->
 
 ---
