@@ -2,13 +2,10 @@ package interfaces;
 
 import entities.Utility;
 
-import java.util.List;
+import java.sql.SQLException;
 
 public interface IUtilityRepository {
 
-    Utility getUtility(Integer id);
+    Utility getUtility(Integer id) throws SQLException;
 
-    List<Utility> getUtilitiesByAddress(String address);
-
-    List<Utility> getUtilityListByIndicatorId(Integer indicatorId);
 }

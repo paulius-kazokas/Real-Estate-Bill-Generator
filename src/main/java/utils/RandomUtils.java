@@ -8,10 +8,6 @@ public class RandomUtils {
 
     static Random random = new Random();
 
-    public int randomIndicatorGenerator() {
-        return random.nextInt(INDICATOR_MAX - INDICATOR_MIN);
-    }
-
     public static double randomUtilityUnitPriceGenerator() {
         return Double.parseDouble(UPC_DECIMAL_FORMATTER
                 .format(UTILITY_PRICE_MIN + (UTILITY_PRICE_MAX - UTILITY_PRICE_MIN) * random.nextDouble()));

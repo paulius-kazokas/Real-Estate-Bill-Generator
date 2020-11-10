@@ -3,18 +3,15 @@ package interfaces;
 import entities.Property;
 import entities.User;
 
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
 import java.util.Set;
 
 public interface IPropertyRepository {
 
-    Set<Property> getPropertiesByUser(User user);
+    Property getPropertyByIndicatorId(Integer id) throws SQLException;
 
-    Map<Integer, String> getUserProperties(User user);
+    Set<Property> getPropertiesByUser(User user) throws SQLException;
 
-    Property getPropertyByAddress(String address);
-
-    List<Property> getPropertiesByType(User user, String type);
+    Property getPropertyByAddress(String address) throws SQLException;
 
 }

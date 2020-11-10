@@ -2,6 +2,8 @@ package utils;
 
 import org.junit.jupiter.api.*;
 
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -19,7 +21,7 @@ class SecurityUtilsTest {
     @Order(1)
     @Test
     @DisplayName("Successful data hashing")
-    void test1() {
+    void test1() throws NoSuchAlgorithmException {
 
         String testData = "test1";
 

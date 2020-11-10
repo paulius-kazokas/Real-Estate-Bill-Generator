@@ -2,14 +2,16 @@ package entities;
 
 import lombok.Data;
 import lombok.ToString;
+import org.joda.time.DateTime;
 
 @Data(staticConstructor = "object")
 @ToString
-public class Property {
+public class Bill {
 
     private int id;
     private User user;
-    private String propertyType;
-    private String address;
+    private DateTime date;
+    private String filteringCmd;
+    private String billJson;
 
 }

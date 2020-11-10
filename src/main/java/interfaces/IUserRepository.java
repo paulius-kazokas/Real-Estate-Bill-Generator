@@ -1,20 +1,19 @@
 package interfaces;
 
 import entities.User;
-import utils.SecurityUtils;
+
+import java.sql.SQLException;
 
 public interface IUserRepository {
 
-    boolean checkIfUserExists(String usernameInput);
+    boolean checkIfUserExists(String usernameInput) throws SQLException;
 
-    Integer getUserId(String username);
+    Integer getUserId(String username) throws SQLException;
 
-    User getUserByUsername(String username);
+    User getUserByUsername(String username) throws SQLException;
 
-    User getUser(String personalCode);
+    User getUserByPropertyId(Integer id) throws SQLException;
 
-    boolean checkIfPasswordMatches(String password, String storedPassword, SecurityUtils securityUtils);
-
-    void registerNewUser(String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode);
+    void registerNewUser(String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode) throws SQLException;
 
 }

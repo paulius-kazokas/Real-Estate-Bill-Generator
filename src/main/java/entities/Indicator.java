@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 public class Indicator {
 
     private int id;
+    private Property property;
     private Utility utility;
     private DateTime date;
     private int monthStartAmount;

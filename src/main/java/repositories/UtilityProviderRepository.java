@@ -2,16 +2,14 @@ package repositories;
 
 import config.DatabaseConfig;
 import entities.UtilityProvider;
-import interfaces.IUtilityProvider;
+import interfaces.IUtilityProviderRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static config.SystemConstants.*;
-
 @Slf4j
-public class UtilityProviderRepository implements IUtilityProvider {
+public class UtilityProviderRepository implements IUtilityProviderRepository {
 
     DatabaseConfig databaseConfig;
 
@@ -20,25 +18,17 @@ public class UtilityProviderRepository implements IUtilityProvider {
     }
 
     @Override
-    public UtilityProvider getUtilityProvider(Integer utilityId) {
+    public UtilityProvider getUtilityProvider(Integer utilityId) throws SQLException {
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %S WHERE %S = %s",
-                SELECT_ALL,
-                UTC_UTILITY_PROVIDER_TABLE,
-                UTC_UTILITY_PROVIDER_TABLE_ID, utilityId), utilityId.toString());
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility_provider WHERE id = %s", utilityId));
 
-        try {
-            if (resultSet.next()) {
-                UtilityProvider utilityProvider = UtilityProvider.object();
-                utilityProvider.setId(resultSet.getInt(UTC_UTILITY_PROVIDER_TABLE_ID));
-                utilityProvider.setName(resultSet.getString(UTC_UTILITY_PROVIDER_TABLE_NAME));
-                utilityProvider.setAdditionalInformation(resultSet.getString(UTC_UTILITY_PROVIDER_TABLE_ADDITIONAL_INFO));
+        if (resultSet.next()) {
+            UtilityProvider utilityProvider = UtilityProvider.object();
+            utilityProvider.setId(resultSet.getInt("id"));
+            utilityProvider.setName(resultSet.getString("name"));
+            utilityProvider.setAdditionalInformation(resultSet.getString("additional_info"));
 
-                return utilityProvider;
-            }
-
-        } catch (SQLException e) {
-            log.error(String.format("%s", e));
+            return utilityProvider;
         }
 
         return null;

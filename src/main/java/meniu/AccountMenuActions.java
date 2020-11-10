@@ -1,10 +1,13 @@
 package meniu;
 
-import entities.*;
+import entities.Indicator;
+import entities.Property;
+import entities.User;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import repositories.BillRepository;
 import repositories.IndicatorRepository;
 import repositories.PropertyRepository;
 import repositories.UtilityRepository;
@@ -12,6 +15,7 @@ import utils.RandomUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
@@ -23,29 +27,30 @@ import static config.SystemConstants.*;
 @Slf4j
 public class AccountMenuActions {
 
-
     private Scanner scanner = new Scanner(IN);
 
     private User user;
     private PropertyRepository propertyRepository;
     private IndicatorRepository indicatorRepository;
     private UtilityRepository utilityRepository;
+    private BillRepository billRepository;
 
-    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, User user) {
+    public AccountMenuActions(PropertyRepository propertyRepository, IndicatorRepository indicatorRepository, UtilityRepository utilityRepository, BillRepository billRepository, User user) {
         this.propertyRepository = propertyRepository;
         this.indicatorRepository = indicatorRepository;
         this.utilityRepository = utilityRepository;
+        this.billRepository = billRepository;
         this.user = user;
     }
 
     @SneakyThrows(IOException.class)
-    public void accountMenuActions() {
+    public void accountMenuActions() throws SQLException {
 
-        String choice = "not assigned";
+        String primaryChoice = "not assigned";
         Set<Property> properties = propertyRepository.getPropertiesByUser(user);
 
         if (!properties.isEmpty()) {
-            while (!choice.equals("0")) {
+            while (!primaryChoice.equals("0")) {
                 OUT.write("""
 
                         Urban Taxes Calculator
@@ -57,18 +62,93 @@ public class AccountMenuActions {
                         0.Log out
 
                         Choice: """.getBytes());
-                choice = scanner.nextLine();
+                primaryChoice = scanner.nextLine();
 
-                if (!choice.isBlank()) {
-                    switch (choice) {
+                if (!primaryChoice.isBlank()) {
+                    switch (primaryChoice) {
                         case "0" -> {
                             OUT.write("\n(logged out)".getBytes());
                             return;
                         }
-                        case "1" -> checkUserProperties();
-                        case "2" -> checkUserIndicators();
-                        case "3" -> checkUserBills();
-                        case "4" -> checkUserInfo();
+                        // check my properties
+                        case "1" -> {
+                            OUT.write("Properties:\n".getBytes());
+                            properties.forEach(p -> {
+                                try {
+                                    OUT.write(String.format("%s (%s)\n", p.getAddress(), p.getPropertyType()).getBytes());
+                                } catch (IOException ignored) {
+                                }
+                            });
+                        }
+                        // check my indicators
+                        case "2" -> userIndicators().forEach((utility, indicatorData) -> System.out.println(String.format("%s: %s", utility, indicatorData)));
+                        // check my bills
+                        case "3" -> {
+                            String secondaryChoice = "not assigned";
+
+                            while (!secondaryChoice.equals("0")) {
+                                OUT.write("""
+
+                                        My bills
+
+                                        1.By utility
+                                        2.By month
+                                        3.By month range
+                                        4.By address
+                                        5.By year
+                                        6.Custom
+                                        0.Back
+
+                                        Choice: """.getBytes());
+
+                                secondaryChoice = scanner.nextLine();
+
+                                if (!secondaryChoice.isBlank()) {
+                                    switch (secondaryChoice) {
+
+                                        case "0" -> {
+                                            return;
+                                        }
+                                        // filter by utility
+                                        case "1" -> billReportFilteredByUtility();
+                                        // filter by month
+                                        case "2" -> billReportFilteredByMonth();
+                                        // filter by month range
+                                        case "3" -> billReportFilteredByMonthRange();
+                                        // filter by address
+                                        case "4" -> {
+                                            JSONObject report = billReportFilteredByAddress();
+                                            OUT.write("""
+
+                                                    Export bill?(y) """.getBytes());
+                                            String export = scanner.nextLine();
+                                            if (export.equals("y") || export.equals("Y")) {
+                                                exportBill(report);
+                                            }
+                                        }
+                                        // filter by year
+                                        case "5" -> billReportFilteredByYear();
+                                        // custom filter
+                                        case "6" -> customFilteredBillReport();
+                                        default -> OUT.write("Unexpected action".getBytes());
+                                    }
+                                }
+                            }
+                        }
+                        // check my account info
+                        case "4" -> {
+                            OUT.write(String.format("""
+                                    %nName: %s
+                                    Lastname: %s
+                                    Personal code: %s
+                                    """, user.getName(), user.getLastname(), user.getPersonalCode()).getBytes());
+                            OUT.write("""
+                                    Properties:
+                                    """.getBytes());
+                            for (Property p : properties) {
+                                OUT.write(String.format("* %s (%s)\n", p.getAddress(), p.getPropertyType()).getBytes());
+                            }
+                        }
                         default -> OUT.write("Unexpected action".getBytes());
                     }
                 }
@@ -76,19 +156,6 @@ public class AccountMenuActions {
         } else {
             OUT.write(String.format("\n'%s' doesn't have any properties available", user.getUsername()).getBytes());
         }
-    }
-
-    @SneakyThrows(IOException.class)
-    public void checkUserProperties() {
-
-        OUT.write("""
-
-                Properties:
-                """.getBytes());
-        for (Property property : propertyRepository.getPropertiesByUser(user)) {
-            OUT.write(String.format("%s (%s)\n", property.getAddress(), property.getType()).getBytes());
-        }
-
     }
 
     public Map<Integer, String> elementToMap(List<String> elementList) {
@@ -106,7 +173,7 @@ public class AccountMenuActions {
     }
 
     @SneakyThrows(IOException.class)
-    public void checkUserIndicators() {
+    public Map<String, String> userIndicators() throws SQLException {
 
         // get properties
         Set<Property> properties = propertyRepository.getPropertiesByUser(user);
@@ -117,7 +184,7 @@ public class AccountMenuActions {
                 Select type:
                 """.getBytes());
 
-        Map<Integer, String> types = elementToMap(properties.stream().map(Property::getType).distinct().collect(Collectors.toList()));
+        Map<Integer, String> types = elementToMap(properties.stream().map(Property::getPropertyType).distinct().collect(Collectors.toList()));
 
         String type = scanner.nextLine();
         String chosenType = types.get(Integer.parseInt(type));
@@ -128,7 +195,7 @@ public class AccountMenuActions {
                 Select address:
                 """.getBytes());
 
-        List<Property> chosenTypeProperties = properties.stream().filter(pr -> pr.getType().equals(chosenType)).collect(Collectors.toList());
+        List<Property> chosenTypeProperties = properties.stream().filter(pr -> pr.getPropertyType().equals(chosenType)).collect(Collectors.toList());
         Map<Integer, String> addresses = elementToMap(chosenTypeProperties.stream().map(Property::getAddress).distinct().collect(Collectors.toList()));
 
         String address = scanner.nextLine();
@@ -143,73 +210,31 @@ public class AccountMenuActions {
         List<Indicator> indicators = indicatorRepository.getIndicatorsByProperty(chosenType, chosenAddress);
 
         //gauti tikrus indicatoriu id, o ne pagal mapo id, kad gauciau tikrus utility providerius
-        Map<String, String> indicatorsReport = new HashMap<>();
+        Map<String, String> indicatorsMap = new HashMap<>();
         indicators.forEach(i -> {
-            String utilityName = utilityRepository.getUtility(i.getId()).getName();
-            if (!utilityName.equals(OTHER_UTILITY)) {
-                indicatorsReport.put(utilityName, String.format("%s - %s", i.getMonthStartAmount(), i.getMonthEndAmount()));
+            String utilityName = i.getUtility().getName();
+            if (!utilityName.equals("Other")) {
+                indicatorsMap.put(utilityName, String.format("%s - %s", i.getMonthStartAmount(), i.getMonthEndAmount()));
             }
-
         });
 
-        indicatorsReport.forEach((utility, indicatorData) -> System.out.println(String.format("%s: %s", utility, indicatorData)));
+        return indicatorsMap;
 
     }
 
-    @SneakyThrows(IOException.class)
-    public void checkUserBills() {
-
-        String choice = "not assigned";
-
-        while (!choice.equals("0")) {
-            OUT.write("""
-
-                    My bills
-
-                    1.By utility
-                    2.By month
-                    3.By month range
-                    4.By address
-                    5.By year
-                    6.Custom
-                    0.Back
-
-                    Choice: """.getBytes());
-
-            choice = scanner.nextLine();
-
-            if (!choice.isBlank()) {
-                switch (choice) {
-                    case "0" -> {
-                        return;
-                    }
-                    case "1" -> filterByUtility();
-                    case "2" -> filterByMonth();
-                    case "3" -> filterByMonthRange();
-                    case "4" -> filterByAddress();
-                    case "5" -> filterByYear();
-                    case "6" -> customFilter();
-                    default -> OUT.write("Unexpected action".getBytes());
-                }
-            }
-        }
-
+    private void billReportFilteredByUtility() {
     }
 
-    private void filterByUtility() {
+    private void billReportFilteredByMonth() {
     }
 
-    private void filterByMonth() {
+    private void billReportFilteredByMonthRange() {
     }
 
-    private void filterByMonthRange() {
-    }
+    private JSONObject billReportFilteredByAddress() throws SQLException {
 
-    @SneakyThrows(IOException.class)
-    private void filterByAddress() {
-
-        JSONObject reportJson = new JSONObject();
-        reportJson.put("date", UTC_CURRENT_MONTH_BILL_DATE);
+        JSONObject bill = new JSONObject();
+        bill.put("date", UTC_CURRENT_MONTH_BILL_DATE);
 
         JSONArray userData = new JSONArray();
         JSONObject ud = new JSONObject();
@@ -218,7 +243,7 @@ public class AccountMenuActions {
         ud.put("personal_code", user.getPersonalCode());
         userData.put(ud);
 
-        reportJson.put("user_data", userData);
+        bill.put("user_data", userData);
 
         JSONArray utilityIndicatorPriceData = new JSONArray();
 
@@ -231,9 +256,10 @@ public class AccountMenuActions {
         String addressChoice = scanner.nextLine();
         String address = propertyAddresses.get(Integer.parseInt(addressChoice));
         Property property = propertyRepository.getPropertyByAddress(address);
+        property.setUser(user);
 
         // get property indicators
-        List<Indicator> propertyIndicators = indicatorRepository.getIndicatorsByProperty(property.getType(), property.getAddress());
+        List<Indicator> propertyIndicators = indicatorRepository.getIndicatorsByProperty(property.getPropertyType(), property.getAddress());
         // get indicator utilities
         List<String> utilities = propertyIndicators.stream().map(indicator -> indicator.getUtility().getName()).collect(Collectors.toList());
         // get monthStart/End per utility <Utility, <Amount, Price>>
@@ -259,36 +285,33 @@ public class AccountMenuActions {
             }
         }));
 
-        reportJson.put("utilities", utilityIndicatorPriceData);
+        bill.put("utilities", utilityIndicatorPriceData);
 
         // total price
         double totalPrice = prices.stream().mapToDouble(utilityPrice -> utilityPrice).sum();
-        reportJson.put("total", totalPrice);
+        bill.put("total", totalPrice);
 
-        System.out.println(reportJson.toString());
+        // save to the database
+        billRepository.saveBill(property, bill);
 
-        // export
-        String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
-        try (FileWriter writter = new FileWriter(reportPath)) {
-            writter.write(reportJson.toString());
-            writter.flush();
-        } catch (IOException e) {
-            log.error(e.toString());
-        }
-
-        OUT.write(String.format("Report successfully exported to %s", reportPath).getBytes());
-
+        return bill;
     }
 
-    private void filterByYear() {
+    private void billReportFilteredByYear() {
     }
 
-    private void customFilter() {
+    private void customFilteredBillReport() {
     }
 
     @SneakyThrows(IOException.class)
-    public void checkUserInfo() {
-        OUT.write(String.format("%nName: %s%nLastname: %s%nPersonal code: %s%n", user.getName(), user.getLastname(), user.getPersonalCode()).getBytes());
+    private void exportBill(JSONObject report) {
+        String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
+        try (FileWriter writer = new FileWriter(reportPath)) {
+            writer.write(report.toString());
+            writer.flush();
+        }
+
+        OUT.write(String.format("Report successfully exported to %s\n", reportPath).getBytes());
     }
 
 }

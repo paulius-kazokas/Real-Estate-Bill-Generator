@@ -9,6 +9,7 @@ import utils.InputUtils;
 import utils.SecurityUtils;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,50 +26,46 @@ public class UserRepository implements IUserRepository {
         this.databaseConfig = dc;
     }
 
-    private boolean userValidity(String param) {
+    private boolean userValidity(String param) throws SQLException {
         return !param.isBlank() && checkIfUserExists(param);
     }
 
+    private User userObject(Integer id, String username, String password, String name, String lastname, String email, String personalCode) {
+        User user = User.object();
+        user.setId(id);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setName(name);
+        user.setLastname(lastname);
+        user.setEmail(email);
+        user.setPersonalCode(personalCode);
+
+        return user;
+    }
+
     @Override
-    public Integer getUserId(String username) {
+    public Integer getUserId(String username) throws SQLException {
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'",
-                UTC_USERS_TABLE_ID,
-                UTC_USERS_TABLE,
-                UTC_USERS_TABLE_USERNAME, username),
-                username);
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT id FROM utc.user WHERE username = '%s'", username));
 
-        try {
-            if (resultSet != null && resultSet.next()) {
-                int id = resultSet.getInt(UTC_USERS_TABLE_ID);
-                resultSet.close();
-                return id;
-            }
-        } catch (SQLException sql) {
-            log.error(sql.toString());
+        if (resultSet != null && resultSet.next()) {
+            int id = resultSet.getInt("id");
+            resultSet.close();
+            return id;
         }
 
         return null;
     }
 
     @Override
-    public boolean checkIfUserExists(String username) {
+    public boolean checkIfUserExists(String username) throws SQLException {
 
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT username FROM utc.user WHERE username = '%s'", username));
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'",
-                UTC_USERS_TABLE_USERNAME,
-                UTC_USERS_TABLE,
-                UTC_USERS_TABLE_USERNAME, username),
-                username);
-
-        try {
-            if (resultSet != null && resultSet.next()) {
-                String receivedUsername = resultSet.getString(UTC_USERS_TABLE_USERNAME);
-                resultSet.close();
-                return !receivedUsername.isBlank() && receivedUsername.equals(username);
-            }
-        } catch (SQLException sql) {
-            log.error(sql.toString());
+        if (resultSet != null && resultSet.next()) {
+            String receivedUsername = resultSet.getString("username");
+            resultSet.close();
+            return !receivedUsername.isBlank() && receivedUsername.equals(username);
         }
 
         return false;
@@ -76,93 +73,55 @@ public class UserRepository implements IUserRepository {
 
     @SneakyThrows(IOException.class)
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username) throws SQLException {
 
         if (userValidity(username)) {
-            ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'", SELECT_ALL, UTC_USERS_TABLE, UTC_USERS_TABLE_USERNAME, username), username);
-            try {
-                if (resultSet.next()) {
-                    // array check
-                    Integer userId = getUserId(username);
-                    String userPassword = resultSet.getString(UTC_USERS_TABLE_PASSWORD);
-                    String userName = resultSet.getString(UTC_USERS_TABLE_NAME);
-                    String userLastname = resultSet.getString(UTC_USERS_TABLE_LASTNAME);
-                    String userEmail = resultSet.getString(UTC_USERS_TABLE_EMAIL);
-                    String userPersonalCode = resultSet.getString(UTC_USERS_TABLE_PERSONAL_CODE);
-                    resultSet.close();
 
-                    if (InputUtils.validArray(new String[]{userId.toString(), userPassword, username, userName, userLastname, userEmail, userPersonalCode})) {
-                        User user = User.object();
-                        user.setId(userId);
-                        user.setUsername(username);
-                        user.setPassword(userPassword);
-                        user.setName(userName);
-                        user.setLastname(userLastname);
-                        user.setEmail(userEmail);
-                        user.setPersonalCode(userPersonalCode);
+            ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.user WHERE username = '%s'", username));
 
-                        return user;
-                    }
-                }
-            } catch (SQLException sql) {
-                log.error(sql.toString());
-            }
-        }
-        OUT.write("Invalid username provided".getBytes());
-
-        return null;
-    }
-
-    @Override
-    public User getUser(String personalCode) {
-
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT %s FROM %s WHERE %s = '%s'", SELECT_ALL, UTC_USERS_TABLE, UTC_USERS_TABLE_PERSONAL_CODE, personalCode), personalCode);
-
-        try {
             if (resultSet.next()) {
-                int userId = resultSet.getInt(UTC_USERS_TABLE_ID);
-                String userUsername = resultSet.getString(UTC_USERS_TABLE_USERNAME);
-                String userPassword = resultSet.getString(UTC_USERS_TABLE_PASSWORD);
-                String userName = resultSet.getString(UTC_USERS_TABLE_NAME);
-                String userLastname = resultSet.getString(UTC_USERS_TABLE_LASTNAME);
-                String userEmail = resultSet.getString(UTC_USERS_TABLE_EMAIL);
-                String userPersonalCode = resultSet.getString(UTC_USERS_TABLE_PERSONAL_CODE);
+
+                Integer userId = getUserId(username);
+                String userPassword = resultSet.getString("password");
+                String userName = resultSet.getString("name");
+                String userLastname = resultSet.getString("lastname");
+                String userEmail = resultSet.getString("email");
+                String userPersonalCode = resultSet.getString("personal_code");
                 resultSet.close();
 
-                String[] gatheredData = {Integer.toString(userId), userUsername, userPassword, userName, userLastname, userEmail, userPersonalCode};
-                boolean isValidData = InputUtils.validArray(gatheredData);
-
-                if (isValidData) {
-                    User user = User.object();
-                    user.setId(userId);
-                    user.setUsername(userUsername);
-                    user.setPassword(userPassword);
-                    user.setName(userName);
-                    user.setLastname(userLastname);
-                    user.setEmail(userEmail);
-                    user.setPersonalCode(userPersonalCode);
-
-                    return user;
+                if (InputUtils.validArray(new String[]{userId.toString(), userPassword, username, userName, userLastname, userEmail, userPersonalCode})) {
+                    return userObject(userId, username, userPassword, userName, userLastname, userEmail, userPersonalCode);
                 }
             }
-        } catch (SQLException sql) {
-            log.error(sql.toString());
         }
 
+        OUT.write("Invalid username provided".getBytes());
+        return null;
+    }
+
+    @Override
+    public User getUserByPropertyId(Integer id) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.user WHERE personal_code = (SELECT personal_code FROM utc.property WHERE id = %s)", id));
+
+        if (resultSet.next()) {
+            User user = User.object();
+            user.setId(id);
+            user.setUsername(resultSet.getString("username"));
+            user.setPassword(resultSet.getString("password"));
+            user.setName(resultSet.getString("name"));
+            user.setLastname(resultSet.getString("lastname"));
+            user.setEmail(resultSet.getString("email"));
+            user.setPersonalCode(resultSet.getString("personal_code"));
+        }
 
         return null;
     }
 
     @Override
-    public boolean checkIfPasswordMatches(String password, String userDatabasePassword, SecurityUtils securityUtils) {
-        return securityUtils.sha512Hash(password).equals(userDatabasePassword);
-    }
+    public void registerNewUser(String username, String password, String name, String lastname, String email, String personalCode) throws SQLException {
 
-    @Override
-    public void registerNewUser(String username, String password, String name, String lastname, String email, String personalCode) {
-
-        String query = String.format("INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)", UTC_USERS_TABLE, UTC_USERS_TABLE_USERNAME, UTC_USERS_TABLE_PASSWORD, UTC_USERS_TABLE_NAME, UTC_USERS_TABLE_LASTNAME, UTC_USERS_TABLE_EMAIL, UTC_USERS_TABLE_PERSONAL_CODE);
-
+        String query = "INSERT INTO utc.user (username, password, name, lastname, email, personal_code) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = databaseConfig.connectionToDatabase();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -175,12 +134,8 @@ public class UserRepository implements IUserRepository {
             preparedStatement.setString(6, personalCode);
 
             preparedStatement.execute();
-            connection.close();
-
-        } catch (SQLException sql) {
-            log.error(sql.toString());
         }
-
+        connection.close();
     }
 
 }
