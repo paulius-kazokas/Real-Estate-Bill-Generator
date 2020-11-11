@@ -97,6 +97,7 @@
 
 Code
 * added bill generation by utility
+* separated actions with bill
 
 ### 11/10/2020
 
