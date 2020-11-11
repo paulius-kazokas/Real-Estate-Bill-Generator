@@ -1,7 +1,7 @@
 package repositories;
 
 import config.DatabaseConfig;
-import entities.Property;
+import entities.User;
 import interfaces.IBillRepository;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
@@ -25,14 +25,14 @@ public class BillRepository implements IBillRepository {
 
     @SneakyThrows(IOException.class)
     @Override
-    public void saveBill(Property property, JSONObject bill) throws SQLException {
+    public void saveBill(User user, String filteringCmd, JSONObject bill) throws SQLException {
 
         String query = "INSERT INTO utc.bill (personal_code, filtering_cmd, bill_json) VALUES (?, ?, ?)";
         Connection connection = databaseConfig.connectionToDatabase();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, property.getUser().getPersonalCode());
-            preparedStatement.setString(2, "empty_for_now");
+            preparedStatement.setString(1, user.getPersonalCode());
+            preparedStatement.setString(2, filteringCmd);
             preparedStatement.setString(3, bill.toString());
 
             preparedStatement.execute();

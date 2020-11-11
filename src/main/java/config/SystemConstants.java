@@ -17,7 +17,7 @@ public class SystemConstants {
     public static final InputStream IN = System.in;
     public static final OutputStream OUT = System.out;
 
-    public static final DecimalFormat UPC_DECIMAL_FORMATTER = new DecimalFormat("#.##");
+    public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#.##");
     public static final String UPC_DATETIME_FORMATTER = "yyyy-MM";
     public static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern(UPC_DATETIME_FORMATTER);
     public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UPC_DATETIME_FORMATTER));
@@ -29,7 +29,7 @@ public class SystemConstants {
     public static final String MYSQL_PASSWORD = "root";
 
     // Available utilities: Water, Heat, Electricity, Gas, Other
-    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other");
+    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other", "ALL");
 
     // ToDo: specify - indicator amount min/max, unit price min/max, pvm min/max for each utility
 

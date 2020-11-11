@@ -3,18 +3,14 @@ package repositories;
 import config.DatabaseConfig;
 import entities.Indicator;
 import entities.Property;
-import entities.User;
 import entities.Utility;
 import interfaces.IIndicatorRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static config.SystemConstants.FORMATTER;
 
@@ -30,6 +26,7 @@ public class IndicatorRepository implements IIndicatorRepository {
         this.utilityRepository = utilityRepository;
         this.databaseConfig = databaseConfig;
     }
+
 
     @Override
     public List<Indicator> getIndicatorsByProperty(String type, String address) throws SQLException {
@@ -54,24 +51,26 @@ public class IndicatorRepository implements IIndicatorRepository {
     }
 
     @Override
-    public List<String> getIndicatorsByAddressAndUtilityName(User user, Property property, String utilityName) throws SQLException {
+    public List<String> getIndicatorDatesByPropertyAndUtility(Property property, Utility utility) throws SQLException {
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT DISTINCT date FROM utc.indicator WHERE property_id = (SELECT id FROM utc.property WHERE address = '%s' AND personal_code = '%s') AND utility_id IN (SELECT id FROM utc.utility WHERE name = '%s')", property.getAddress(), user.getPersonalCode(), utilityName));
         List<String> dates = new ArrayList<>();
 
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT DISTINCT date from utc.indicator WHERE property_id IN (SELECT id FROM utc.property WHERE address = '%s') AND utility_id IN (SELECT id FROM utc.utility WHERE name = '%s')", property.getAddress(), utility.getName()));
+
         while (resultSet.next()) {
-            dates.add(resultSet.getString("date"));
+            String date = resultSet.getString("date");
+            dates.add(date);
         }
 
         resultSet.close();
         return dates;
     }
 
-    @Override
-    public Indicator getIndicator(Property property, Integer utilityId, String date) throws SQLException {
 
-        Utility utility = utilityRepository.getUtility(utilityId);
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.indicator WHERE property_id = %s AND utility_id = %s AND date = '%s'", property.getId(), utility.getId(), date));
+    @Override
+    public Indicator getIndicatorsByPropertyUtiltyAndDate(Property property, Utility utility, String date) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT DISTINCT * from utc.indicator WHERE property_id IN (SELECT id FROM utc.property WHERE address = '%s') AND utility_id IN (SELECT id FROM utc.utility WHERE name = '%s') AND date = '%s';", property.getAddress(), utility.getName(), date));
         Indicator indicator = Indicator.object();
 
         if (resultSet.next()) {
@@ -79,11 +78,12 @@ public class IndicatorRepository implements IIndicatorRepository {
 
             indicator.setId(id);
             indicator.setProperty(propertyRepository.getPropertyByIndicatorId(id));
-            indicator.setUtility(utilityRepository.getUtility(utilityId));
+            indicator.setUtility(utilityRepository.getUtility(utility.getName()));
             indicator.setDate(FORMATTER.parseDateTime(resultSet.getString("date")));
             indicator.setMonthStartAmount(resultSet.getInt("month_start_amount"));
             indicator.setMonthEndAmount(resultSet.getInt("month_end_amount"));
         }
+
         resultSet.close();
         return indicator;
     }

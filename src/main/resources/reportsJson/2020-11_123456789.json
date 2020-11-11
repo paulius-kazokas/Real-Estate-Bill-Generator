@@ -1,0 +1,31 @@
+{
+  "date": "2020-11",
+  "total": 4.35,
+  "report": [
+    {
+      "date": "2020-07",
+      "indicator_amount": 0,
+      "address": "Ozo g. 44, LT-45678, Vilnius",
+      "total_indicator": 0,
+      "sub_total": 0,
+      "utility": "Gas",
+      "pvm_total": 0
+    },
+    {
+      "date": "2020-07",
+      "indicator_amount": 17,
+      "address": "Užmiesčio g. 99, LT-56789, Kaunas",
+      "total_indicator": 1.77,
+      "sub_total": 1.53,
+      "utility": "Gas",
+      "pvm_total": 0.24
+    }
+  ],
+  "user_data": [
+    {
+      "personal_code": "123456789",
+      "name": "b",
+      "lastname": "b"
+    }
+  ]
+}
