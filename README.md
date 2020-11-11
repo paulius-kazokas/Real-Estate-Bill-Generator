@@ -96,8 +96,8 @@
 ### 11/11/2020
 
 Code
-* added bill generation by utility
-* separated actions with bill
+* implemented custom bill generation (without proper input validation)
+* moved bill related actions to separated class
 
 ### 11/10/2020
 
