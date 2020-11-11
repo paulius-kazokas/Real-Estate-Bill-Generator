@@ -48,10 +48,9 @@ public class BillMenuActions {
         while (!primaryChoice.equals("0")) {
             OUT.write("""
 
-                    Urban Taxes Calculator
+                    Bill Menu
 
-                    1.Check existing bills
-                    2.Generate custom bill
+                    1.Generate custom bill
                     0.Back
 
                     Choice: """.getBytes());
@@ -63,7 +62,7 @@ public class BillMenuActions {
                         return;
                     }
                     // generate bill
-                    case "2" -> customFilterBill(user);
+                    case "1" -> customFilterBill(user);
                     default -> OUT.write("Unexpected action".getBytes());
                 }
             }
@@ -88,10 +87,10 @@ public class BillMenuActions {
     }
 
     @SneakyThrows(IOException.class)
-    private List<Property> requestProperties() throws SQLException {
+    private List<Property> requestProperties(User user) throws SQLException {
 
-        // choose property/ies
         Set<Property> userProperties = propertyRepository.getPropertiesByUser(user);
+
         List<String> propertyAddresses = userProperties.stream().map(Property::getAddress).collect(Collectors.toList());
         OUT.write("""
 
@@ -100,21 +99,25 @@ public class BillMenuActions {
         AtomicInteger index = new AtomicInteger();
         index.set(1);
         propertyAddresses.forEach(address -> System.out.println(index.getAndIncrement() + ". " + address));
+        OUT.write("or press '*' to select all properties\n".getBytes());
         String userInput = scanner.nextLine();
+        // filterCommandLine += userInput;
 
-        return retrieveProperties(propertyAddresses, userInput);
+        return retrieveProperties(propertyAddresses, userInput, user);
     }
 
-    private List<Property> retrieveProperties(List<String> addresses, String userInput) throws SQLException {
+    private List<Property> retrieveProperties(List<String> addresses, String userInput, User user) throws SQLException {
+
+        if (userInput.equals("*")) {
+            return new ArrayList<>(propertyRepository.getPropertiesByUser(user));
+        }
 
         List<Property> resultProperties = new ArrayList<>();
-        // parse
-
         String[] addressess = userInput.split(",");
-        System.out.println(addressess.length);
+
         if (addressess.length > 1) {
             for (String a : addressess) {
-                String address = addresses.get(Integer.parseInt(a)-1);
+                String address = addresses.get(Integer.parseInt(a) - 1);
                 Property property = propertyRepository.getPropertyByAddress(address);
                 property.setUser(user);
                 resultProperties.add(property);
@@ -134,32 +137,39 @@ public class BillMenuActions {
 
         OUT.write(String.format("""
 
-                Select utility/ies for %s:
+                Select utility/ies for '%s':
                 """, property.getAddress()).getBytes());
         AtomicInteger utilityIndex = new AtomicInteger();
+        utilityIndex.set(1);
         UTILITIES.forEach(utility -> System.out.println(utilityIndex.getAndIncrement() + ". " + utility));
+        OUT.write("or press '*' to select all utilities\n".getBytes());
         String utilityChoice = scanner.nextLine();
+        // filterCommandLine += utilityChoice;
 
         return retrieveUtilities(utilityChoice);
     }
 
+    @SneakyThrows(IOException.class)
     private List<Utility> retrieveUtilities(String userInput) throws SQLException {
 
         List<Utility> resultUtilities = new ArrayList<>();
 
-        List<String> utilities = UTILITIES.stream().filter(utility -> !utility.equals("ALL")).collect(Collectors.toList());
         String[] utilityChoiceUtilities = userInput.split(",");
         // all utilities
-        if (utilityChoiceUtilities.length == 1 && Integer.valueOf(userInput) == utilities.size()) {
-            for (String utilityName : utilities) {
+        if (userInput.equals("*")) {
+            //if (utilityChoiceUtilities.length == 1 && Integer.parseInt(userInput) == utilities.size()) {
+            for (String utilityName : UTILITIES) {
                 resultUtilities.add(utilityRepository.getUtility(utilityName));
             }
             // specific utilities
         } else if (utilityChoiceUtilities.length > 1) {
             for (String u : utilityChoiceUtilities) {
-                String utilityName = utilities.get(Integer.parseInt(u) - 1);
+                String utilityName = UTILITIES.get(Integer.parseInt(u));
                 resultUtilities.add(utilityRepository.getUtility(utilityName));
             }
+        } else if (Integer.parseInt(userInput) < utilityChoiceUtilities.length || Integer.parseInt(userInput) > utilityChoiceUtilities.length) {
+            OUT.write(String.format("Invalid utility request '%s'", userInput).getBytes());
+            return Collections.emptyList();
         }
 
         return resultUtilities;
@@ -167,17 +177,25 @@ public class BillMenuActions {
 
     @SneakyThrows(IOException.class)
     private List<String> requestDates(Property property, Utility utility) throws SQLException {
+
         OUT.write(String.format("""
 
-                Select date/s for %s:
-                """, property.getAddress()).getBytes());
+                Select date/s for %s (%s):
+                """, property.getAddress(), utility.getName()).getBytes());
         AtomicInteger dateIndex = new AtomicInteger();
         dateIndex.set(1);
         List<String> dates = indicatorRepository.getIndicatorDatesByPropertyAndUtility(property, utility);
-        dates.forEach(date -> System.out.println(dateIndex.getAndIncrement() + ". " + date));
-        String dateChoice = scanner.nextLine();
+        if (dates.isEmpty()) {
+            OUT.write(String.format("No dates for: address - '%s'; utility - '%s'", property.getAddress(), utility.getName()).getBytes());
+        } else {
+            dates.forEach(date -> System.out.println(dateIndex.getAndIncrement() + ". " + date));
+            String userInput = scanner.nextLine();
+            // filterCommandLine += userInput;
 
-        return retrieveDates(dates, dateChoice);
+            return retrieveDates(dates, userInput);
+        }
+
+        return Collections.emptyList();
     }
 
     private List<String> retrieveDates(List<String> dates, String dateChoice) {
@@ -194,64 +212,57 @@ public class BillMenuActions {
         return resultDates;
     }
 
-    @SneakyThrows(IOException.class)
     private void customFilterBill(User user) throws SQLException {
 
         JSONObject bill = billBase(user);
         JSONArray allReportData = new JSONArray();
 
-        List<Utility> utilities = new ArrayList<>();
-        List<String> dates = new ArrayList<>();
+        String filterCommandLine = "";
+        double grandTotal = 0.00d;
 
-        // get properties
-        List<Property> properties = requestProperties();
+        List<Property> properties = requestProperties(user);
 
-        // get utilities
         for (Property property : properties) {
-            OUT.write(String.format("Utilities for %s", property.getAddress()).getBytes());
-            utilities = requestUtilities(property);
-        }
+            JSONObject innerPropertyData = new JSONObject();
+            JSONArray generatedPropertyData = new JSONArray();
+            innerPropertyData.put("address", property.getAddress());
+            List<Utility> utilities = requestUtilities(property);
+            double propertyGrandTotal = 0.00d;
 
-        // get dates
-        for (Property property : properties) {
             for (Utility utility : utilities) {
-                OUT.write(String.format("Dates for %s (%s)", property.getAddress(), utility.getName()).getBytes());
-                dates = requestDates(property, utility);
-            }
-        }
+                JSONObject generatedUtilityData = new JSONObject();
+                generatedUtilityData.put("utility", utility.getName());
+                List<String> dates = requestDates(property, utility);
 
-        // get indicators
-        for (Property property : properties) {
-            JSONObject generatedData = new JSONObject();
-            double grandTotal = 0.00d;
-            generatedData.put("address", property.getAddress());
-            for (Utility utility : utilities) {
-                generatedData.put("utility", utility.getName());
                 for (String date : dates) {
-                    Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtiltyAndDate(property, utility, date);
 
+                    Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtiltyAndDate(property, utility, date);
                     int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
                     double pvm = RandomUtils.randomPVMGenerator();
-                    double SubTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
-                    double PvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * SubTotal) / 100.00d)));
-                    double IndicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(SubTotal, PvmTotal))));
+                    double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
+                    double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
+                    double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
+                    propertyGrandTotal += indicatorTotal;
+                    grandTotal += indicatorTotal;
 
-                    generatedData.put("date", date);
-                    generatedData.put("indicator_amount", amount);
-                    generatedData.put("sub_total", SubTotal);
-                    generatedData.put("pvm_total", PvmTotal);
-                    generatedData.put("total_indicator", IndicatorTotal);
-                    grandTotal += IndicatorTotal;
+                    generatedUtilityData.put("date", date);
+                    generatedUtilityData.put("indicator_amount", amount);
+                    generatedUtilityData.put("sub_total", subTotal);
+                    generatedUtilityData.put("pvm_total", pvmTotal);
+                    generatedUtilityData.put("price_total", indicatorTotal);
+
+                    generatedPropertyData.put(generatedUtilityData);
+
+                    //filterCommandLine += ";";
                 }
             }
-            allReportData.put(generatedData);
+            innerPropertyData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
+            generatedPropertyData.put(innerPropertyData);
+            allReportData.put(generatedPropertyData);
             bill.put("total", Double.parseDouble(DECIMAL_FORMATTER.format(grandTotal)));
         }
-
         bill.put("report", allReportData);
-
-        billRepository.saveBill(user, "in progress", bill);
-
+        billRepository.saveBill(user, filterCommandLine, bill);
         exportBill(bill);
 
     }

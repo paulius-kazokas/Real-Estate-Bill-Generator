@@ -6,7 +6,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +23,11 @@ public class SystemConstants {
 
     // Database specifics
     public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/utc?useSSL=true";
-    // public static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String MYSQL_USER = "root";
     public static final String MYSQL_PASSWORD = "root";
 
     // Available utilities: Water, Heat, Electricity, Gas, Other
-    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other", "ALL");
+    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other");
 
     // ToDo: specify - indicator amount min/max, unit price min/max, pvm min/max for each utility
 
@@ -37,7 +35,7 @@ public class SystemConstants {
     public static final String BILL_DESTINATION_PATH = "src/main/resources/reportsJson/";
     public static final double UTILITY_PRICE_MIN = 0.09d;
     public static final double UTILITY_PRICE_MAX = 0.64d;
-    public static final double PVM_MIN = 5.15d;
+    public static final double PVM_MIN = 8.15d;
     public static final double PVM_MAX = 21.00d;
     // Security specifics
     public static final String SHA512 = "SHA-512";

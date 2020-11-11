@@ -48,7 +48,7 @@ public class AccountMenuActions {
             while (!primaryChoice.equals("0")) {
                 OUT.write("""
 
-                        Urban Taxes Calculator
+                        User Menu
 
                         1.Check my properties
                         2.Check my indicators

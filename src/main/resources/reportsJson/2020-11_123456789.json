@@ -1,25 +1,145 @@
 {
   "date": "2020-11",
-  "total": 4.35,
+  "total": 171.5,
   "report": [
-    {
-      "date": "2020-07",
-      "indicator_amount": 0,
-      "address": "Ozo g. 44, LT-45678, Vilnius",
-      "total_indicator": 0,
-      "sub_total": 0,
-      "utility": "Gas",
-      "pvm_total": 0
-    },
-    {
-      "date": "2020-07",
-      "indicator_amount": 17,
-      "address": "Užmiesčio g. 99, LT-56789, Kaunas",
-      "total_indicator": 1.77,
-      "sub_total": 1.53,
-      "utility": "Gas",
-      "pvm_total": 0.24
-    }
+    [
+      {
+        "date": "2020-08",
+        "indicator_amount": 23,
+        "sub_total": 13.34,
+        "utility": "Electricity",
+        "pvm_total": 2.51,
+        "price_total": 15.85
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 45,
+        "sub_total": 21.6,
+        "utility": "Gas",
+        "pvm_total": 2.24,
+        "price_total": 23.84
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 65,
+        "sub_total": 10.4,
+        "utility": "Water",
+        "pvm_total": 1.84,
+        "price_total": 12.24
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 11,
+        "sub_total": 2.53,
+        "utility": "Heat",
+        "pvm_total": 0.28,
+        "price_total": 2.81
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 21,
+        "sub_total": 5.88,
+        "utility": "Other",
+        "pvm_total": 0.61,
+        "price_total": 6.49
+      },
+      {
+        "address": "Ozo g. 44, LT-45678, Vilnius",
+        "property_total": 61.23
+      }
+    ],
+    [
+      {
+        "date": "2020-07",
+        "indicator_amount": 11,
+        "sub_total": 5.5,
+        "utility": "Electricity",
+        "pvm_total": 0.83,
+        "price_total": 6.33
+      },
+      {
+        "date": "2020-07",
+        "indicator_amount": 17,
+        "sub_total": 5.27,
+        "utility": "Gas",
+        "pvm_total": 0.49,
+        "price_total": 5.76
+      },
+      {
+        "date": "2020-07",
+        "indicator_amount": 12,
+        "sub_total": 6.72,
+        "utility": "Water",
+        "pvm_total": 0.55,
+        "price_total": 7.27
+      },
+      {
+        "date": "2020-07",
+        "indicator_amount": 22,
+        "sub_total": 8.14,
+        "utility": "Heat",
+        "pvm_total": 1.47,
+        "price_total": 9.61
+      },
+      {
+        "date": "2020-07",
+        "indicator_amount": 21,
+        "sub_total": 7.77,
+        "utility": "Other",
+        "pvm_total": 1.5,
+        "price_total": 9.27
+      },
+      {
+        "address": "Užmiesčio g. 99, LT-56789, Kaunas",
+        "property_total": 38.24
+      }
+    ],
+    [
+      {
+        "date": "2020-08",
+        "indicator_amount": 50,
+        "sub_total": 5.5,
+        "utility": "Electricity",
+        "pvm_total": 0.58,
+        "price_total": 6.08
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 13,
+        "sub_total": 3.38,
+        "utility": "Gas",
+        "pvm_total": 0.45,
+        "price_total": 3.83
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 41,
+        "sub_total": 6.97,
+        "utility": "Water",
+        "pvm_total": 0.72,
+        "price_total": 7.69
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 66,
+        "sub_total": 41.58,
+        "utility": "Heat",
+        "pvm_total": 6.92,
+        "price_total": 48.5
+      },
+      {
+        "date": "2020-08",
+        "indicator_amount": 13,
+        "sub_total": 5.07,
+        "utility": "Other",
+        "pvm_total": 0.86,
+        "price_total": 5.93
+      },
+      {
+        "address": "Akropolio g. 10, LT-12345, Vilnius",
+        "property_total": 72.03
+      }
+    ]
   ],
   "user_data": [
     {
