@@ -5,6 +5,7 @@ import entities.Property;
 import entities.User;
 import entities.Utility;
 import lombok.SneakyThrows;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import repositories.BillRepository;
@@ -50,7 +51,8 @@ public class BillMenuActions {
 
                     Bill Menu
 
-                    1.Generate custom bill
+                    1.Generate current month bill
+                    2.Generate custom bill
                     0.Back
 
                     Choice: """.getBytes());
@@ -62,7 +64,8 @@ public class BillMenuActions {
                         return;
                     }
                     // generate bill
-                    case "1" -> customFilterBill(user);
+                    case "1" -> currentMonthBill(user);
+                    case "2" -> customFilterBill(user);
                     default -> OUT.write("Unexpected action".getBytes());
                 }
             }
@@ -72,7 +75,7 @@ public class BillMenuActions {
     private JSONObject billBase(User user) {
 
         JSONObject bill = new JSONObject();
-        bill.put("date", UTC_CURRENT_MONTH_BILL_DATE);
+        bill.put("date", CURRENT_MONTH);
 
         JSONArray userData = new JSONArray();
         JSONObject ud = new JSONObject();
@@ -84,6 +87,53 @@ public class BillMenuActions {
         bill.put("user_data", userData);
 
         return bill;
+    }
+
+    @SneakyThrows(IOException.class)
+    private void currentMonthBill(User user) throws SQLException {
+
+        JSONObject bill = billBase(user);
+        JSONArray allReportData = new JSONArray();
+        String filterCommandLine = "";
+
+        for (Property property : requestProperties(user)) {
+            JSONObject generatedPropertySpecificData = new JSONObject();
+            JSONArray generatedPropertyData = new JSONArray();
+            double propertyGrandTotal = 0.00d;
+
+            List<Indicator> indicators = indicatorRepository.getIndicators(property, CURRENT_MONTH);
+            if (!indicators.isEmpty()) {
+                for (Indicator indicator : indicators) {
+
+                    Utility utility = utilityRepository.getUtility(indicator.getId());
+                    int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+                    double pvm = RandomUtils.randomPVMGenerator();
+                    double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
+                    double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
+                    double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
+                    propertyGrandTotal += indicatorTotal;
+
+                    JSONObject generatedIndicatorData = new JSONObject();
+                    generatedIndicatorData.put("indicator_amount", amount);
+                    generatedIndicatorData.put("sub_total", subTotal);
+                    generatedIndicatorData.put("pvm_total", pvmTotal);
+                    generatedIndicatorData.put("price_total", indicatorTotal);
+                    generatedIndicatorData.put("utility", utility.getName());
+
+                    generatedPropertyData.put(generatedIndicatorData);
+                }
+            } else {
+                OUT.write(String.format("No indicator data found for %s", property.getAddress()).getBytes());
+            }
+            generatedPropertySpecificData.put("address", property.getAddress());
+            generatedPropertySpecificData.put("date", CURRENT_MONTH);
+            generatedPropertySpecificData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
+            allReportData.put(generatedPropertySpecificData);
+            allReportData.put(generatedPropertyData);
+        }
+        bill.put("report", allReportData);
+        billRepository.saveBill(user, filterCommandLine, bill);
+        exportBill(bill);
     }
 
     @SneakyThrows(IOException.class)
@@ -220,9 +270,7 @@ public class BillMenuActions {
         String filterCommandLine = "";
         double grandTotal = 0.00d;
 
-        List<Property> properties = requestProperties(user);
-
-        for (Property property : properties) {
+        for (Property property : requestProperties(user)) {
             JSONObject innerPropertyData = new JSONObject();
             JSONArray generatedPropertyData = new JSONArray();
             innerPropertyData.put("address", property.getAddress());
@@ -275,7 +323,7 @@ public class BillMenuActions {
                 Export bill?(y) """.getBytes());
         String export = scanner.nextLine();
         if (export.equals("y") || export.equals("Y")) {
-            String reportPath = BILL_DESTINATION_PATH + UTC_CURRENT_MONTH_BILL_DATE + "_" + user.getPersonalCode() + ".json";
+            String reportPath = BILL_DESTINATION_PATH + CURRENT_MONTH + "_" + user.getPersonalCode() + ".json";
             try (FileWriter writer = new FileWriter(reportPath)) {
                 writer.write(report.toString());
                 writer.flush();

@@ -27,13 +27,12 @@ public class IndicatorRepository implements IIndicatorRepository {
         this.databaseConfig = databaseConfig;
     }
 
-
     @Override
     public List<Indicator> getIndicatorsByProperty(String type, String address) throws SQLException {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.indicator WHERE property_id IN (SELECT id FROM utc.property WHERE property_type = '%s' AND address = '%s')", type, address));
-
         List<Indicator> indicators = new ArrayList<>();
+
         while (resultSet.next()) {
             Indicator indicator = Indicator.object();
             indicator.setId(resultSet.getInt("id"));
@@ -47,25 +46,21 @@ public class IndicatorRepository implements IIndicatorRepository {
         }
         resultSet.close();
         return indicators;
-
     }
 
     @Override
     public List<String> getIndicatorDatesByPropertyAndUtility(Property property, Utility utility) throws SQLException {
 
-        List<String> dates = new ArrayList<>();
-
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT DISTINCT date from utc.indicator WHERE property_id IN (SELECT id FROM utc.property WHERE address = '%s') AND utility_id IN (SELECT id FROM utc.utility WHERE name = '%s')", property.getAddress(), utility.getName()));
+        List<String> dates = new ArrayList<>();
 
         while (resultSet.next()) {
             String date = resultSet.getString("date");
             dates.add(date);
         }
-
         resultSet.close();
         return dates;
     }
-
 
     @Override
     public Indicator getIndicatorsByPropertyUtiltyAndDate(Property property, Utility utility, String date) throws SQLException {
@@ -83,10 +78,69 @@ public class IndicatorRepository implements IIndicatorRepository {
             indicator.setMonthStartAmount(resultSet.getInt("month_start_amount"));
             indicator.setMonthEndAmount(resultSet.getInt("month_end_amount"));
         }
-
         resultSet.close();
         return indicator;
     }
 
+    @Override
+    public List<Indicator> getIndicators(Property property) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.indicator WHERE property_id = %s", property.getId()));
+        List<Indicator> indicators = new ArrayList<>();
+
+        while (resultSet.next()) {
+            Indicator indicator = Indicator.object();
+            indicator.setId(resultSet.getInt("id"));
+            indicator.setProperty(propertyRepository.getPropertyByIndicatorId(resultSet.getInt("property_id")));
+            indicator.setUtility(utilityRepository.getUtility(resultSet.getInt("utility_id")));
+            indicator.setDate(FORMATTER.parseDateTime(resultSet.getString("date")));
+            indicator.setMonthStartAmount(resultSet.getInt("month_start_amount"));
+            indicator.setMonthEndAmount(resultSet.getInt("month_end_amount"));
+
+            indicators.add(indicator);
+        }
+
+        return indicators;
+    }
+
+    @Override
+    public List<Indicator> getIndicators(Property property, String date) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.indicator WHERE property_id = %s AND date = '%s'", property.getId(), date));
+        List<Indicator> indicators = new ArrayList<>();
+
+        while (resultSet.next()) {
+            Indicator indicator = Indicator.object();
+            indicator.setId(resultSet.getInt("id"));
+            indicator.setProperty(propertyRepository.getPropertyByIndicatorId(resultSet.getInt("property_id")));
+            indicator.setUtility(utilityRepository.getUtility(resultSet.getInt("utility_id")));
+            indicator.setDate(FORMATTER.parseDateTime(resultSet.getString("date")));
+            indicator.setMonthStartAmount(resultSet.getInt("month_start_amount"));
+            indicator.setMonthEndAmount(resultSet.getInt("month_end_amount"));
+
+            indicators.add(indicator);
+        }
+
+        return indicators;
+    }
+
+    @Override
+    public Indicator getUtility(Utility utility) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.indicator WHERE utility_id = %s", utility.getId()));
+        Indicator indicator = Indicator.object();
+
+        if (resultSet.next()) {
+            indicator.setId(resultSet.getInt("id"));
+            indicator.setProperty(propertyRepository.getPropertyByIndicatorId(resultSet.getInt("property_id")));
+            indicator.setUtility(utilityRepository.getUtility(resultSet.getInt("utility_id")));
+            indicator.setDate(FORMATTER.parseDateTime(resultSet.getString("date")));
+            indicator.setMonthStartAmount(resultSet.getInt("month_start_amount"));
+            indicator.setMonthEndAmount(resultSet.getInt("month_end_amount"));
+        }
+
+        return indicator;
+
+    }
 
 }

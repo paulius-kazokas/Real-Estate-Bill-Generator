@@ -19,7 +19,7 @@ public class SystemConstants {
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#.##");
     public static final String UPC_DATETIME_FORMATTER = "yyyy-MM";
     public static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern(UPC_DATETIME_FORMATTER);
-    public static final String UTC_CURRENT_MONTH_BILL_DATE = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UPC_DATETIME_FORMATTER));
+    public static final String CURRENT_MONTH = LocalDate.now().toString(DateTimeFormat.forPattern(SystemConstants.UPC_DATETIME_FORMATTER));
 
     // Database specifics
     public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/utc?useSSL=true";
