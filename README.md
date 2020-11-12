@@ -146,11 +146,11 @@ Code
 
 ### Upcoming
 
-__Fixed Indicators database table__
+~~__Fixed Indicators database table__~~
 
 ~~Indicators table will have property ID. Property table will contain ID, type, address data only.~~
 
-__NEW Bill table__
+~~__NEW Bill table__~~
 
 ~~Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table~~
 
