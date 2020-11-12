@@ -96,7 +96,7 @@
 ### 11/11/2020
 
 Code
-* implemented custom bill generation (without proper input validation)
+* implemented custom bill generation. User can choose all properties, utilities and date for each utility (with partial input validation)
 * moved bill related actions to separated class
 
 ### 11/10/2020
@@ -146,35 +146,29 @@ Code
 
 ### Upcoming
 
-__Fixed Indicators database table__
+~~__Fixed Indicators database table__~~
 
 ~~Indicators table will have property ID. Property table will contain ID, type, address data only.~~
 
-__NEW Bill table__
+~~__NEW Bill table__~~
 
 ~~Bill table will include ID, personalcode, date, filtering cmd, json report for filtering cmd. Joined with User table~~
 
 __Filtering__
 
-Ability to specify custom filter for report generation
+~~Ability to choose utilities and dates for each properties.~~ Save the following user input as filteringCmd
 
-Filter by:
-- ~~utility~~
-- month
-- month range
-- ~~address~~
-- year
-- custom
+filteringCmd example: address+all+2020-08,2020-07,2020-04,2020-08,2020-07;another address+Electricity,Water+2020-09
 
-Custom report filtering command line structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
+ToDo
 
-Examples:
+* ~~make a choice for user to pick all properties via input~~
 
-* 2020-01;butas;Akropolio g. 10 LT-12345 Vilnius;*
+* ~~make a choice for user to pick all utilities via input~~
 
-* 2020-01/2020-05;* ;Kaunas;*
+* make ability for user to pick same date for chosen utilities - monthly report
 
-* 2020-01/2021-07;butas/namas/kita;Kaunas/Klaipėda;Vanduo,Elektra,Šildymas,Kita
+* ...
 
 __User filtering history__
 
