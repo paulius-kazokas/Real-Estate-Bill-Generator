@@ -96,7 +96,7 @@
 ### 11/11/2020
 
 Code
-* implemented custom bill generation (without proper input validation)
+* implemented custom bill generation. User can choose all properties, utilities and date for each utility (with partial input validation)
 * moved bill related actions to separated class
 
 ### 11/10/2020
@@ -161,6 +161,10 @@ __Filtering__
 filteringCmd example: address+all+2020-08,2020-07,2020-04,2020-08,2020-07;another address+Electricity,Water+2020-09
 
 ToDo
+
+* ~~make a choice for user to pick all properties via input~~
+
+* ~~make a choice for user to pick all utilities via input~~
 
 * make ability for user to pick same date for chosen utilities - monthly report
 
