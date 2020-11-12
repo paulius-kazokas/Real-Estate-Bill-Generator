@@ -93,6 +93,11 @@
 
 # Real Estate Bill Generator
 
+### 12/10/2020
+
+Code
+* implemented current month bill generation
+
 ### 11/11/2020
 
 Code
@@ -166,9 +171,6 @@ ToDo
 
 * ~~make a choice for user to pick all utilities via input~~
 
-* make ability for user to pick same date for chosen utilities - monthly report
-
-* ...
 
 __User filtering history__
 
