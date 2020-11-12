@@ -156,25 +156,15 @@ __NEW Bill table__
 
 __Filtering__
 
-Ability to specify custom filter for report generation
+~~Ability to choose utilities and dates for each properties.~~ Save the following user input as filteringCmd
 
-Filter by:
-- ~~utility~~
-- month
-- month range
-- ~~address~~
-- year
-- custom
+filteringCmd example: address+all+2020-08,2020-07,2020-04,2020-08,2020-07;another address+Electricity,Water+2020-09
 
-Custom report filtering command line structure - dates ; real estate types ; real estate addresses ; utilities ( ; as separator ) ( / as a multiple choice )
+ToDo
 
-Examples:
+* make ability for user to pick same date for chosen utilities - monthly report
 
-* 2020-01;butas;Akropolio g. 10 LT-12345 Vilnius;*
-
-* 2020-01/2020-05;* ;Kaunas;*
-
-* 2020-01/2021-07;butas/namas/kita;Kaunas/Klaipėda;Vanduo,Elektra,Šildymas,Kita
+* ...
 
 __User filtering history__
 
