@@ -93,6 +93,11 @@
 
 # Real Estate Bill Generator
 
+### 13/11/2020
+
+Code
+* implemented current monthly bill report when chosen all properties
+
 ### 12/10/2020
 
 Code
@@ -171,6 +176,9 @@ ToDo
 
 * ~~make a choice for user to pick all utilities via input~~
 
+__Export bill__
+
+Generate bill name by chosen filter
 
 __User filtering history__
 
@@ -180,9 +188,9 @@ __Check user bills contains custom filter__
 
 Custom filter will include users custom filtering, by that the filter will be parsed and json report will be generated, inserted into Bill table ( this will enable user history and instead generating report the already existed report will be suggested and showsn from database )
 
-__Recheck calculations__
+~~__Recheck calculations__~~
 
-Check when using filters if correct calculations are applied to calculate utility and total prices
+~~Check when using filters if correct calculations are applied to calculate utility and total prices
 
 ---
 

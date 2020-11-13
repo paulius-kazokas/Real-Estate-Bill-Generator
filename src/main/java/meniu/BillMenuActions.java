@@ -5,7 +5,6 @@ import entities.Property;
 import entities.User;
 import entities.Utility;
 import lombok.SneakyThrows;
-import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import repositories.BillRepository;
@@ -97,15 +96,18 @@ public class BillMenuActions {
         String filterCommandLine = "";
 
         for (Property property : requestProperties(user)) {
+            System.out.println(property.getAddress());
             JSONObject generatedPropertySpecificData = new JSONObject();
             JSONArray generatedPropertyData = new JSONArray();
             double propertyGrandTotal = 0.00d;
+            boolean isExportable = false;
 
             List<Indicator> indicators = indicatorRepository.getIndicators(property, CURRENT_MONTH);
             if (!indicators.isEmpty()) {
+                isExportable = true;
                 for (Indicator indicator : indicators) {
-
                     Utility utility = utilityRepository.getUtility(indicator.getId());
+
                     int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
                     double pvm = RandomUtils.randomPVMGenerator();
                     double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
@@ -123,17 +125,23 @@ public class BillMenuActions {
                     generatedPropertyData.put(generatedIndicatorData);
                 }
             } else {
-                OUT.write(String.format("No indicator data found for %s", property.getAddress()).getBytes());
+                OUT.write(String.format("""
+                        Export is not available. No indicator data found for %s
+
+                        """, property.getAddress()).getBytes());
             }
             generatedPropertySpecificData.put("address", property.getAddress());
             generatedPropertySpecificData.put("date", CURRENT_MONTH);
             generatedPropertySpecificData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
             allReportData.put(generatedPropertySpecificData);
             allReportData.put(generatedPropertyData);
+
+            if (isExportable) {
+                bill.put("report", allReportData);
+                billRepository.saveBill(user, filterCommandLine, bill);
+                exportBill(bill);
+            }
         }
-        bill.put("report", allReportData);
-        billRepository.saveBill(user, filterCommandLine, bill);
-        exportBill(bill);
     }
 
     @SneakyThrows(IOException.class)
@@ -153,14 +161,14 @@ public class BillMenuActions {
         String userInput = scanner.nextLine();
         // filterCommandLine += userInput;
 
+        if (userInput.equals("*")) {
+            return new ArrayList<>(userProperties);
+        }
+
         return retrieveProperties(propertyAddresses, userInput, user);
     }
 
     private List<Property> retrieveProperties(List<String> addresses, String userInput, User user) throws SQLException {
-
-        if (userInput.equals("*")) {
-            return new ArrayList<>(propertyRepository.getPropertiesByUser(user));
-        }
 
         List<Property> resultProperties = new ArrayList<>();
         String[] addressess = userInput.split(",");
@@ -282,26 +290,28 @@ public class BillMenuActions {
                 generatedUtilityData.put("utility", utility.getName());
                 List<String> dates = requestDates(property, utility);
 
-                for (String date : dates) {
+                if (!dates.isEmpty()) {
+                    for (String date : dates) {
+                        Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtiltyAndDate(property, utility, date);
 
-                    Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtiltyAndDate(property, utility, date);
-                    int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
-                    double pvm = RandomUtils.randomPVMGenerator();
-                    double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
-                    double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
-                    double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
-                    propertyGrandTotal += indicatorTotal;
-                    grandTotal += indicatorTotal;
+                        int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+                        double pvm = RandomUtils.randomPVMGenerator();
+                        double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
+                        double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
+                        double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
+                        propertyGrandTotal += indicatorTotal;
+                        grandTotal += indicatorTotal;
 
-                    generatedUtilityData.put("date", date);
-                    generatedUtilityData.put("indicator_amount", amount);
-                    generatedUtilityData.put("sub_total", subTotal);
-                    generatedUtilityData.put("pvm_total", pvmTotal);
-                    generatedUtilityData.put("price_total", indicatorTotal);
+                        generatedUtilityData.put("date", date);
+                        generatedUtilityData.put("indicator_amount", amount);
+                        generatedUtilityData.put("sub_total", subTotal);
+                        generatedUtilityData.put("pvm_total", pvmTotal);
+                        generatedUtilityData.put("price_total", indicatorTotal);
 
-                    generatedPropertyData.put(generatedUtilityData);
+                        generatedPropertyData.put(generatedUtilityData);
 
-                    //filterCommandLine += ";";
+                        //filterCommandLine += ";";
+                    }
                 }
             }
             innerPropertyData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));

@@ -1,46 +1,35 @@
 {
   "date": "2020-11",
+  "total": 85.19,
   "report": [
-    {
-      "date": "2020-11",
-      "address": "Ozo g. 44, LT-45678, Vilnius",
-      "property_total": 87.38
-    },
     [
       {
-        "indicator_amount": 23,
-        "sub_total": 7.13,
-        "pvm_total": 0.74,
-        "utility": "Electricity",
-        "price_total": 7.87
-      },
-      {
+        "date": "2020-08",
         "indicator_amount": 45,
-        "sub_total": 24.3,
-        "pvm_total": 2.95,
+        "sub_total": 25.2,
         "utility": "Gas",
-        "price_total": 27.25
+        "pvm_total": 2.88,
+        "price_total": 28.08
       },
       {
+        "date": "2020-08",
         "indicator_amount": 65,
-        "sub_total": 37.7,
-        "pvm_total": 3.38,
+        "sub_total": 39,
         "utility": "Water",
-        "price_total": 41.08
+        "pvm_total": 6.27,
+        "price_total": 45.27
       },
       {
-        "indicator_amount": 11,
-        "sub_total": 3.41,
-        "pvm_total": 0.64,
-        "utility": "Heat",
-        "price_total": 4.05
-      },
-      {
+        "date": "2020-08",
         "indicator_amount": 21,
-        "sub_total": 6.51,
-        "pvm_total": 0.62,
+        "sub_total": 10.29,
         "utility": "Other",
-        "price_total": 7.13
+        "pvm_total": 1.55,
+        "price_total": 11.84
+      },
+      {
+        "address": "Ozo g. 44, LT-45678, Vilnius",
+        "property_total": 85.19
       }
     ]
   ],
