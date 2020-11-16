@@ -1,15 +1,12 @@
 package repositories;
 
 import config.DatabaseConfig;
-import entities.Indicator;
 import entities.Utility;
 import interfaces.IUtilityRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class UtilityRepository implements IUtilityRepository {
@@ -23,21 +20,20 @@ public class UtilityRepository implements IUtilityRepository {
     }
 
     @Override
-    public Utility getUtility(Integer utiityId) throws SQLException {
+    public Utility getUtility(Integer id) throws SQLException {
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility WHERE id = %s", utiityId));
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility WHERE id = %s", id));
+        Utility utility = Utility.object();
 
         if (resultSet.next()) {
-            Utility utility = Utility.object();
-            utility.setId(resultSet.getInt("id"));
+            utility.setId(id);
             utility.setUtilityProvider(utilityProviderRepository.getUtilityProvider(resultSet.getInt("utility_provider_id")));
             utility.setName(resultSet.getString("name"));
             utility.setComment(resultSet.getString("comment"));
-
-            return utility;
         }
+        resultSet.close();
 
-        return null;
+        return utility;
     }
 
     @Override
@@ -55,25 +51,8 @@ public class UtilityRepository implements IUtilityRepository {
             utility.setComment(resultSet.getString("comment"));
         }
         resultSet.close();
+
         return utility;
     }
 
-    @Override
-    public List<Utility> getUtilities(Indicator indicator) throws SQLException {
-
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility WHERE utility_id IN (SELECT utility_id FROM utc.indicator WHERE id = %s", indicator.getId()));
-        List<Utility> utilities = new ArrayList<>();
-
-        while (resultSet.next()) {
-            Utility utility = Utility.object();
-            utility.setId(resultSet.getInt("id"));
-            utility.setUtilityProvider(utilityProviderRepository.getUtilityProvider(resultSet.getInt("utility_provider_id")));
-            utility.setName(resultSet.getString("name"));
-            utility.setComment(resultSet.getString("comment"));
-
-            utilities.add(utility);
-        }
-
-        return utilities;
-    }
 }

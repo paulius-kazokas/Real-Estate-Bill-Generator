@@ -21,16 +21,15 @@ public class UtilityProviderRepository implements IUtilityProviderRepository {
     public UtilityProvider getUtilityProvider(Integer utilityId) throws SQLException {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.utility_provider WHERE id = %s", utilityId));
+        UtilityProvider utilityProvider = UtilityProvider.object();
 
         if (resultSet.next()) {
-            UtilityProvider utilityProvider = UtilityProvider.object();
             utilityProvider.setId(resultSet.getInt("id"));
             utilityProvider.setName(resultSet.getString("name"));
             utilityProvider.setAdditionalInformation(resultSet.getString("additional_info"));
-
-            return utilityProvider;
         }
+        resultSet.close();
 
-        return null;
+        return utilityProvider;
     }
 }

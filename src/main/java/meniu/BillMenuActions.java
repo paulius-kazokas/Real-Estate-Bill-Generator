@@ -1,9 +1,6 @@
 package meniu;
 
-import entities.Indicator;
-import entities.Property;
-import entities.User;
-import entities.Utility;
+import entities.*;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,9 +59,8 @@ public class BillMenuActions {
                     case "0" -> {
                         return;
                     }
-                    // generate bill
                     case "1" -> currentMonthBill(user);
-                    case "2" -> customFilterBill(user);
+                    case "2" -> generateCustomBill(user);
                     default -> OUT.write("Unexpected action".getBytes());
                 }
             }
@@ -93,10 +89,8 @@ public class BillMenuActions {
 
         JSONObject bill = billBase(user);
         JSONArray allReportData = new JSONArray();
-        String filterCommandLine = "";
 
         for (Property property : requestProperties(user)) {
-            System.out.println(property.getAddress());
             JSONObject generatedPropertySpecificData = new JSONObject();
             JSONArray generatedPropertyData = new JSONArray();
             double propertyGrandTotal = 0.00d;
@@ -138,10 +132,109 @@ public class BillMenuActions {
 
             if (isExportable) {
                 bill.put("report", allReportData);
-                billRepository.saveBill(user, filterCommandLine, bill);
+                billRepository.saveBill(user, "current month", bill);
                 exportBill(bill);
             }
         }
+    }
+
+    @SneakyThrows(IOException.class)
+    private void generateCustomBill(User user) throws SQLException {
+
+        Map<Property, Map<Utility, String>> userChoiceData = new HashMap<>();
+        StringBuilder filterCmd = new StringBuilder();
+
+        for (Property property : requestProperties(user)) {
+            StringBuilder propertyFilter = new StringBuilder();
+            propertyFilter.append(property.getAddress());
+            List<Utility> utilities = requestUtilities(property);
+
+            Map<Utility, String> userChoiceUtilityData = new HashMap<>();
+
+            for (Utility utility : utilities) {
+                StringBuilder utilityFilter = new StringBuilder();
+                utilityFilter.append(utility.getName());
+                List<String> dates = requestDates(property, utility);
+
+                for (String date : dates) {
+                    userChoiceUtilityData.put(utility, date);
+                    utilityFilter.append(date);
+                }
+
+                userChoiceData.put(property, userChoiceUtilityData);
+                propertyFilter.append(utilityFilter);
+            }
+
+            filterCmd.append(propertyFilter);
+        }
+
+        String filter = filterCmd.toString();
+
+        Bill dbBill = billRepository.getBill(filter);
+
+        // extract existing bill by filter
+        if (Objects.nonNull(dbBill)) {
+            OUT.write("Specified filter detected, bill was previously generated".getBytes());
+            exportBill(new JSONObject(dbBill.getBillJson()));
+
+            // generate bill
+        } else {
+            JSONObject bill = billBase(user);
+            JSONArray allReportData = new JSONArray();
+
+            String filterCommandLine = "";
+            double grandTotal = 0.00d;
+
+            Set<Map.Entry<Property, Map<Utility, String>>> propertyEntries = userChoiceData.entrySet();
+            for (Map.Entry<Property, Map<Utility, String>> propertyEntry : propertyEntries) {
+                Property property = propertyEntry.getKey();
+                Map<Utility, String> utilityData = propertyEntry.getValue();
+                Set<Map.Entry<Utility, String>> utilityEntries = utilityData.entrySet();
+
+                JSONArray generatedPropertyData = new JSONArray();
+                double propertyGrandTotal = 0.00d;
+
+                for (Map.Entry<Utility, String> utilityEntry : utilityEntries) {
+
+                    Utility utility = utilityEntry.getKey();
+                    String date = utilityEntry.getValue();
+
+                    Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtilityAndDate(property, utility, date);
+
+                    int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+                    double pvm = RandomUtils.randomPVMGenerator();
+                    double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
+                    double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
+                    double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
+                    propertyGrandTotal += indicatorTotal;
+                    grandTotal += indicatorTotal;
+
+                    JSONObject generatedUtilityData = new JSONObject();
+                    generatedUtilityData.put("utility", utility.getName());
+                    generatedUtilityData.put("date", date);
+                    generatedUtilityData.put("indicator_amount", amount);
+                    generatedUtilityData.put("sub_total", subTotal);
+                    generatedUtilityData.put("pvm_total", pvmTotal);
+                    generatedUtilityData.put("price_total", indicatorTotal);
+
+                    generatedPropertyData.put(generatedUtilityData);
+
+                }
+                JSONObject innerPropertyData = new JSONObject();
+                innerPropertyData.put("address", property.getAddress());
+                innerPropertyData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
+
+                generatedPropertyData.put(innerPropertyData);
+                allReportData.put(generatedPropertyData);
+                bill.put("total", Double.parseDouble(DECIMAL_FORMATTER.format(grandTotal)));
+
+            }
+            bill.put("report", allReportData);
+            billRepository.saveBill(user, filterCommandLine, bill);
+            exportBill(bill);
+
+        }
+
     }
 
     @SneakyThrows(IOException.class)
@@ -215,14 +308,17 @@ public class BillMenuActions {
         String[] utilityChoiceUtilities = userInput.split(",");
         // all utilities
         if (userInput.equals("*")) {
-            //if (utilityChoiceUtilities.length == 1 && Integer.parseInt(userInput) == utilities.size()) {
             for (String utilityName : UTILITIES) {
                 resultUtilities.add(utilityRepository.getUtility(utilityName));
             }
+            // one utility
+        } else if (utilityChoiceUtilities.length == 1) {
+            String utilityName = UTILITIES.get(Integer.parseInt(userInput) - 1);
+            resultUtilities.add(utilityRepository.getUtility(utilityName));
             // specific utilities
         } else if (utilityChoiceUtilities.length > 1) {
             for (String u : utilityChoiceUtilities) {
-                String utilityName = UTILITIES.get(Integer.parseInt(u));
+                String utilityName = UTILITIES.get(Integer.parseInt(u) - 1);
                 resultUtilities.add(utilityRepository.getUtility(utilityName));
             }
         } else if (Integer.parseInt(userInput) < utilityChoiceUtilities.length || Integer.parseInt(userInput) > utilityChoiceUtilities.length) {
@@ -270,67 +366,12 @@ public class BillMenuActions {
         return resultDates;
     }
 
-    private void customFilterBill(User user) throws SQLException {
-
-        JSONObject bill = billBase(user);
-        JSONArray allReportData = new JSONArray();
-
-        String filterCommandLine = "";
-        double grandTotal = 0.00d;
-
-        for (Property property : requestProperties(user)) {
-            JSONObject innerPropertyData = new JSONObject();
-            JSONArray generatedPropertyData = new JSONArray();
-            innerPropertyData.put("address", property.getAddress());
-            List<Utility> utilities = requestUtilities(property);
-            double propertyGrandTotal = 0.00d;
-
-            for (Utility utility : utilities) {
-                JSONObject generatedUtilityData = new JSONObject();
-                generatedUtilityData.put("utility", utility.getName());
-                List<String> dates = requestDates(property, utility);
-
-                if (!dates.isEmpty()) {
-                    for (String date : dates) {
-                        Indicator indicator = indicatorRepository.getIndicatorsByPropertyUtiltyAndDate(property, utility, date);
-
-                        int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
-                        double pvm = RandomUtils.randomPVMGenerator();
-                        double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
-                        double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
-                        double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
-                        propertyGrandTotal += indicatorTotal;
-                        grandTotal += indicatorTotal;
-
-                        generatedUtilityData.put("date", date);
-                        generatedUtilityData.put("indicator_amount", amount);
-                        generatedUtilityData.put("sub_total", subTotal);
-                        generatedUtilityData.put("pvm_total", pvmTotal);
-                        generatedUtilityData.put("price_total", indicatorTotal);
-
-                        generatedPropertyData.put(generatedUtilityData);
-
-                        //filterCommandLine += ";";
-                    }
-                }
-            }
-            innerPropertyData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
-            generatedPropertyData.put(innerPropertyData);
-            allReportData.put(generatedPropertyData);
-            bill.put("total", Double.parseDouble(DECIMAL_FORMATTER.format(grandTotal)));
-        }
-        bill.put("report", allReportData);
-        billRepository.saveBill(user, filterCommandLine, bill);
-        exportBill(bill);
-
-    }
-
     @SneakyThrows(IOException.class)
     private void exportBill(JSONObject report) {
 
         OUT.write("""
 
-                Export bill?(y) """.getBytes());
+                Would you like to export the bill?(y) """.getBytes());
         String export = scanner.nextLine();
         if (export.equals("y") || export.equals("Y")) {
             String reportPath = BILL_DESTINATION_PATH + CURRENT_MONTH + "_" + user.getPersonalCode() + ".json";

@@ -13,12 +13,8 @@ public interface IIndicatorRepository {
 
     List<String> getIndicatorDatesByPropertyAndUtility(Property property, Utility utility) throws SQLException;
 
-    Indicator getIndicatorsByPropertyUtiltyAndDate(Property property, Utility utility, String date) throws SQLException;
-
-    List<Indicator> getIndicators(Property property) throws SQLException;
+    Indicator getIndicatorsByPropertyUtilityAndDate(Property property, Utility utility, String date) throws SQLException;
 
     List<Indicator> getIndicators(Property property, String date) throws SQLException;
-
-    Indicator getUtility(Utility utility) throws SQLException;
 
 }

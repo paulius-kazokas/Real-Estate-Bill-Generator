@@ -20,7 +20,4 @@ public class DatabaseConfig {
         return !connectionToDatabase().isClosed() && !query.isBlank() ? connectionToDatabase().prepareStatement(query).executeQuery(query) : null;
     }
 
-    public ResultSet resultSet(String query, String queryParam) throws SQLException {
-        return !connectionToDatabase().isClosed() && !queryParam.isBlank() || !query.isBlank() ? connectionToDatabase().prepareStatement(query).executeQuery(query) : null;
-    }
 }

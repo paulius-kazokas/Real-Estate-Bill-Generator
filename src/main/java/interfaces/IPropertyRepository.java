@@ -14,6 +14,4 @@ public interface IPropertyRepository {
 
     Property getPropertyByAddress(String address) throws SQLException;
 
-    Set<Property> getPropertiesByUtilityType(User user, String utilityName) throws SQLException;
-
 }

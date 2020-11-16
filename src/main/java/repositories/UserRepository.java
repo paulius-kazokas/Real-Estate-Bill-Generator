@@ -6,16 +6,14 @@ import interfaces.IUserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import utils.InputUtils;
-import utils.SecurityUtils;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static config.SystemConstants.*;
+import static config.SystemConstants.OUT;
 
 @Slf4j
 public class UserRepository implements IUserRepository {
@@ -48,11 +46,12 @@ public class UserRepository implements IUserRepository {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT id FROM utc.user WHERE username = '%s'", username));
 
-        if (resultSet != null && resultSet.next()) {
+        if (resultSet.next()) {
             int id = resultSet.getInt("id");
             resultSet.close();
             return id;
         }
+        resultSet.close();
 
         return null;
     }
@@ -62,11 +61,12 @@ public class UserRepository implements IUserRepository {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT username FROM utc.user WHERE username = '%s'", username));
 
-        if (resultSet != null && resultSet.next()) {
+        if (resultSet.next()) {
             String receivedUsername = resultSet.getString("username");
             resultSet.close();
             return !receivedUsername.isBlank() && receivedUsername.equals(username);
         }
+        resultSet.close();
 
         return false;
     }
@@ -93,6 +93,7 @@ public class UserRepository implements IUserRepository {
                     return userObject(userId, username, userPassword, userName, userLastname, userEmail, userPersonalCode);
                 }
             }
+            resultSet.close();
         }
 
         OUT.write("Invalid username provided".getBytes());
@@ -103,19 +104,40 @@ public class UserRepository implements IUserRepository {
     public User getUserByPropertyId(Integer id) throws SQLException {
 
         ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.user WHERE personal_code = (SELECT personal_code FROM utc.property WHERE id = %s)", id));
+        User user = User.object();
 
         if (resultSet.next()) {
-            User user = User.object();
-            user.setId(id);
-            user.setUsername(resultSet.getString("username"));
-            user.setPassword(resultSet.getString("password"));
-            user.setName(resultSet.getString("name"));
-            user.setLastname(resultSet.getString("lastname"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPersonalCode(resultSet.getString("personal_code"));
+            return userObject(id,
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("name"),
+                    resultSet.getString("lastname"),
+                    resultSet.getString("email"),
+                    resultSet.getString("personal_code"));
         }
+        resultSet.close();
 
-        return null;
+        return user;
+    }
+
+    @Override
+    public User getUserByPersonalCode(String personalCode) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.user WHERE personal_code = '%s'", personalCode));
+        User user = User.object();
+
+        if (resultSet.next()) {
+            return userObject(resultSet.getInt("id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("name"),
+                    resultSet.getString("lastname"),
+                    resultSet.getString("email"),
+                    resultSet.getString("personal_code"));
+        }
+        resultSet.close();
+
+        return user;
     }
 
     @Override

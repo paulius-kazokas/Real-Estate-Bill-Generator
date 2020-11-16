@@ -16,4 +16,6 @@ public interface IUserRepository {
 
     void registerNewUser(String regUsername, String regPassword, String regName, String regLastName, String regEmail, String regPersonalCode) throws SQLException;
 
+    User getUserByPersonalCode(String personalCode) throws SQLException;
+
 }
