@@ -87,54 +87,82 @@ public class BillMenuActions {
     @SneakyThrows(IOException.class)
     private void currentMonthBill(User user) throws SQLException {
 
-        JSONObject bill = billBase(user);
-        JSONArray allReportData = new JSONArray();
+        Set<Property> userChoiceData = new HashSet<>();
+        StringBuilder filterCmd = new StringBuilder();
 
         for (Property property : requestProperties(user)) {
-            JSONObject generatedPropertySpecificData = new JSONObject();
-            JSONArray generatedPropertyData = new JSONArray();
-            double propertyGrandTotal = 0.00d;
+            userChoiceData.add(property);
+            filterCmd.append(property.getAddress()).append(CURRENT_MONTH).append("*");
+        }
+
+        Bill dbBill = billRepository.getBill(user, filterCmd.toString());
+
+        if (dbBill.getBillJson() != null) {
+            OUT.write("Specified filter detected, bill was previously generated".getBytes());
+            exportBill(new JSONObject(dbBill.getBillJson()));
+        } else {
+            JSONObject bill = billBase(user);
+            JSONArray allReportData = new JSONArray();
+
             boolean isExportable = false;
+            StringBuilder filterCommandLine = new StringBuilder();
+            double grandTotal = 0.00d;
 
-            List<Indicator> indicators = indicatorRepository.getIndicators(property, CURRENT_MONTH);
-            if (!indicators.isEmpty()) {
-                isExportable = true;
-                for (Indicator indicator : indicators) {
-                    Utility utility = utilityRepository.getUtility(indicator.getId());
+            for (Property property : userChoiceData) {
+                List<Indicator> indicators = indicatorRepository.getIndicators(property, CURRENT_MONTH);
 
-                    int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
-                    double pvm = RandomUtils.randomPVMGenerator();
-                    double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
-                    double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
-                    double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
-                    propertyGrandTotal += indicatorTotal;
+                if (!indicators.isEmpty()) {
+                    isExportable = true;
+                    JSONArray generatedPropertyData = new JSONArray();
+                    double propertyGrandTotal = 0.00d;
 
-                    JSONObject generatedIndicatorData = new JSONObject();
-                    generatedIndicatorData.put("indicator_amount", amount);
-                    generatedIndicatorData.put("sub_total", subTotal);
-                    generatedIndicatorData.put("pvm_total", pvmTotal);
-                    generatedIndicatorData.put("price_total", indicatorTotal);
-                    generatedIndicatorData.put("utility", utility.getName());
+                    for (Indicator indicator : indicators) {
 
-                    generatedPropertyData.put(generatedIndicatorData);
+                        Utility utility = utilityRepository.getUtility(indicator.getId());
+
+                        int amount = indicator.getMonthEndAmount() - indicator.getMonthStartAmount();
+                        double pvm = RandomUtils.randomPVMGenerator();
+                        double subTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(amount * RandomUtils.randomUtilityUnitPriceGenerator())));
+                        double pvmTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format((pvm * subTotal) / 100.00d)));
+                        double indicatorTotal = Double.parseDouble(String.valueOf(DECIMAL_FORMATTER.format(Double.sum(subTotal, pvmTotal))));
+                        propertyGrandTotal += indicatorTotal;
+
+                        JSONObject generatedIndicatorData = new JSONObject();
+                        generatedIndicatorData.put("indicator_amount", amount);
+                        generatedIndicatorData.put("sub_total", subTotal);
+                        generatedIndicatorData.put("pvm_total", pvmTotal);
+                        generatedIndicatorData.put("price_total", indicatorTotal);
+                        generatedIndicatorData.put("utility", utility.getName());
+
+                        generatedPropertyData.put(generatedIndicatorData);
+
+                    }
+                    JSONObject innerPropertyData = new JSONObject();
+                    innerPropertyData.put("address", property.getAddress());
+                    innerPropertyData.put("date", CURRENT_MONTH);
+                    innerPropertyData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
+                    grandTotal += propertyGrandTotal;
+
+                    allReportData.put(innerPropertyData);
+                    allReportData.put(generatedPropertyData);
+                    bill.put("total", Double.parseDouble(DECIMAL_FORMATTER.format(grandTotal)));
+
+                    filterCommandLine.append(property.getAddress()).append(CURRENT_MONTH).append("*");
+
+                } else {
+                    OUT.write(String.format("""
+                            Export is not available. No indicator data found for %s
+
+                            """, property.getAddress()).getBytes());
                 }
-            } else {
-                OUT.write(String.format("""
-                        Export is not available. No indicator data found for %s
-
-                        """, property.getAddress()).getBytes());
             }
-            generatedPropertySpecificData.put("address", property.getAddress());
-            generatedPropertySpecificData.put("date", CURRENT_MONTH);
-            generatedPropertySpecificData.put("property_total", Double.parseDouble(DECIMAL_FORMATTER.format(propertyGrandTotal)));
-            allReportData.put(generatedPropertySpecificData);
-            allReportData.put(generatedPropertyData);
 
             if (isExportable) {
                 bill.put("report", allReportData);
-                billRepository.saveBill(user, "current month", bill);
+                billRepository.saveBill(user, filterCommandLine.toString(), bill);
                 exportBill(bill);
             }
+
         }
     }
 
@@ -168,16 +196,11 @@ public class BillMenuActions {
             filterCmd.append(propertyFilter);
         }
 
-        String filter = filterCmd.toString();
+        Bill dbBill = billRepository.getBill(user, filterCmd.toString());
 
-        Bill dbBill = billRepository.getBill(filter);
-
-        // extract existing bill by filter
-        if (Objects.nonNull(dbBill)) {
+        if (dbBill.getBillJson() != null) {
             OUT.write("Specified filter detected, bill was previously generated".getBytes());
             exportBill(new JSONObject(dbBill.getBillJson()));
-
-            // generate bill
         } else {
             JSONObject bill = billBase(user);
             JSONArray allReportData = new JSONArray();

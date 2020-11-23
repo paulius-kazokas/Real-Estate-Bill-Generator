@@ -1,143 +1,89 @@
 {
   "date": "2020-11",
-  "total": 156.69,
+  "total": 135.98,
   "report": [
+    {
+      "date": "2020-08",
+      "address": "Ozo g. 44, LT-45678, Vilnius",
+      "property_total": 77.36
+    },
     [
       {
-        "date": "2020-08",
-        "indicator_amount": 45,
-        "sub_total": 17.55,
-        "utility": "Gas",
-        "pvm_total": 2.09,
-        "price_total": 19.64
-      },
-      {
-        "date": "2020-08",
-        "indicator_amount": 65,
-        "sub_total": 15.6,
-        "utility": "Water",
-        "pvm_total": 2.48,
-        "price_total": 18.08
-      },
-      {
-        "date": "2020-08",
-        "indicator_amount": 11,
-        "sub_total": 3.85,
-        "utility": "Heat",
-        "pvm_total": 0.48,
-        "price_total": 4.33
-      },
-      {
-        "date": "2020-08",
         "indicator_amount": 23,
-        "sub_total": 11.5,
+        "sub_total": 9.43,
+        "pvm_total": 1.97,
         "utility": "Electricity",
-        "pvm_total": 2.14,
-        "price_total": 13.64
+        "price_total": 11.4
       },
       {
-        "date": "2020-08",
-        "indicator_amount": 21,
-        "sub_total": 11.34,
-        "utility": "Other",
-        "pvm_total": 2.28,
-        "price_total": 13.62
-      },
-      {
-        "address": "Ozo g. 44, LT-45678, Vilnius",
-        "property_total": 69.31
-      }
-    ],
-    [
-      {
-        "date": "2020-07",
-        "indicator_amount": 17,
-        "sub_total": 2.72,
+        "indicator_amount": 45,
+        "sub_total": 14.85,
+        "pvm_total": 1.28,
         "utility": "Gas",
-        "pvm_total": 0.49,
-        "price_total": 3.21
+        "price_total": 16.13
       },
       {
-        "date": "2020-07",
-        "indicator_amount": 12,
-        "sub_total": 2.16,
+        "indicator_amount": 65,
+        "sub_total": 35.75,
+        "pvm_total": 3.61,
         "utility": "Water",
-        "pvm_total": 0.24,
-        "price_total": 2.4
+        "price_total": 39.36
       },
       {
-        "date": "2020-07",
-        "indicator_amount": 22,
-        "sub_total": 8.8,
-        "utility": "Heat",
-        "pvm_total": 1.81,
-        "price_total": 10.61
-      },
-      {
-        "date": "2020-07",
         "indicator_amount": 11,
-        "sub_total": 2.75,
-        "utility": "Electricity",
-        "pvm_total": 0.34,
-        "price_total": 3.09
+        "sub_total": 6.38,
+        "pvm_total": 0.6,
+        "utility": "Heat",
+        "price_total": 6.98
       },
       {
-        "date": "2020-07",
         "indicator_amount": 21,
-        "sub_total": 8.4,
+        "sub_total": 2.94,
+        "pvm_total": 0.55,
         "utility": "Other",
-        "pvm_total": 0.7,
-        "price_total": 9.1
-      },
-      {
-        "address": "Užmiesčio g. 99, LT-56789, Kaunas",
-        "property_total": 28.41
+        "price_total": 3.49
       }
     ],
+    {
+      "date": "2020-08",
+      "address": "Akropolio g. 10, LT-12345, Vilnius",
+      "property_total": 58.62
+    },
     [
       {
-        "date": "2020-08",
-        "indicator_amount": 13,
-        "sub_total": 1.3,
-        "utility": "Gas",
-        "pvm_total": 0.24,
-        "price_total": 1.54
-      },
-      {
-        "date": "2020-08",
-        "indicator_amount": 41,
-        "sub_total": 10.66,
-        "utility": "Water",
-        "pvm_total": 1.98,
-        "price_total": 12.64
-      },
-      {
-        "date": "2020-08",
-        "indicator_amount": 66,
-        "sub_total": 13.86,
-        "utility": "Heat",
-        "pvm_total": 1.3,
-        "price_total": 15.16
-      },
-      {
-        "date": "2020-08",
         "indicator_amount": 50,
-        "sub_total": 25,
+        "sub_total": 17,
+        "pvm_total": 3.54,
         "utility": "Electricity",
-        "pvm_total": 2.48,
-        "price_total": 27.48
+        "price_total": 20.54
       },
       {
-        "date": "2020-08",
         "indicator_amount": 13,
-        "sub_total": 1.82,
-        "utility": "Other",
-        "pvm_total": 0.33,
-        "price_total": 2.15
+        "sub_total": 2.47,
+        "pvm_total": 0.23,
+        "utility": "Gas",
+        "price_total": 2.7
       },
       {
-        "address": "Akropolio g. 10, LT-12345, Vilnius",
-        "property_total": 58.97
+        "indicator_amount": 41,
+        "sub_total": 9.43,
+        "pvm_total": 1.95,
+        "utility": "Water",
+        "price_total": 11.38
+      },
+      {
+        "indicator_amount": 66,
+        "sub_total": 17.82,
+        "pvm_total": 3.2,
+        "utility": "Heat",
+        "price_total": 21.02
+      },
+      {
+        "indicator_amount": 13,
+        "sub_total": 2.47,
+        "pvm_total": 0.51,
+        "utility": "Other",
+        "price_total": 2.98
       }
     ]
   ],

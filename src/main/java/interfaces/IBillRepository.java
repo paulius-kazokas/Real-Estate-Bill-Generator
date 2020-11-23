@@ -10,5 +10,5 @@ public interface IBillRepository {
 
     void saveBill(User user, String filteringCmd, JSONObject bill) throws SQLException;
 
-    Bill getBill(String filter) throws SQLException;
+    Bill getBill(User user, String filter) throws SQLException;
 }

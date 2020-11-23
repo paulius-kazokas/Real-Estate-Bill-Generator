@@ -45,12 +45,12 @@ public class BillRepository implements IBillRepository {
     }
 
     @Override
-    public Bill getBill(String filter) throws SQLException {
+    public Bill getBill(User user, String filter) throws SQLException {
 
-        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.bill WHERE filtering_cmd = '%s'", filter));
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.bill WHERE personal_code = '%s' AND filtering_cmd = '%s'", user.getPersonalCode(), filter));
+        Bill bill = Bill.object();
 
-        if (resultSet.next() && resultSet.getString("filtering_cmd").equals(filter)) {
-            Bill bill = Bill.object();
+        if (resultSet.next()) {
             bill.setId(resultSet.getInt("id"));
             bill.setUser(userRepository.getUserByPersonalCode(resultSet.getString("personal_code")));
             bill.setFilteringCmd(filter);
@@ -60,7 +60,7 @@ public class BillRepository implements IBillRepository {
         }
         resultSet.close();
 
-        return null;
+        return bill;
     }
 
 }
