@@ -17,4 +17,13 @@ public class RandomUtils {
         return Double.parseDouble(DECIMAL_FORMATTER
                 .format(PVM_MIN + (PVM_MAX - PVM_MIN) * random.nextDouble()));
     }
+
+    public static String uniqueFilenameGenerator() {
+        Random random = new Random();
+
+        return random.ints(FROM_LIMIT, TO_LIMIT + 1)
+                .limit(LIMIT_SIZE)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }

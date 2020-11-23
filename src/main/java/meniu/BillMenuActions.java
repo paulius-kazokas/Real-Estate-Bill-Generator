@@ -43,15 +43,27 @@ public class BillMenuActions {
         String primaryChoice = "not assigned";
 
         while (!primaryChoice.equals("0")) {
-            OUT.write("""
+            OUT.write(String.format("""
+
 
                     Bill Menu
 
-                    1.Generate current month bill
-                    2.Generate custom bill
-                    0.Back
 
-                    Choice: """.getBytes());
+                    Generating and exporting bill for all utilities for %s month
+                    1.Generate current month bill
+
+                    Generate bill by selecting:
+                    * multiple properties
+                    * multiple utilities for each property
+                    * mutiple dates for each utility indicator
+                    2.Generate custom bill
+
+                    Load bill from database by selecting billing filter that has been used before
+                    3.Generate bill from billing history
+
+                    0.Go Back
+
+                    Choice: """, CURRENT_MONTH).getBytes());
             primaryChoice = scanner.nextLine();
 
             if (!primaryChoice.isBlank()) {
@@ -61,10 +73,41 @@ public class BillMenuActions {
                     }
                     case "1" -> currentMonthBill(user);
                     case "2" -> generateCustomBill(user);
+                    case "3" -> {
+                        Bill bill = getBillByFilter(user);
+                        String reportPath = BILL_DESTINATION_PATH + RandomUtils.uniqueFilenameGenerator() + FILTER_TYPE + ".json";
+                        try (FileWriter writer = new FileWriter(reportPath)) {
+                            writer.write(bill.getBillJson());
+                            writer.flush();
+                        }
+
+                        OUT.write(String.format("Report successfully exported to %s\n", reportPath).getBytes());
+                    }
                     default -> OUT.write("Unexpected action".getBytes());
                 }
             }
         }
+    }
+
+    @SneakyThrows(IOException.class)
+    private Bill getBillByFilter(User user) throws SQLException {
+
+        List<Bill> bills = billRepository.getBills(user);
+
+        AtomicInteger index = new AtomicInteger();
+        index.set(1);
+        List<String> billFilters = billRepository.getBills(user).stream().map(Bill::getFilteringCmd).collect(Collectors.toList());
+        for(String filter : billFilters) {
+            OUT.write(String.format("%s.%s\n", index.getAndIncrement(), filter).getBytes());
+        }
+        OUT.write("""
+                0.Back
+                Select filter:
+                """.getBytes());
+        String userInput = scanner.nextLine();
+
+        return !userInput.equals("0") ? bills.get(Integer.parseInt(userInput) - 1) : Bill.object();
+
     }
 
     private JSONObject billBase(User user) {
@@ -99,7 +142,7 @@ public class BillMenuActions {
 
         if (dbBill.getBillJson() != null) {
             OUT.write("Specified filter detected, bill was previously generated".getBytes());
-            exportBill(new JSONObject(dbBill.getBillJson()));
+            exportBill(new JSONObject(dbBill.getBillJson()), CURRENT_MONTH_TYPE);
         } else {
             JSONObject bill = billBase(user);
             JSONArray allReportData = new JSONArray();
@@ -160,7 +203,7 @@ public class BillMenuActions {
             if (isExportable) {
                 bill.put("report", allReportData);
                 billRepository.saveBill(user, filterCommandLine.toString(), bill);
-                exportBill(bill);
+                exportBill(bill, CURRENT_MONTH_TYPE);
             }
 
         }
@@ -200,7 +243,7 @@ public class BillMenuActions {
 
         if (dbBill.getBillJson() != null) {
             OUT.write("Specified filter detected, bill was previously generated".getBytes());
-            exportBill(new JSONObject(dbBill.getBillJson()));
+            exportBill(new JSONObject(dbBill.getBillJson()), CUSTOM_TYPE);
         } else {
             JSONObject bill = billBase(user);
             JSONArray allReportData = new JSONArray();
@@ -254,7 +297,7 @@ public class BillMenuActions {
             }
             bill.put("report", allReportData);
             billRepository.saveBill(user, filterCommandLine, bill);
-            exportBill(bill);
+            exportBill(bill, CUSTOM_TYPE);
 
         }
 
@@ -390,14 +433,14 @@ public class BillMenuActions {
     }
 
     @SneakyThrows(IOException.class)
-    private void exportBill(JSONObject report) {
+    private void exportBill(JSONObject report, String exportType) {
 
         OUT.write("""
 
                 Would you like to export the bill?(y) """.getBytes());
         String export = scanner.nextLine();
         if (export.equals("y") || export.equals("Y")) {
-            String reportPath = BILL_DESTINATION_PATH + CURRENT_MONTH + "_" + user.getPersonalCode() + ".json";
+            String reportPath = BILL_DESTINATION_PATH + RandomUtils.uniqueFilenameGenerator() + exportType + ".json";
             try (FileWriter writer = new FileWriter(reportPath)) {
                 writer.write(report.toString());
                 writer.flush();

@@ -48,9 +48,10 @@ public class LoginMenuActions {
 
                     Urban Taxes System
 
-                    1.Sign up
-                    2.Register
+                    1.Sign in
+                    2.Sign up
                     0.Exit
+
                     Choice: """.getBytes());
             choice = scanner.nextLine();
 
@@ -73,12 +74,12 @@ public class LoginMenuActions {
     @SneakyThrows(IOException.class)
     public void login() throws SQLException, NoSuchAlgorithmException {
 
-        OUT.write("\nEnter username: ".getBytes());
+        OUT.write("\nUsername: ".getBytes());
         String username = scanner.nextLine();
 
         if (!StringUtils.isBlank(username)) {
             if (userRepository.checkIfUserExists(username)) {
-                OUT.write(String.format("%nEnter password for %s: ", username).getBytes());
+                OUT.write(String.format("Password for %s: ", username).getBytes());
                 loginGate(username);
             } else {
                 OUT.write("\nUsername doesn't exist, would you like to register an account? (y)".getBytes());
@@ -97,7 +98,7 @@ public class LoginMenuActions {
     @SneakyThrows(IOException.class)
     public void preRegister() throws SQLException, NoSuchAlgorithmException {
 
-        OUT.write("\nEnter username: ".getBytes());
+        OUT.write("\nUsername: ".getBytes());
         String username = scanner.nextLine();
 
         if (userRepository.checkIfUserExists(username)) {
@@ -116,7 +117,7 @@ public class LoginMenuActions {
 
         if (securityUtils.checkIfPasswordMatches(password, userDbPassword)) {
             AccountMenuActions accountMenuActions = new AccountMenuActions(propertyRepository, indicatorRepository, utilityRepository, billRepository, user);
-            OUT.write(String.format("%n(logged in as '%s')", username).getBytes());
+            OUT.write(String.format("Welcome, %s", username).getBytes());
             accountMenuActions.accountMenuActions();
         } else {
             OUT.write("\nWrong password".getBytes());
@@ -144,7 +145,7 @@ public class LoginMenuActions {
         String personalCode = scanner.nextLine();
 
         if (!InputUtils.validArray(new String[]{username, password, name, lastname, email, personalCode})) {
-            OUT.write("Invalid user IN detected".getBytes());
+            OUT.write("Invalid user input detected".getBytes());
             return;
         }
 

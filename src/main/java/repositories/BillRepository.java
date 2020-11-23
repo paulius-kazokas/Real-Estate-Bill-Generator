@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static config.SystemConstants.OUT;
 
@@ -61,6 +63,25 @@ public class BillRepository implements IBillRepository {
         resultSet.close();
 
         return bill;
+    }
+
+    @Override
+    public List<Bill> getBills(User user) throws SQLException {
+
+        ResultSet resultSet = databaseConfig.resultSet(String.format("SELECT * FROM utc.bill WHERE personal_code = '%s'", user.getPersonalCode()));
+        List<Bill> bills = new ArrayList<>();
+
+        while(resultSet.next()) {
+            Bill bill = Bill.object();
+            bill.setId(resultSet.getInt("id"));
+            bill.setUser(userRepository.getUserByPersonalCode(resultSet.getString("personal_code")));
+            bill.setFilteringCmd(resultSet.getString("filtering_cmd"));
+            bill.setBillJson(resultSet.getString("bill_json"));
+
+            bills.add(bill);
+        }
+
+        return bills;
     }
 
 }

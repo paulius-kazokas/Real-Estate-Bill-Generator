@@ -26,6 +26,15 @@ public class SystemConstants {
     public static final String MYSQL_USER = "root";
     public static final String MYSQL_PASSWORD = "root";
 
+    // Filename specifics
+    public static final int FROM_LIMIT = 97; // letter 'a'
+    public static final int TO_LIMIT = 122; // letter 'z'
+    public static final int LIMIT_SIZE = 42;
+
+    public static final String FILTER_TYPE = "_byFilter";
+    public static final String CURRENT_MONTH_TYPE = "_byCurrentMonth";
+    public static final String CUSTOM_TYPE = "_byCustom";
+
     // Available utilities: Water, Heat, Electricity, Gas, Other
     public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other");
 

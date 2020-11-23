@@ -46,17 +46,30 @@ public class AccountMenuActions {
 
         if (!properties.isEmpty()) {
             while (!primaryChoice.equals("0")) {
-                OUT.write("""
+                OUT.write(String.format("""
+
 
                         User Menu
 
-                        1.Check my properties
-                        2.Check my indicators
-                        3.Check my bills
-                        4.Check my account info
+
+                        Lists properties %s has
+                        1.Check properties
+
+                        Lists properties indicators by selecting:
+                        * property type
+                        * property address
+                        * utility type
+                        2.Check indicators
+
+                        Prompts to bills menu
+                        3.Check bills
+
+                        Prompts %s info
+                        4.Check account info
+
                         0.Log out
 
-                        Choice: """.getBytes());
+                        Choice: """, user.getUsername(), user.getUsername()).getBytes());
                 primaryChoice = scanner.nextLine();
 
                 if (!primaryChoice.isBlank()) {
@@ -65,24 +78,20 @@ public class AccountMenuActions {
                             OUT.write("\n(logged out)".getBytes());
                             return;
                         }
-                        // check my properties
                         case "1" -> {
                             OUT.write("Properties:\n".getBytes());
                             for (Property p : properties) {
                                 OUT.write(String.format("%s (%s)\n", p.getAddress(), p.getPropertyType()).getBytes());
                             }
                         }
-                        // check my indicators
                         case "2" -> userIndicators().forEach((utility, indicatorData) -> System.out.println(String.format("%s: %s", utility, indicatorData)));
-                        // check my bills
                         case "3" -> {
                             BillMenuActions billMenuActions = new BillMenuActions(propertyRepository, indicatorRepository, utilityRepository, billRepository, user);
                             billMenuActions.accountBillActions();
                         }
-                        // check my account info
                         case "4" -> {
                             OUT.write(String.format("""
-                                    %nName: %s
+                                    Name: %s
                                     Lastname: %s
                                     Personal code: %s
                                     """, user.getName(), user.getLastname(), user.getPersonalCode()).getBytes());
@@ -105,41 +114,30 @@ public class AccountMenuActions {
     @SneakyThrows(IOException.class)
     public Map<String, String> userIndicators() throws SQLException {
 
-        // get properties
         Set<Property> properties = propertyRepository.getPropertiesByUser(user);
 
-        // list available type
         OUT.write("""
 
                 Select type:
                 """.getBytes());
-
         Map<Integer, String> types = DataUtils.elementToMap(properties.stream().map(Property::getPropertyType).distinct().collect(Collectors.toList()));
-
         String type = scanner.nextLine();
         String chosenType = types.get(Integer.parseInt(type));
 
-        // prompt available addresses for type
         OUT.write("""
 
                 Select address:
                 """.getBytes());
-
         List<Property> chosenTypeProperties = properties.stream().filter(pr -> pr.getPropertyType().equals(chosenType)).collect(Collectors.toList());
         Map<Integer, String> addresses = DataUtils.elementToMap(chosenTypeProperties.stream().map(Property::getAddress).distinct().collect(Collectors.toList()));
-
         String address = scanner.nextLine();
         String chosenAddress = addresses.get(Integer.parseInt(address));
 
-        // view indicators for selected address property
         OUT.write("""
 
                 Indicators:
                 """.getBytes());
-
         List<Indicator> indicators = indicatorRepository.getIndicatorsByProperty(chosenType, chosenAddress);
-
-        //gauti tikrus indicatoriu id, o ne pagal mapo id, kad gauciau tikrus utility providerius
         Map<String, String> indicatorsMap = new HashMap<>();
         indicators.forEach(i -> {
             String utilityName = i.getUtility().getName();
