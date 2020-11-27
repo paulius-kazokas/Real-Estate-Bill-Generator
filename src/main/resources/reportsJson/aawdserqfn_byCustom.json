@@ -1,0 +1,41 @@
+{
+  "date": "2020-11",
+  "total": 11.84,
+  "report": [
+    [
+      {
+        "indicator_amount": 11,
+        "pvm": 12.33,
+        "sub_total": 3.41,
+        "pvm_total": 0.42,
+        "utility": "Electricity",
+        "price_total": 3.83
+      },
+      {
+        "address": "Užmiesčio g. 99, LT-56789, Kaunas",
+        "property_total": 3.83
+      }
+    ],
+    [
+      {
+        "indicator_amount": 23,
+        "pvm": 12.33,
+        "sub_total": 7.13,
+        "pvm_total": 0.88,
+        "utility": "Electricity",
+        "price_total": 8.01
+      },
+      {
+        "address": "Ozo g. 44, LT-45678, Vilnius",
+        "property_total": 8.01
+      }
+    ]
+  ],
+  "user_data": [
+    {
+      "personal_code": "123456789",
+      "name": "b",
+      "lastname": "b"
+    }
+  ]
+}

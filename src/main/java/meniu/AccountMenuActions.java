@@ -46,30 +46,20 @@ public class AccountMenuActions {
 
         if (!properties.isEmpty()) {
             while (!primaryChoice.equals("0")) {
-                OUT.write(String.format("""
+                OUT.write(("""
 
 
                         User Menu
 
 
-                        Lists properties %s has
                         1.Check properties
-
-                        Lists properties indicators by selecting:
-                        * property type
-                        * property address
-                        * utility type
                         2.Check indicators
-
-                        Prompts to bills menu
                         3.Check bills
-
-                        Prompts %s info
                         4.Check account info
 
                         0.Log out
 
-                        Choice: """, user.getUsername(), user.getUsername()).getBytes());
+                        Choice: """).getBytes());
                 primaryChoice = scanner.nextLine();
 
                 if (!primaryChoice.isBlank()) {

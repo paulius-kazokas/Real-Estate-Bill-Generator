@@ -1,0 +1,57 @@
+{
+  "date": "2020-11",
+  "total": 291.73,
+  "report": [
+    [
+      {
+        "indicator_amount": 45,
+        "pvm": 9.1,
+        "sub_total": 4.05,
+        "pvm_total": 0.37,
+        "utility": "Gas",
+        "price_total": 4.42
+      },
+      {
+        "indicator_amount": 65,
+        "pvm": 4.01,
+        "sub_total": 110.5,
+        "pvm_total": 4.43,
+        "utility": "Water",
+        "price_total": 114.93
+      },
+      {
+        "address": "Ozo g. 44, LT-45678, Vilnius",
+        "property_total": 119.35
+      }
+    ],
+    [
+      {
+        "indicator_amount": 66,
+        "pvm": 8.12,
+        "sub_total": 137.94,
+        "pvm_total": 11.2,
+        "utility": "Heat",
+        "price_total": 149.14
+      },
+      {
+        "indicator_amount": 13,
+        "pvm": 4.55,
+        "sub_total": 22.23,
+        "pvm_total": 1.01,
+        "utility": "Other",
+        "price_total": 23.24
+      },
+      {
+        "address": "Akropolio g. 10, LT-12345, Vilnius",
+        "property_total": 172.38
+      }
+    ]
+  ],
+  "user_data": [
+    {
+      "personal_code": "123456789",
+      "name": "b",
+      "lastname": "b"
+    }
+  ]
+}
