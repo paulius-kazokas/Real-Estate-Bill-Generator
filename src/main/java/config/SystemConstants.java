@@ -29,23 +29,12 @@ public class SystemConstants {
     // Filename specifics
     public static final int FROM_LIMIT = 97; // letter 'a'
     public static final int TO_LIMIT = 122; // letter 'z'
-    public static final int LIMIT_SIZE = 42;
+    public static final int LIMIT_SIZE = 10;
 
     public static final String FILTER_TYPE = "_byFilter";
     public static final String CURRENT_MONTH_TYPE = "_byCurrentMonth";
     public static final String CUSTOM_TYPE = "_byCustom";
 
-    // Available utilities: Water, Heat, Electricity, Gas, Other
-    public static final List<String> UTILITIES = Arrays.asList("Electricity", "Gas", "Water", "Heat", "Other");
-
-    // ToDo: specify - indicator amount min/max, unit price min/max, pvm min/max for each utility
-
-    // Bill specifics
-    public static final String BILL_DESTINATION_PATH = "src/main/resources/reportsJson/";
-    public static final double UTILITY_PRICE_MIN = 0.09d;
-    public static final double UTILITY_PRICE_MAX = 0.64d;
-    public static final double PVM_MIN = 8.15d;
-    public static final double PVM_MAX = 21.00d;
     // Security specifics
     public static final String SHA512 = "SHA-512";
 
