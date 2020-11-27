@@ -93,6 +93,11 @@
 
 # Real Estate Bill Generator
 
+### 27/11/2020
+
+Code:
+* implemented unit price and pvm generation for each utility
+
 ### 13/11/2020
 
 Code
